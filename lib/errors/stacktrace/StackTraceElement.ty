@@ -1,0 +1,34 @@
+module Trinity
+    module Errors
+        class StackTraceElement
+            private
+                var file, line
+            end
+
+            public
+                def initialize(file, line)
+                    this.file = file
+                    this.line = line
+                end
+
+                def getFile
+                    file
+                end
+
+                def getLine
+                    line
+                end
+
+                def toString
+                    str = getFile()
+
+                    if getLine() > 0
+                        str += ':' + getLine()
+                    end
+
+                    str
+                end
+            end
+        end
+    end
+end

@@ -1,0 +1,5 @@
+module Trinity
+    class System
+        def native static currentTimeMillis
+    end
+end

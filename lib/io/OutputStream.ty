@@ -1,0 +1,18 @@
+module Trinity
+    # The OutputStream class serves as an interface of sorts,
+    # and is meant to be extended
+    class OutputStream
+        def print(str)
+        end
+
+        def println(str = '')
+            print(str + "\n")
+        end
+
+        def flush
+        end
+
+        def close
+        end
+    end
+end

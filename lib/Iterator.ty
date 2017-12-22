@@ -1,0 +1,15 @@
+module Trinity
+    interface Iterator
+        def next
+        end
+
+        def hasNext
+        end
+
+        def iterate(&block)
+        end
+    end
+end
+
+# Require all default iterators
+require 'iterators/*'

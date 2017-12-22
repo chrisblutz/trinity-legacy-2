@@ -1,0 +1,7 @@
+/.idea/
+/out/
+/.gradle/
+
+/bin/trinity.jar
+/build/
+/test-ty/

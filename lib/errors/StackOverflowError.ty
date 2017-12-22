@@ -1,0 +1,9 @@
+module Trinity
+    module Errors
+        class StackOverflowError << Error
+            def initialize
+                super.initialize('')
+            end
+        end
+    end
+end

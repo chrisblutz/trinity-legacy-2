@@ -1,0 +1,9 @@
+module Trinity
+    module Errors
+        class NotFoundError << Error
+            def initialize(message)
+                super.initialize(message)
+            end
+        end
+    end
+end

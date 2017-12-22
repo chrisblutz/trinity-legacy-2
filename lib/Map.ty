@@ -1,0 +1,47 @@
+module Trinity
+    class Map >> Iterable
+        val static FAST_STORAGE = 0, ORDERED_STORAGE = 1, COMPARISON_STORAGE = 2
+
+        def native initialize(storageType = FAST_STORAGE)
+
+        def native [](key, defaultValue = nil)
+
+        def native []=(key, value)
+
+        def native put(key, value)
+
+        def native remove(key)
+
+        def native clear
+
+        def native keys
+
+        def native values
+
+        def native length
+
+        def native getStorageType
+
+        def native swapStorageType(storageType)
+
+        def iterator
+            Trinity.MapIterator.new(this)
+        end
+
+        def each(&block)
+            iterator().iterate(block)
+        end
+
+        def toString
+            str = '{'
+            for i = 0; i < length(); i += 1
+                str += keys()[i] + ': ' + values()[i]
+                if i < length() - 1
+                    str += ', '
+                end
+            end
+            str += '}'
+            str
+        end
+    end
+end

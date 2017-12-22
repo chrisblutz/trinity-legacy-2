@@ -1,0 +1,143 @@
+module Trinity
+    class Array >> Iterable
+        private
+            var solid = false
+        end
+
+        public
+            def native [](index)
+
+            def native []=(index, value)
+
+            def native add(value)
+
+            def +(other)
+                newArray = copyOf(this)
+                if other.isInstance(Array)
+                    newArray.addAll(other)
+                else
+                    newArray.add(other)
+                end
+                newArray
+            end
+
+            def <<(other)
+                add(other)
+                this
+            end
+
+            def addAll(...obj)
+                obj.each() do |e|
+                    add(e)
+                end
+            end
+
+            def native insert(index, value)
+
+            def native remove(index)
+
+            def removeObject(value)
+                flag = false
+                for i = 0; i < length(); i += 1
+                    if this[i] == value
+                        remove(i)
+                        i -= 1
+                        flag = true
+                    end
+                end
+                flag
+            end
+
+            def native clear
+
+            def native length
+
+            def iterator
+                Trinity.ArrayIterator.new(this)
+            end
+
+            def each(&block)
+                iterator().iterate(block)
+            end
+
+            def sum
+                sum = 0
+                each() do |e|
+                    sum += e
+                end
+                sum
+            end
+
+            def join(delimiter = ' ')
+                str = ''
+                for i = 0; i < length(); i += 1
+                    str += this[i]
+                    if i < length() - 1
+                        str += delimiter
+                    end
+                end
+                str
+            end
+
+            def reverse
+                array = []
+                for i = length() - 1; i >= 0; i -= 1
+                    array.add(this[i])
+                end
+                array
+            end
+
+            def solidify
+                solid = true
+            end
+
+            def liquefy
+                solid = false
+            end
+
+            def isSolid
+                solid
+            end
+
+            def contains(obj)
+                found = false
+                each() do |e|
+                    if obj == e
+                        found = true
+                        break
+                    end
+                end
+                found
+            end
+
+            def toString
+                str = '['
+                for i = 0; i < length(); i += 1
+                    str += this[i].toString()
+                    if i < length() - 1
+                        str += ', '
+                    end
+                end
+                str += ']'
+
+                str
+            end
+
+            def native static copyOf(array)
+
+            def static forSize(size, value = nil)
+                array = []
+                if size < 0
+                    throw(Trinity.Errors.ArgumentError('Size should be >= 0.'))
+                elsif size == 0
+                    return array
+                end
+
+                (1..size).each() do
+                    array.add(value)
+                end
+                array
+            end
+        end
+    end
+end

@@ -1,0 +1,35 @@
+module Trinity
+    class Numeric
+        def pow(n)
+            Math.pow(this, n)
+        end
+
+        def abs
+            Math.abs(this)
+        end
+
+        def sqrt
+            Math.sqrt(this)
+        end
+
+        def cbrt
+            Math.cbrt(this)
+        end
+
+        def round
+            Math.round(this)
+        end
+
+        def ceil
+            Math.ceil(this)
+        end
+
+        def floor
+            Math.floor(this)
+        end
+
+        def signum
+            Math.signum(this)
+        end
+    end
+end

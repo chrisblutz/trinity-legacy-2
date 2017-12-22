@@ -1,0 +1,49 @@
+require 'stacktrace/StackTraceElement'
+
+module Trinity
+    class Error
+        private
+            var message, stackTrace
+        end
+
+        public
+            def initialize(message)
+                this.message = message
+                stackTrace = populateStackTrace()
+            end
+
+            def getMessage
+                message
+            end
+
+            def getStackTrace
+                stackTrace
+            end
+
+            def printStackTrace
+                $STDERR.println(this.toString())
+            end
+
+            def toString
+                str = getClass().toString()
+
+                if !getMessage().isEmpty()
+                    str += ': ' + getMessage()
+                end
+
+                getStackTrace().each() do |e|
+                    str += "\n\tat " + e.toString()
+                end
+
+                str
+            end
+        end
+
+        private
+            def native populateStackTrace
+        end
+    end
+end
+
+# Require all default error types
+require '*'

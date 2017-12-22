@@ -1,0 +1,11 @@
+module Trinity
+    class Class
+        def native getName
+
+        def native getSimpleName
+
+        def toString
+            getName()
+        end
+    end
+end

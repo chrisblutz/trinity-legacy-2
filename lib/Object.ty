@@ -1,0 +1,39 @@
+module Trinity
+    class Object
+        def native +(a)
+
+        def native -(a)
+
+        def native *(a)
+
+        def native /(a)
+
+        def native %(a)
+
+        def native <<(a)
+
+        def native >>(a)
+
+        def native >>>(a)
+
+        def native <=>(a)
+
+        def native getClass
+
+        def native isInstance(type)
+
+        def native respondsTo(method)
+
+        def ==(a)
+            checkReferences(this, a)
+        end
+
+        def isNumeric
+            isInstance(Numeric)
+        end
+
+        def toString
+            'object[' + getClass().toString() + ']'
+        end
+    end
+end

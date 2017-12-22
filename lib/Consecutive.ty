@@ -1,0 +1,9 @@
+module Trinity
+    interface Consecutive
+        def next
+        end
+
+        def previous
+        end
+    end
+end

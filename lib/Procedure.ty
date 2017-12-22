@@ -1,0 +1,31 @@
+module Trinity
+    class Procedure
+        def native initialize(&block)
+
+        def native getRequiredArguments
+
+        def native getOptionalArguments
+
+        def native getBlockArgument
+
+        def native getOverflowArgument
+
+        def native call(&block, ...args)
+
+        def native isBroken
+
+        def toString
+            str = getClass().toString()
+            str += ' (Args: ' + getRequiredArguments().length() + ' required, '
+            str += getOptionalArguments().length() + ' optional'
+            if getBlockArgument() != nil
+                str += ', 1 block'
+            end
+            if getOverflowArgument() != nil
+                str += ', allows overflow'
+            end
+            str += ')'
+            str
+        end
+    end
+end

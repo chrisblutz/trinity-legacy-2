@@ -1,0 +1,35 @@
+module Trinity
+    class Numeric >> Consecutive
+        def native +(a)
+
+        def native -(a)
+
+        def native *(a)
+
+        def native /(a)
+
+        def native %(a)
+
+        def native <<(a)
+
+        def native >>(a)
+
+        def native >>>(a)
+
+        def native ==(a)
+
+        def native <=>(a)
+
+        def native toString
+
+        def native toHexString
+
+        def next
+            this + 1
+        end
+
+        def previous
+            this - 1
+        end
+    end
+end

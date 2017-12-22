@@ -1,0 +1,73 @@
+module Trinity
+    class Range
+        private
+            var begin, endVal, excludeEnd
+        end
+
+        public
+            def initialize(begin, endVal, excludeEnd = false)
+                this.begin = begin
+                this.endVal = endVal
+                this.excludeEnd = excludeEnd
+
+                if(!begin.isInstance(Consecutive.class) || !endVal.isInstance(Consecutive.class))
+                    throw(Trinity.Errors.TypeError.new("Values in a range must implement " + Consecutive.class.toString() + "."))
+                end
+            end
+
+            def getBegin
+                begin
+            end
+
+            def getEnd
+                endVal
+            end
+
+            def getExcludeEnd
+                excludeEnd
+            end
+
+            def toArray
+                array = []
+                this.each() do |e|
+                    array << e
+                end
+                array
+            end
+
+            def each(&block)
+                if block?
+                    next = getBegin()
+                    while next != getEnd()
+                        block.call(next)
+                        if block.isBroken()
+                            break
+                        end
+                        next = next.next()
+                    end
+                    if !block.isBroken() && !getExcludeEnd()
+                        block.call(next)
+                    end
+                end
+            end
+
+            def ==(other)
+                if !other.isInstance(Range.class)
+                    return false
+                end
+                getBegin() == other.getBegin() && getEnd() == other.getEnd() && getExcludeEnd() == other.getExcludeEnd()
+            end
+
+            def toString
+                str = '(' + getBegin()
+                if getExcludeEnd()
+                    str += '...'
+                else
+                    str += '..'
+                end
+                str += getEnd() + ')'
+                str
+            end
+        end
+    end
+end

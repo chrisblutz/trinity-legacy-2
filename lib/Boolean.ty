@@ -1,0 +1,11 @@
+module Trinity
+    class Boolean
+        val native static TRUE, FALSE
+
+        def native ==(a)
+
+        def toString
+            this ? 'true' : 'false'
+        end
+    end
+end

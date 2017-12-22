@@ -1,0 +1,70 @@
+module Trinity
+    class String
+        def native +(a)
+
+        def native ==(a)
+
+        def native <=>(a, ignoreCase = false)
+
+        def native chars
+
+        def native length
+
+        def native toUpperCase
+
+        def native toLowerCase
+
+        def native startsWith(prefix)
+
+        def native endsWith(suffix)
+
+        def native contains(str)
+
+        def native toInt(radix = 10)
+
+        def native toLong(radix = 10)
+
+        def native toFloat(radix = 10)
+
+        def native split(delimiter, limit = 0)
+
+        def [](obj)
+            if obj.isInstance(Range.class)
+                str = ''
+                obj.each() do |e|
+                    str += chars()[e]
+                end
+            else
+                chars()[obj]
+            end
+        end
+
+        def *(a)
+            if other.isNumeric()
+                str = ''
+                (1..a).each() do
+                    str += this
+                end
+                return str
+            else
+                return super * a
+            end
+        end
+
+        def iterator
+            chars().iterator()
+        end
+
+        def each(&block)
+            iterator().iterate(block)
+        end
+
+        def isEmpty
+            length() == 0
+        end
+
+        def toString
+            this
+        end
+    end
+end

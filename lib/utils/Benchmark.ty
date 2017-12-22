@@ -1,0 +1,13 @@
+module Trinity
+    class Benchmark
+        def static time(&block)
+            startTime = System.currentTimeMillis()
+            if block?
+                block.call()
+            end
+
+            endTime = System.currentTimeMillis()
+            endTime - startTime
+        end
+    end
+end

@@ -1,0 +1,9 @@
+module Trinity
+    interface Iterable
+        def iterator
+        end
+
+        def each(&block)
+        end
+    end
+end

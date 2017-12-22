@@ -1,0 +1,45 @@
+module Trinity
+    class ArrayIterator >> Iterator
+        private
+            var array, i = 0
+        end
+
+        public
+            def initialize(array)
+                this.array = array
+            end
+
+            def next
+                n = array[i]
+                i += 1
+                n
+            end
+
+            def hasNext
+                i < array.length()
+            end
+
+            def reset
+                i = 0
+            end
+
+            def iterate(&block)
+                reset()
+                while hasNext()
+                    obj = next()
+                    if obj.isInstance(Array.class)
+                        obj.solidify()
+                    end
+                    block.call(obj)
+                    if block.isBroken()
+                        break
+                    end
+                end
+            end
+
+            def toString
+                getClass() + array.toString()
+            end
+        end
+    end
+end

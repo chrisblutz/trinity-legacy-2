@@ -1,0 +1,27 @@
+require 'IO'
+
+module Trinity
+    class Kernel
+        val native static STDOUT, STDERR
+
+        def native static throw(error)
+
+        def static abort(code, message)
+            $STDERR.println(message)
+            exit(code)
+        end
+
+        def native static exit(code)
+
+        def static print(str)
+            $STDOUT.print(str)
+        end
+
+        def static println(str = '')
+            $STDOUT.println(str)
+        end
+    end
+end
+
+$STDOUT = Kernel.STDOUT
+$STDERR = Kernel.STDERR

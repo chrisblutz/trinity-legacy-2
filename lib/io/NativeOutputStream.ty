@@ -1,0 +1,9 @@
+module Trinity
+    class NativeOutputStream << OutputStream
+        def native print(str)
+
+        def native flush
+
+        def native close
+    end
+end

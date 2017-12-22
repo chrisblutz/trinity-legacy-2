@@ -1,0 +1,29 @@
+require 'Object'
+require 'Kernel'
+require 'System'
+
+# Load errors
+require 'errors/Error'
+
+# Load reflection types
+require 'Module'
+require 'Class'
+
+# Load numeric types
+require 'Consecutive'
+require 'Numeric'
+require 'Int'
+require 'Long'
+require 'Float'
+
+# Load iterator/iterable interfaces
+require 'Iterator'
+require 'Iterable'
+
+# Load other types
+require 'Array'
+require 'Map'
+require 'Boolean'
+require 'String'
+require 'Range'
+require 'Procedure'

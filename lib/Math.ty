@@ -1,0 +1,73 @@
+require 'math/patch/Numeric'
+
+module Trinity
+    class Math
+        val native static E, PI
+
+        def native static pow(x, n)
+
+        def native static abs(x)
+
+        def native static sqrt(x)
+
+        def native static cbrt(x)
+
+        def native static sin(rad)
+
+        def native static cos(rad)
+
+        def native static tan(rad)
+
+        def native static arcsin(rad)
+
+        def native static arccos(rad)
+
+        def native static arctan(rad)
+
+        def static toDegrees(rad)
+            rad * (180 / PI)
+        end
+
+        def static toRadians(deg)
+            deg * (PI / 180)
+        end
+
+        def native static log(x, base = 10)
+
+        def native static ln(x)
+
+        def native static round(x)
+
+        def native static ceil(x)
+
+        def native static floor(x)
+
+        def static signum(x)
+            if x == 0
+                return 0
+            else
+                return abs(x) / x
+            end
+        end
+
+        def static min(a, b)
+            if a < b
+                return a
+            else
+                return b
+            end
+        end
+
+        def static max(a, b)
+            if a > b
+                return a
+            else
+                return b
+            end
+        end
+
+        def static distance(x1, y1, x2, y2)
+            Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+        end
+    end
+end
