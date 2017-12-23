@@ -60,6 +60,10 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
                 
                 superinterfaceClass = runtime.getCurrentUsable().getInternalClass(superinterface);
                 
+            } else if (runtime.hasImports()&&runtime.hasImportedClass(superinterface)) {
+    
+                superinterfaceClass = runtime.getImportedClass(superinterface);
+    
             } else if (runtime.getCurrentModule() != null && runtime.getCurrentModule().hasInternalClass(superinterface)) {
                 
                 superinterfaceClass = runtime.getCurrentModule().getInternalClass(superinterface);

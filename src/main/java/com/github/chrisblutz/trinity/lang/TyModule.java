@@ -163,6 +163,7 @@ public class TyModule extends TyUsable {
                 
                 TyRuntime newRuntime = runtime.clone();
                 newRuntime.clearVariables();
+                newRuntime.setImports(tyMethod.getImports());
                 newRuntime.setCurrentUsable(this);
                 newRuntime.setStaticScope(true);
                 newRuntime.setStaticScopeObject(new TyStaticUsableObject(this, null));

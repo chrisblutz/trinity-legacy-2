@@ -62,6 +62,10 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
                 
                 superclass = runtime.getCurrentUsable().getInternalClass(getSuperclass());
                 
+            } else if (runtime.hasImports()&&runtime.hasImportedClass(getSuperclass())) {
+                
+                superclass = runtime.getImportedClass(getSuperclass());
+                
             } else if (runtime.getCurrentModule() != null && runtime.getCurrentModule().hasInternalClass(getSuperclass())) {
                 
                 superclass = runtime.getCurrentModule().getInternalClass(getSuperclass());

@@ -59,7 +59,7 @@ public class SwitchInstructionSet extends InstructionSet {
         
         boolean chaining = runtime.isSwitchChaining();
         runtime.setSwitchChaining(false);
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         
         TyObject result = TyObject.NONE;
         

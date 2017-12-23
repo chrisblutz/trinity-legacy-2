@@ -4,6 +4,8 @@ import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
 import com.github.chrisblutz.trinity.lang.scope.Scope;
 
+import java.util.List;
+
 
 /**
  * @author Christopher Lutz
@@ -17,6 +19,7 @@ public class TyMethod {
     private TyUsable container;
     private TyProcedure procedure;
     private Scope scope = Scope.PUBLIC;
+    private List<TyModule> imports = null;
     
     public TyMethod(String name, boolean staticMethod, boolean nativeMethod, TyUsable container, TyProcedure procedure) {
         
@@ -76,5 +79,15 @@ public class TyMethod {
     public void setScope(Scope scope) {
         
         this.scope = scope;
+    }
+    
+    public List<TyModule> getImports() {
+        
+        return imports;
+    }
+    
+    public void setImports(List<TyModule> imports) {
+        
+        this.imports = imports;
     }
 }

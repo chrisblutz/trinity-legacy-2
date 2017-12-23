@@ -50,7 +50,7 @@ public class ForInstructionSet extends InstructionSet {
         
         updateLocation();
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         
         if (getInitial() != null) {
             

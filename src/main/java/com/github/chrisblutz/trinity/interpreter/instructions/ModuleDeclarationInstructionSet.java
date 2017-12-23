@@ -49,7 +49,7 @@ public class ModuleDeclarationInstructionSet extends InstructionSet {
             runtime.getCurrentModule().addInternalModule(module);
         }
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         newRuntime.setCurrentUsable(module);
         
         getBody().onAction(newRuntime, TyObject.NONE);

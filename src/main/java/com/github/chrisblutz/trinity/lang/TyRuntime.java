@@ -27,6 +27,7 @@ public class TyRuntime implements Cloneable {
     private boolean isBroken = false, isSwitchChaining = false, isReturning = false;
     private TyObject switchObject = TyObject.NONE;
     private TyObject returnObject = TyObject.NONE;
+    private List<TyModule> imports = null;
     
     // Used to determine Kernel method calls are placed without prior objects
     // even in non-static scenarios, where 'thisObj' might not be NONE
@@ -156,7 +157,7 @@ public class TyRuntime implements Cloneable {
     }
     
     public void setSwitchObject(TyObject switchObject) {
-    
+        
         this.switchObject = switchObject;
     }
     
@@ -200,6 +201,83 @@ public class TyRuntime implements Cloneable {
         isInitialStatement = initialStatement;
     }
     
+    public boolean hasImports() {
+        
+        return imports != null;
+    }
+    
+    public void importModule(TyModule module) {
+        
+        if (imports == null) {
+            
+            imports = new ArrayList<>();
+        }
+        
+        imports.add(module);
+    }
+    
+    public boolean hasImportedClass(String name) {
+        
+        for (TyModule importedModule : imports) {
+            
+            if (importedModule.hasInternalClass(name)) {
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean hasImportedModule(String name) {
+        
+        for (TyModule importedModule : imports) {
+            
+            if (importedModule.hasInternalModule(name)) {
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public TyClass getImportedClass(String name) {
+        
+        for (TyModule importedModule : imports) {
+            
+            if (importedModule.hasInternalClass(name)) {
+                
+                return importedModule.getInternalClass(name);
+            }
+        }
+        
+        return null;
+    }
+    
+    public TyModule getImportedModule(String name) {
+        
+        for (TyModule importedModule : imports) {
+            
+            if (importedModule.hasInternalModule(name)) {
+                
+                return importedModule.getInternalModule(name);
+            }
+        }
+        
+        return null;
+    }
+    
+    public List<TyModule> getImports() {
+        
+        return imports;
+    }
+    
+    public void setImports(List<TyModule> imports) {
+        
+        this.imports = imports;
+    }
+    
     @Override
     public TyRuntime clone() {
         
@@ -221,6 +299,14 @@ public class TyRuntime implements Cloneable {
             
             return new TyRuntime();
         }
+    }
+    
+    public TyRuntime cloneWithImports() {
+        
+        TyRuntime runtime = clone();
+        runtime.imports = imports;
+        
+        return runtime;
     }
     
     public void disposeInto(TyRuntime runtime) {

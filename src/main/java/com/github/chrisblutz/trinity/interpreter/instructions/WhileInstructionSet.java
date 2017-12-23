@@ -38,7 +38,7 @@ public class WhileInstructionSet extends InstructionSet {
         
         updateLocation();
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         
         while (TrinityNatives.toBoolean(getExpression().evaluate(TyObject.NONE, newRuntime))) {
             

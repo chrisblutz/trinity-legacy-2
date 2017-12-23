@@ -79,6 +79,22 @@ public class SingleTokenInstruction extends Instruction {
                 
                 return new TyStaticUsableObject(tyModule, tyClass);
                 
+            } else if (runtime.hasImports() && (runtime.hasImportedClass(getContents()) || runtime.hasImportedModule(getContents()))) {
+                
+                TyClass tyClass = null;
+                if (runtime.hasImportedClass(getContents())) {
+                    
+                    tyClass = runtime.getImportedClass(getContents());
+                }
+                
+                TyModule tyModule = null;
+                if (runtime.hasImportedModule(getContents())) {
+                    
+                    tyModule = runtime.getImportedModule(getContents());
+                }
+                
+                return new TyStaticUsableObject(tyModule, tyClass);
+                
             } else if (runtime.getCurrentModule() != null && (runtime.getCurrentModule().hasInternalClass(getContents()) || runtime.getCurrentModule().hasInternalModule(getContents()))) {
                 
                 TyClass tyClass = null;

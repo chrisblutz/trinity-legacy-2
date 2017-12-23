@@ -78,6 +78,7 @@ public class MethodDeclarationInstructionSet extends InstructionSet {
         
         TyMethod method = new TyMethod(getName(), isStatic(), false, isSecure(), runtime.getCurrentUsable(), methodProcedure);
         method.setScope(runtime.getCurrentScope());
+        method.setImports(runtime.getImports());
         
         runtime.getCurrentUsable().addMethod(method);
         

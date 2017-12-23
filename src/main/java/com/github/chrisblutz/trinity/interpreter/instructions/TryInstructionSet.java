@@ -54,7 +54,7 @@ public class TryInstructionSet extends InstructionSet {
         
         updateLocation();
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         
         TyObject result = TyObject.NIL;
         

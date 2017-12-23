@@ -56,7 +56,7 @@ public enum Token {
     FOR("for", true), WHILE("while", true), SWITCH("switch"), CASE("case"), DEFAULT("default"),
     TRY("try"), CATCH("catch"), FINALLY("finally"),
     DO("do"), END("end"),
-    REQUIRE("require"), RETURN("return"),
+    REQUIRE("require"), USING("using"), RETURN("return"),
     BREAK("break"), CONTINUE("continue"),
     NATIVE("native"), STATIC("static"), SECURE("secure"),
     PUBLIC("public", true), PROTECTED("protected", true), PRIVATE("private", true),

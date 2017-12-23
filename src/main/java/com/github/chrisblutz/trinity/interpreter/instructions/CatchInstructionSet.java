@@ -59,7 +59,7 @@ public class CatchInstructionSet extends InstructionSet {
         
         updateLocation();
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         
         TyObject result = TyObject.NIL;
         

@@ -248,7 +248,7 @@ public class TyClass extends TyUsable {
                 TyObject value = TyObject.NIL;
                 if (defaultAction != null) {
                     
-                    TyRuntime newRuntime = runtime.clone();
+                    TyRuntime newRuntime = runtime.cloneWithImports();
                     newRuntime.clearVariables();
                     newRuntime.setThis(object);
                     newRuntime.setStaticScope(false);
@@ -302,6 +302,7 @@ public class TyClass extends TyUsable {
                     
                     TyRuntime newRuntime = runtime.clone();
                     newRuntime.clearVariables();
+                    newRuntime.setImports(constructor.getImports());
                     
                     TyObject newObject = new TyObject(this);
                     
@@ -344,6 +345,7 @@ public class TyClass extends TyUsable {
                 TyRuntime newRuntime = runtime.clone();
                 newRuntime.clearVariables();
                 newRuntime.setCurrentUsable(this);
+                newRuntime.setImports(tyMethod.getImports());
                 
                 if (tyMethod.isStatic()) {
                     

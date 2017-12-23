@@ -36,7 +36,7 @@ public class ScopeModifierInstructionSet extends InstructionSet {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        TyRuntime newRuntime = runtime.clone();
+        TyRuntime newRuntime = runtime.cloneWithImports();
         newRuntime.setCurrentScope(getModifier());
         
         TyObject result = TyObject.NIL;

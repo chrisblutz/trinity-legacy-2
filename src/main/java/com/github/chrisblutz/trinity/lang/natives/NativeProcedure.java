@@ -43,7 +43,7 @@ public class NativeProcedure {
             
             TyProcedureObject obj = (TyProcedureObject) thisObj;
             TyProcedure proc = obj.getInternal();
-            TyRuntime newRuntime = obj.getRuntime().clone();
+            TyRuntime newRuntime = obj.getRuntime().cloneWithImports();
             
             TyObject args = runtime.getVariable("args");
             List<TyObject> procParams = new ArrayList<>();

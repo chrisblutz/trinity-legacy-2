@@ -36,6 +36,14 @@ public class KeywordExpressionFacets {
                 return new RequireInstructionSet(sets[0], location);
             }
         });
+        KeywordExpressions.registerKeywordExpression(Token.USING, new KeywordExpression(1, true, true, null) {
+        
+            @Override
+            public InstructionSet interpret(SourceToken token, InstructionSet[] sets, ProcedureAction next, Interpreter interpreter, Location location) {
+            
+                return new UsingInstructionSet(sets[0], location);
+            }
+        });
         
         KeywordExpressions.registerKeywordExpression(Token.IF, new KeywordExpression(1, true, true, null) {
             
