@@ -383,60 +383,6 @@ public class Interpreter {
                 
                 return new InstructionSet(new Instruction[]{object, new IndexAccessInstruction(indices, next, location)}, location);
                 
-            } else if (tokens.length > 0 && tokens[tokens.length - 1].getToken() == Token.RIGHT_CURLY_BRACKET && isValidBlock(tokens) && ((loc = findBraceBeginning(tokens, location)) > 0)) {
-                
-                // Signifies a block attached to another expression
-                SourceToken[] strippedTokens = new SourceToken[tokens.length - loc - 2];
-                System.arraycopy(tokens, loc + 1, strippedTokens, 0, strippedTokens.length);
-                
-                Parameters parameters = new Parameters(new ArrayList<>(), new LinkedHashMap<>(), null, null);
-                if (strippedTokens[0].getToken() == Token.LOGICAL_OR_OP) {
-                    
-                    SourceToken[] temp = new SourceToken[strippedTokens.length - 1];
-                    System.arraycopy(strippedTokens, 1, temp, 0, temp.length);
-                    strippedTokens = temp;
-                    
-                } else {
-                    
-                    int level = 0;
-                    int i;
-                    for (i = 1; i < strippedTokens.length; i++) {
-                        
-                        SourceToken token = strippedTokens[i];
-                        if (isLevelUpToken(token.getToken())) {
-                            
-                            level++;
-                            
-                        } else if (isLevelDownToken(token.getToken())) {
-                            
-                            level--;
-                            
-                        } else if (level == 0 && token.getToken() == Token.BITWISE_OR_OP) {
-                            
-                            break;
-                        }
-                    }
-                    
-                    SourceToken[] paramArr = new SourceToken[i - 1];
-                    System.arraycopy(strippedTokens, 1, paramArr, 0, paramArr.length);
-                    
-                    parameters = interpretParameters(paramArr, location);
-                    
-                    SourceToken[] blockArr = new SourceToken[strippedTokens.length - i];
-                    System.arraycopy(strippedTokens, i + 1, blockArr, 0, blockArr.length);
-                    strippedTokens = blockArr;
-                }
-                
-                InstructionSet set = interpretCompoundExpression(strippedTokens, location, null);
-                
-                ProcedureAction action = new ExpressionProcedureAction(new InstructionSet[]{set}, true);
-                TyProcedure inlineNext = new TyProcedure(action, parameters.getMandatoryParameters(), parameters.getOptionalParameters(), parameters.getBlockParameter(), parameters.getOverflowParameter(), false);
-                
-                SourceToken[] objectTokens = new SourceToken[loc];
-                System.arraycopy(tokens, 0, objectTokens, 0, objectTokens.length);
-                
-                return interpretCompoundExpression(objectTokens, location, inlineNext);
-                
             } else if (tokens.length > 0 && tokens[0].getToken() == Token.LEFT_PARENTHESIS) {
                 
                 // Signifies an expression wrapped in parentheses
@@ -540,60 +486,6 @@ public class Interpreter {
         }
         
         Errors.reportSyntaxError("Unmatched brackets.", getSourceEntry(), location.getLineNumber(), tokens[tokens.length - 1].getIndex());
-        return 0;
-    }
-    
-    private boolean isValidBlock(SourceToken[] tokens) {
-        
-        int level = 0;
-        int i;
-        for (i = tokens.length - 2; i >= 0; i--) {
-            
-            SourceToken token = tokens[i];
-            if (token.getToken() == Token.LEFT_CURLY_BRACKET) {
-                
-                if (level == 0) {
-                    
-                    break;
-                }
-                
-            } else if (isLevelUpToken(token.getToken())) {
-                
-                level--;
-                
-            } else if (isLevelDownToken(token.getToken())) {
-                
-                level++;
-                
-            }
-        }
-        
-        return tokens[i + 1].getToken() == Token.BITWISE_OR_OP && tokens[i + 1].getToken() == Token.LOGICAL_OR_OP;
-    }
-    
-    private int findBraceBeginning(SourceToken[] tokens, Location location) {
-        
-        int level = 0;
-        for (int i = tokens.length - 1; i >= 0; i--) {
-            
-            SourceToken token = tokens[i];
-            if (isLevelUpToken(token.getToken())) {
-                
-                level++;
-                
-            } else if (isLevelDownToken(token.getToken())) {
-                
-                level--;
-                
-            }
-            
-            if (level == 0 && token.getToken() == Token.LEFT_CURLY_BRACKET) {
-                
-                return i;
-            }
-        }
-        
-        Errors.reportSyntaxError("Unmatched braces.", getSourceEntry(), location.getLineNumber(), tokens[tokens.length - 1].getIndex());
         return 0;
     }
     
@@ -821,12 +713,12 @@ public class Interpreter {
         return new Parameters(mandatory, optional, block, overflow);
     }
     
-    private boolean isLevelUpToken(Token t) {
+    public static boolean isLevelUpToken(Token t) {
         
         return t == Token.LEFT_PARENTHESIS || t == Token.LEFT_SQUARE_BRACKET || t == Token.LEFT_CURLY_BRACKET;
     }
     
-    private boolean isLevelDownToken(Token t) {
+    public static boolean isLevelDownToken(Token t) {
         
         return t == Token.RIGHT_PARENTHESIS || t == Token.RIGHT_SQUARE_BRACKET || t == Token.RIGHT_CURLY_BRACKET;
     }

@@ -1,5 +1,6 @@
 package com.github.chrisblutz.trinity.parser;
 
+import com.github.chrisblutz.trinity.interpreter.Interpreter;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.parser.blocks.Block;
 import com.github.chrisblutz.trinity.parser.blocks.BlockItem;
@@ -10,6 +11,7 @@ import com.github.chrisblutz.trinity.parser.tokens.SourceToken;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -50,7 +52,8 @@ public class Parser {
         set = parseScopes(set);
         set = parseOutEmptyLines(set);
         
-        return parseToBlock(set);
+        Block block = parseToBlock(set);
+        return parseOutInlineBlocks(block);
     }
     
     private LineSet parseInitial() {
@@ -793,5 +796,108 @@ public class Parser {
         }
         
         return items;
+    }
+    
+    private Block parseOutInlineBlocks(Block block) {
+        
+        Block newBlock = new Block(getSourceEntry());
+        
+        for (BlockItem item : block) {
+            
+            if (item instanceof Statement) {
+                
+                Statement statement = (Statement) item;
+                int loc;
+                if (statement.get(statement.size() - 1).getToken() == Token.RIGHT_CURLY_BRACKET && ((loc = findBlockBeginning(statement)) > 0)) {
+                    
+                    SourceToken[] blockTokens = new SourceToken[statement.size() - loc - 2];
+                    System.arraycopy(statement.toArray(new SourceToken[statement.size()]), loc + 1, blockTokens, 0, blockTokens.length);
+                    
+                    SourceToken[] header = null;
+                    if (blockTokens[0].getToken() == Token.BITWISE_OR_OP) {
+                        
+                        int level = 0;
+                        int i;
+                        for (i = 1; i < blockTokens.length; i++) {
+                            
+                            SourceToken token = blockTokens[i];
+                            if (Interpreter.isLevelUpToken(token.getToken())) {
+                                
+                                level++;
+                                
+                            } else if (Interpreter.isLevelDownToken(token.getToken())) {
+                                
+                                level--;
+                                
+                            } else if (level == 0 && token.getToken() == Token.BITWISE_OR_OP) {
+                                
+                                break;
+                            }
+                        }
+                        
+                        header = new SourceToken[i - 1];
+                        System.arraycopy(blockTokens, 1, header, 0, header.length);
+                        
+                        SourceToken[] temp = new SourceToken[blockTokens.length - i - 1];
+                        System.arraycopy(blockTokens, i + 1, temp, 0, temp.length);
+                        blockTokens = temp;
+                    }
+                    
+                    while (loc < statement.size()) {
+                        
+                        statement.remove(loc);
+                    }
+                    
+                    Statement blockStatement = new Statement(getSourceEntry(), statement.getLineNumber());
+                    blockStatement.addAll(Arrays.asList(blockTokens));
+                    
+                    Block inlineBlock = new Block(getSourceEntry());
+                    inlineBlock.add(blockStatement);
+                    
+                    if (header != null) {
+                        
+                        inlineBlock.setHeader(Arrays.asList(header));
+                    }
+                    
+                    newBlock.add(statement);
+                    newBlock.add(inlineBlock);
+                    
+                } else {
+                    
+                    newBlock.add(statement);
+                }
+                
+            } else if (item instanceof Block) {
+                
+                newBlock.add(parseOutInlineBlocks((Block) item));
+            }
+        }
+        
+        return newBlock;
+    }
+    
+    private int findBlockBeginning(Statement statement) {
+        
+        int level = 0;
+        for (int i = statement.size() - 1; i >= 0; i--) {
+            
+            SourceToken token = statement.get(i);
+            if (Interpreter.isLevelUpToken(token.getToken())) {
+                
+                level++;
+                
+            } else if (Interpreter.isLevelDownToken(token.getToken())) {
+                
+                level--;
+                
+            }
+            
+            if (level == 0 && token.getToken() == Token.LEFT_CURLY_BRACKET) {
+                
+                return i;
+            }
+        }
+        
+        return 0;
     }
 }
