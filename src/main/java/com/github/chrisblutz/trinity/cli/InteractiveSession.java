@@ -77,7 +77,7 @@ public class InteractiveSession {
                         String printout = TrinityNatives.toString(result, runtime);
                         
                         flushAll();
-                        System.out.println("=> " + printout);
+                        System.out.println(" => " + printout);
                     }
                     
                 } catch (Exception e) {
@@ -93,7 +93,7 @@ public class InteractiveSession {
     private static String read(Scanner stdIn) {
         
         flushAll();
-        System.out.print("  > ");
+        System.out.print("> ");
         
         try {
             
