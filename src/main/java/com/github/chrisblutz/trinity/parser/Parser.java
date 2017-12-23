@@ -801,6 +801,7 @@ public class Parser {
     private Block parseOutInlineBlocks(Block block) {
         
         Block newBlock = new Block(getSourceEntry());
+        newBlock.setHeader(block.getHeader());
         
         for (BlockItem item : block) {
             

@@ -13,7 +13,7 @@ import java.util.List;
 public class Block extends ArrayList<BlockItem> implements BlockItem {
     
     private SourceEntry sourceEntry;
-    private List<SourceToken> header = new ArrayList<>();
+    private List<SourceToken> header = null;
     
     public Block(SourceEntry sourceEntry) {
         
@@ -27,7 +27,7 @@ public class Block extends ArrayList<BlockItem> implements BlockItem {
     
     public boolean hasHeader() {
         
-        return !getHeader().isEmpty();
+        return getHeader() != null;
     }
     
     public List<SourceToken> getHeader() {
