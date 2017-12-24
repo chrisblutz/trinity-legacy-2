@@ -40,16 +40,5 @@ public class NativeObject {
             
             return TyBoolean.FALSE;
         });
-        TrinityNatives.registerMethod(CLASS, "respondsTo", (runtime, thisObj, args) -> {
-            
-            String method = TrinityNatives.toString(runtime.getVariable("method"), runtime);
-            
-            if (method != null) {
-                
-                return TyBoolean.valueFor(thisObj.getObjectClass().respondsTo(method));
-            }
-            
-            return TyBoolean.FALSE;
-        });
     }
 }

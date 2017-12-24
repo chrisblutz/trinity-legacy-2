@@ -22,8 +22,6 @@ module Trinity
 
         def native isInstance(type)
 
-        def native respondsTo(method)
-
         def ==(a)
             checkReferences(this, a)
         end

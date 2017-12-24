@@ -14,18 +14,9 @@ It is heavily influenced by aspects of [Java](https://www.java.com/) and [Ruby](
 - Method monkey-patching (overriding previously-defined methods)
 - Inline procedures (i.e. `X.y { |z| ... }`)
 - Global variables (like `$ARGV` for command-line arguments)
-- Flexible typing system (see [Typing System](#typing-system))
+- Weak, dynamic typing system
 - Automatic numeric type conversion/overflow (see [Numeric Automation](#numeric-automation))
 - An interactive shell (`trinity -ish`)
-
-### Typing System
-Trinity's weak, dynamic typing system allows it to be very flexible.  By design, the standard library contains methods to support both traditional runtime type checking (see [Traditional](#traditional)) and less common type-checking methods such as duck-typing (see [Duck-Typing](#duck-typing)).
-
-#### Traditional
-Trinity provides features that support the traditional runtime type checker, where types of objects are checked to determine if they will behave correctly.  These features include interfaces, which when implemented by classes, enforce the existence of certain methods.  On the other hand, methods such as `Object.instanceOf(...)` provide the framework for checking object types before use.
-
-#### Duck-Typing
-Trinity also provides features that support duck-typing, which stems from the phrase: *If it walks like a duck and it quacks like a duck, then it must be a duck*.  Trinity's `Object` class contains a `respondsTo(...)` method to determine if an object implements a certain method and therefore will behave as expected.
 
 ### Numeric Automation
 Numeric types in Trinity automatically convert between each other.  If an `Int` overflows, it automatically becomes a `Long`.  If a `Long` underflows, it automatically becomes an `Int`.  If either an `Int` or a `Long` undergoes computation and becomes a floating-point value, it automatically becomes a `Float`.  If a `Float` loses its fractional component, it automatically becomes an `Int` or a `Long`.  This conversion feature allows Trinity to perform mathematical operations seamlessly, without manual conversions between types that might be found in statically-typed languages such as Java.

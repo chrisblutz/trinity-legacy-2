@@ -379,9 +379,4 @@ public class TrinityNatives {
         
         return object.getObjectClass().isInstanceOf(ClassRegistry.getClass(className));
     }
-    
-    public static boolean respondsTo(TyObject object, String method) {
-        
-        return object.getObjectClass().respondsTo(method);
-    }
 }

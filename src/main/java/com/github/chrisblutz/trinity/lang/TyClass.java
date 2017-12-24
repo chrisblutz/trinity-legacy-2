@@ -103,11 +103,6 @@ public class TyClass extends TyUsable {
         return result;
     }
     
-    public boolean respondsTo(String method) {
-        
-        return hasMethod(method, false) || hasMethod(method, true);
-    }
-    
     public List<TyClass> getSubclasses() {
         
         return subclasses;
