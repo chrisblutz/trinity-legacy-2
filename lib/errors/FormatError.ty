@@ -1,6 +1,6 @@
 module Trinity
     module Errors
-        class ArgumentError << Error
+        class FormatError << Error
             def initialize(message)
                 super.initialize(message)
             end

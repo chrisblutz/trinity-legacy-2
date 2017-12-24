@@ -1,5 +1,6 @@
 package com.github.chrisblutz.trinity.interpreter.utils;
 
+import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.parser.Parser;
 
 
@@ -51,7 +52,16 @@ public class StringUtils {
                 
             } catch (NumberFormatException e) {
                 
-                return Long.parseLong(str, radix);
+                try {
+                    
+                    return Long.parseLong(str, radix);
+                    
+                } catch (NumberFormatException e2) {
+                    
+                    Errors.throwError(Errors.Classes.FORMAT_ERROR, "Input: '" + str + "', Radix: " + radix + ", Expected Type: Trinity.Numeric");
+                }
+                
+                return 0;
             }
         }
     }
