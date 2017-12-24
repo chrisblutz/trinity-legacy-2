@@ -83,19 +83,6 @@ public class CLI {
                 
                 break;
             
-            case Options.PARSE_THREADS:
-                
-                try {
-                    
-                    Options.setParseThreads(Integer.parseInt(value));
-                    
-                } catch (Exception e) {
-                    
-                    reportInvalidInterpreterOptionValue(name, value);
-                }
-                
-                break;
-            
             case Options.STRING_PRECISION:
                 
                 try {
