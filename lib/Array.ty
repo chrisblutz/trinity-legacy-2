@@ -50,6 +50,14 @@ module Trinity
 
             def native clear
 
+            def shift
+                remove(0)
+            end
+
+            def unshift(value)
+                insert(0, value)
+            end
+
             def native length
 
             def iterator
