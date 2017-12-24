@@ -16,15 +16,13 @@ module Trinity
 
         def native >>>(a)
 
+        def native ==(a)
+
         def native <=>(a)
 
         def native getClass
 
         def native isInstance(type)
-
-        def ==(a)
-            checkReferences(this, a)
-        end
 
         def isNumeric
             isInstance(Numeric)
