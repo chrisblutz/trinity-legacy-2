@@ -32,13 +32,13 @@ public class CLI {
             } else {
                 
                 encounteredFile = true;
-                if (fileName != null) {
+                if (fileName == null && arg.endsWith(".ty")) {
                     
-                    arguments.add(arg);
+                    fileName = arg;
                     
                 } else {
                     
-                    fileName = arg;
+                    arguments.add(arg);
                 }
             }
         }
@@ -131,7 +131,7 @@ public class CLI {
     }
     
     public static Map<String, String> getSystemProperties() {
-    
+        
         return systemProperties;
     }
 }
