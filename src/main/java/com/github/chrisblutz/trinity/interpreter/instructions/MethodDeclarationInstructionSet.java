@@ -18,17 +18,18 @@ import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
 public class MethodDeclarationInstructionSet extends InstructionSet {
     
     private String name;
-    private boolean isStatic, isSecure;
+    private boolean isStatic, isSecure, isFinal;
     private Parameters parameters;
     private ProcedureAction body;
     
-    public MethodDeclarationInstructionSet(String name, boolean isStatic, boolean isSecure, Parameters parameters, ProcedureAction body, Location location) {
+    public MethodDeclarationInstructionSet(String name, boolean isStatic, boolean isSecure, boolean isFinal, Parameters parameters, ProcedureAction body, Location location) {
         
         super(new Instruction[0], location);
         
         this.name = name;
         this.isStatic = isStatic;
         this.isSecure = isSecure;
+        this.isFinal = isFinal;
         this.parameters = parameters;
         this.body = body;
     }
@@ -46,6 +47,11 @@ public class MethodDeclarationInstructionSet extends InstructionSet {
     public boolean isSecure() {
         
         return isSecure;
+    }
+    
+    public boolean isFinal() {
+        
+        return isFinal;
     }
     
     public Parameters getParameters() {
@@ -76,7 +82,7 @@ public class MethodDeclarationInstructionSet extends InstructionSet {
         
         TyProcedure methodProcedure = new TyProcedure(getBody(), getParameters().getMandatoryParameters(), getParameters().getOptionalParameters(), getParameters().getBlockParameter(), getParameters().getOverflowParameter(), true);
         
-        TyMethod method = new TyMethod(getName(), isStatic(), false, isSecure(), runtime.getCurrentUsable(), methodProcedure);
+        TyMethod method = new TyMethod(getName(), isStatic(), false, isSecure(), isFinal(), runtime.getCurrentUsable(), methodProcedure);
         method.setScope(runtime.getCurrentScope());
         method.setImports(runtime.getImports());
         

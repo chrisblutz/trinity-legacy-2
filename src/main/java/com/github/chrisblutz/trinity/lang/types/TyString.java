@@ -18,7 +18,7 @@ public class TyString extends TyObject {
     
     public TyString(String internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.STRING));
+        super(ClassRegistry.forName(TrinityNatives.Classes.STRING, true));
         
         this.internal = internal;
     }

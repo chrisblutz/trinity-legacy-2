@@ -16,7 +16,7 @@ public class TyNativeOutputStream extends TyObject {
     
     public TyNativeOutputStream(PrintStream internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.NATIVE_OUTPUT_STREAM));
+        super(ClassRegistry.forName(TrinityNatives.Classes.NATIVE_OUTPUT_STREAM, true));
         
         this.internal = internal;
     }

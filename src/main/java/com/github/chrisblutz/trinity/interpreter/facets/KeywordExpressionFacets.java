@@ -37,10 +37,10 @@ public class KeywordExpressionFacets {
             }
         });
         KeywordExpressions.registerKeywordExpression(Token.USING, new KeywordExpression(1, true, true, null) {
-        
+            
             @Override
             public InstructionSet interpret(SourceToken token, InstructionSet[] sets, ProcedureAction next, Interpreter interpreter, Location location) {
-            
+                
                 return new UsingInstructionSet(sets[0], location);
             }
         });

@@ -1,5 +1,5 @@
 module Trinity
-    class Procedure
+    class final Procedure
         def native initialize(&block)
 
         def native getRequiredArguments

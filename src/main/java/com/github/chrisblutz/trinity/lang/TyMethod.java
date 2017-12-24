@@ -15,7 +15,7 @@ public class TyMethod {
     public static final ProcedureAction DEFAULT_METHOD = (runtime, thisObj, params) -> TyObject.NONE;
     
     private String name;
-    private boolean staticMethod, nativeMethod, secureMethod;
+    private boolean staticMethod, nativeMethod, secureMethod, finalMethod;
     private TyUsable container;
     private TyProcedure procedure;
     private Scope scope = Scope.PUBLIC;
@@ -23,15 +23,16 @@ public class TyMethod {
     
     public TyMethod(String name, boolean staticMethod, boolean nativeMethod, TyUsable container, TyProcedure procedure) {
         
-        this(name, staticMethod, nativeMethod, false, container, procedure);
+        this(name, staticMethod, nativeMethod, false, false, container, procedure);
     }
     
-    public TyMethod(String name, boolean staticMethod, boolean nativeMethod, boolean secureMethod, TyUsable container, TyProcedure procedure) {
+    public TyMethod(String name, boolean staticMethod, boolean nativeMethod, boolean secureMethod, boolean finalMethod, TyUsable container, TyProcedure procedure) {
         
         this.name = name;
         this.staticMethod = staticMethod;
         this.nativeMethod = nativeMethod;
         this.secureMethod = secureMethod;
+        this.finalMethod = finalMethod;
         this.container = container;
         this.procedure = procedure;
     }
@@ -59,6 +60,11 @@ public class TyMethod {
     public void setSecure(boolean secureMethod) {
         
         this.secureMethod = secureMethod;
+    }
+    
+    public boolean isFinal() {
+        
+        return finalMethod;
     }
     
     public TyUsable getContainer() {

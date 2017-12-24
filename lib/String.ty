@@ -1,5 +1,5 @@
 module Trinity
-    class String
+    class final String
         def native +(a)
 
         def native ==(a)

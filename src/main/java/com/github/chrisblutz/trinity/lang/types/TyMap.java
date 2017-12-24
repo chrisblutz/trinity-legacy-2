@@ -24,7 +24,7 @@ public class TyMap extends TyObject {
     
     public TyMap(Map<TyObject, TyObject> internal, int storageType) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.MAP));
+        super(ClassRegistry.forName(TrinityNatives.Classes.MAP, true));
         
         this.internal = internal;
         this.storageType = storageType;

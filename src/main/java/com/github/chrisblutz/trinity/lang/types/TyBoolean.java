@@ -16,7 +16,7 @@ public class TyBoolean extends TyObject {
     
     private TyBoolean(boolean internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.BOOLEAN));
+        super(ClassRegistry.forName(TrinityNatives.Classes.BOOLEAN, true));
         
         this.internal = internal;
     }

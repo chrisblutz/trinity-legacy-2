@@ -50,13 +50,16 @@ public class ModuleDeclarationInstructionSet extends InstructionSet {
             runtime.getCurrentModule().addInternalModule(module);
         }
         
-        TyRuntime newRuntime = runtime.cloneWithImports();
-        newRuntime.setCurrentUsable(module);
-        newRuntime.setStaticScope(true);
-        newRuntime.setStaticScopeObject(NativeStorage.getModuleObject(module));
-        
-        getBody().onAction(newRuntime, TyObject.NONE);
-        newRuntime.disposeVariablesInto(runtime);
+        if (getBody() != null) {
+            
+            TyRuntime newRuntime = runtime.cloneWithImports();
+            newRuntime.setCurrentUsable(module);
+            newRuntime.setStaticScope(true);
+            newRuntime.setStaticScopeObject(NativeStorage.getModuleObject(module));
+            
+            getBody().onAction(newRuntime, TyObject.NONE);
+            newRuntime.disposeVariablesInto(runtime);
+        }
         
         return TyObject.NONE;
     }

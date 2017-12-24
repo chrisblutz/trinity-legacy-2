@@ -53,7 +53,7 @@ public class SingleTokenVariableLocationRetriever implements VariableLocationRet
             }
             
         } else if (thisObj instanceof TyStaticUsableObject) {
-    
+            
             TyStaticUsableObject usable = (TyStaticUsableObject) thisObj;
             
             if (usable.asClass() != null && usable.asClass().hasField(getContents(), false)) {
@@ -66,7 +66,7 @@ public class SingleTokenVariableLocationRetriever implements VariableLocationRet
             }
             
         } else {
-    
+            
             TyClass tyClass = thisObj.getObjectClass();
             if (tyClass.hasField(getContents(), true)) {
                 

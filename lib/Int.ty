@@ -1,5 +1,5 @@
 module Trinity
-    class Int << Numeric
+    class final Int << Numeric
         val native static MIN_VALUE, MAX_VALUE
     end
 end

@@ -19,7 +19,7 @@ public class Keywords {
         keywords.put(token, keyword);
     }
     
-    public static boolean isKeyword(Token token){
+    public static boolean isKeyword(Token token) {
         
         return keywords.containsKey(token);
     }

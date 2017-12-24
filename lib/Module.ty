@@ -1,5 +1,5 @@
 module Trinity
-    class Class
+    class final Class
         def native getName
 
         def native getSimpleName

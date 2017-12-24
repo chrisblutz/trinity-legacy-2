@@ -77,9 +77,9 @@ public class KeywordFacets {
             
             return runtime.getThis();
         });
-    
+        
         Keywords.register(Token.BLOCK_CHECK, (thisObj, info, location, runtime) -> TyBoolean.valueFor(runtime.getProcedure() != null));
-    
+        
         Keywords.register(Token.__FILE__, (thisObj, info, location, runtime) -> TrinityNatives.getObjectFor(location.getFilePath()));
         Keywords.register(Token.__LINE__, (thisObj, info, location, runtime) -> new TyInt(location.getLineNumber()));
         

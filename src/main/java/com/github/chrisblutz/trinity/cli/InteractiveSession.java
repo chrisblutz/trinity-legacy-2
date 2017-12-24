@@ -6,9 +6,9 @@ import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.stack.TrinityStack;
+import com.github.chrisblutz.trinity.loading.LoadManager;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
 import com.github.chrisblutz.trinity.parser.sources.CommandLineSourceEntry;
-import com.github.chrisblutz.trinity.loading.LoadManager;
 
 import java.util.ArrayList;
 import java.util.List;

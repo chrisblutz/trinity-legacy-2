@@ -18,7 +18,7 @@ public class TyProcedureObject extends TyObject {
     
     public TyProcedureObject(TyProcedure internal, TyRuntime runtime) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.PROCEDURE));
+        super(ClassRegistry.forName(TrinityNatives.Classes.PROCEDURE, true));
         
         this.internal = internal;
         this.runtime = runtime;

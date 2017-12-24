@@ -1,5 +1,5 @@
 module Trinity
-    class Boolean
+    class final Boolean
         val native static TRUE, FALSE
 
         def native ==(a)

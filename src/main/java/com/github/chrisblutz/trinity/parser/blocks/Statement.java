@@ -26,7 +26,7 @@ public class Statement extends ArrayList<SourceToken> implements BlockItem {
     }
     
     public int getLineNumber() {
-    
+        
         return lineNumber;
     }
     

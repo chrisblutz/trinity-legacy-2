@@ -2,6 +2,7 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.*;
+import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.natives.NativeStorage;
 
@@ -14,15 +15,17 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
     private String name;
     private String superclass;
     private String[] superinterfaces;
+    private boolean isFinal;
     private ProcedureAction body;
     
-    public ClassDeclarationInstructionSet(String name, String superclass, String[] superinterfaces, ProcedureAction body, Location location) {
+    public ClassDeclarationInstructionSet(String name, String superclass, String[] superinterfaces, boolean isFinal, ProcedureAction body, Location location) {
         
         super(new Instruction[0], location);
         
         this.name = name;
         this.superclass = superclass;
         this.superinterfaces = superinterfaces;
+        this.isFinal = isFinal;
         this.body = body;
     }
     
@@ -41,6 +44,11 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
         return superinterfaces;
     }
     
+    public boolean isFinal() {
+        
+        return isFinal;
+    }
+    
     public ProcedureAction getBody() {
         
         return body;
@@ -55,7 +63,7 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
             priorName = runtime.getCurrentUsable().getFullName() + ".";
         }
         
-        TyClass tyClass = ClassRegistry.forName(priorName + getName());
+        TyClass tyClass = ClassRegistry.forName(priorName + getName(), isFinal());
         if (getSuperclass() != null) {
             
             TyClass superclass;
@@ -63,7 +71,7 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
                 
                 superclass = runtime.getCurrentUsable().getInternalClass(getSuperclass());
                 
-            } else if (runtime.hasImports()&&runtime.hasImportedClass(getSuperclass())) {
+            } else if (runtime.hasImports() && runtime.hasImportedClass(getSuperclass())) {
                 
                 superclass = runtime.getImportedClass(getSuperclass());
                 
@@ -78,6 +86,11 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
             } else {
                 
                 superclass = ClassRegistry.getClass(getSuperclass());
+            }
+            
+            if (superclass.isFinal()) {
+                
+                Errors.throwError(Errors.Classes.INHERITANCE_ERROR, "Final class '" + superclass.getFullName() + "' cannot be subclassed.");
             }
             
             tyClass.setSuperclass(superclass);
@@ -113,13 +126,16 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
             runtime.getCurrentUsable().addInternalClass(tyClass);
         }
         
-        TyRuntime newRuntime = runtime.clone();
-        newRuntime.setCurrentUsable(tyClass);
-        newRuntime.setStaticScope(true);
-        newRuntime.setStaticScopeObject(NativeStorage.getClassObject(tyClass));
-        
-        getBody().onAction(newRuntime, TyObject.NONE);
-        newRuntime.disposeVariablesInto(runtime);
+        if (getBody() != null) {
+            
+            TyRuntime newRuntime = runtime.clone();
+            newRuntime.setCurrentUsable(tyClass);
+            newRuntime.setStaticScope(true);
+            newRuntime.setStaticScopeObject(NativeStorage.getClassObject(tyClass));
+            
+            getBody().onAction(newRuntime, TyObject.NONE);
+            newRuntime.disposeVariablesInto(runtime);
+        }
         
         return TyObject.NONE;
     }

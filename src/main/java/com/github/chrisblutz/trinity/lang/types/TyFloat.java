@@ -14,7 +14,7 @@ public class TyFloat extends TyObject {
     
     public TyFloat(double internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.FLOAT));
+        super(ClassRegistry.forName(TrinityNatives.Classes.FLOAT, true));
         
         this.internal = internal;
     }

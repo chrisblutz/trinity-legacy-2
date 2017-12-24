@@ -24,23 +24,23 @@ public class RequirementManager {
     public static void require(String name, String currentFile) {
         
         if (name.endsWith(WILDCARD)) {
-        
+            
             loadAllCurrentLocation(name, currentFile);
             return;
-        
+            
         } else if (loadCurrentLocation(name, currentFile)) {
-        
+            
             return;
-        
+            
         } else if (loadStandardLibraryFile(name)) {
-        
+            
             return;
-        
+            
         } else if (loadAbsoluteLocation(name)) {
-        
+            
             return;
         }
-    
+        
         Errors.throwError(Errors.Classes.LOAD_ERROR, "Unable to locate source file named '" + name + "' in default search directories.");
     }
     

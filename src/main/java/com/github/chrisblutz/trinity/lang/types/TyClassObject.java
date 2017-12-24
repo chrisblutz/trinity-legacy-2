@@ -15,7 +15,7 @@ public class TyClassObject extends TyObject {
     
     public TyClassObject(TyClass internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.CLASS));
+        super(ClassRegistry.forName(TrinityNatives.Classes.CLASS, true));
         
         this.internal = internal;
     }

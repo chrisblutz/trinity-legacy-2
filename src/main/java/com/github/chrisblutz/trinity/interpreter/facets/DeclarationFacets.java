@@ -53,11 +53,22 @@ public class DeclarationFacets {
                 String name;
                 String superclass = null;
                 List<String> interfaces = new ArrayList<>();
+                boolean isFinal = false;
                 
                 int offset = 0;
                 while (line[offset].getToken() != Token.TOKEN_STRING) {
                     
-                    Errors.reportSyntaxError("Invalid token " + line[offset].getToken().toString() + " in class declaration.", interpreter.getSourceEntry(), location.getLineNumber(), line[offset].getIndex());
+                    switch (line[offset++].getToken()) {
+                        
+                        case FINAL:
+                            
+                            isFinal = true;
+                            break;
+                        
+                        default:
+                            
+                            Errors.reportSyntaxError("Invalid token " + line[offset].getToken().toString() + " in class declaration.", interpreter.getSourceEntry(), location.getLineNumber(), line[offset].getIndex());
+                    }
                 }
                 
                 name = line[offset++].getContents();
@@ -119,7 +130,7 @@ public class DeclarationFacets {
                     nextAction = interpreter.interpret(next, false);
                 }
                 
-                return new ClassDeclarationInstructionSet(name, superclass, interfaces.toArray(new String[interfaces.size()]), nextAction, location);
+                return new ClassDeclarationInstructionSet(name, superclass, interfaces.toArray(new String[interfaces.size()]), isFinal, nextAction, location);
             }
         });
         DeclarationExpressions.registerDeclarationExpression(Token.INTERFACE, new DeclarationExpression() {
@@ -179,7 +190,7 @@ public class DeclarationFacets {
             @Override
             public InstructionSet interpret(SourceToken[] line, Block next, Interpreter interpreter, Location location) {
                 
-                boolean isStatic = false, isSecure = false;
+                boolean isStatic = false, isSecure = false, isFinal = false;
                 String name;
                 
                 int offset = 0;
@@ -195,6 +206,11 @@ public class DeclarationFacets {
                         case SECURE:
                             
                             isSecure = true;
+                            break;
+                        
+                        case FINAL:
+                            
+                            isFinal = true;
                             break;
                         
                         default:
@@ -246,7 +262,7 @@ public class DeclarationFacets {
                     nextAction = interpreter.interpret(next, false);
                 }
                 
-                return new MethodDeclarationInstructionSet(name, isStatic, isSecure, parameters, nextAction, location);
+                return new MethodDeclarationInstructionSet(name, isStatic, isSecure, isFinal, parameters, nextAction, location);
             }
             
             private boolean leadsWithName(SourceToken[] line, int offset) {
@@ -272,89 +288,94 @@ public class DeclarationFacets {
             }
         });
         DeclarationExpressions.registerDeclarationExpression(Token.DEF_NATIVE, new DeclarationExpression() {
-        
+            
             @Override
             public InstructionSet interpret(SourceToken[] line, Block next, Interpreter interpreter, Location location) {
-            
-                boolean isStatic = false, isSecure = false;
+                
+                boolean isStatic = false, isSecure = false, isFinal = false;
                 String name;
-            
+                
                 int offset = 0;
                 while (!leadsWithName(line, offset)) {
-                
-                    switch (line[offset++].getToken()) {
                     
-                        case STATIC:
+                    switch (line[offset++].getToken()) {
                         
+                        case STATIC:
+                            
                             isStatic = true;
                             break;
-                    
-                        case SECURE:
                         
+                        case SECURE:
+                            
                             isSecure = true;
                             break;
-                    
-                        default:
                         
+                        case FINAL:
+                            
+                            isFinal = true;
+                            break;
+                        
+                        default:
+                            
                             Errors.reportSyntaxError("Invalid token " + line[offset].getToken().toString() + " in method declaration.", interpreter.getSourceEntry(), location.getLineNumber(), line[offset].getIndex());
                     }
                 }
-            
+                
                 if (line[offset].getToken() == Token.TOKEN_STRING) {
-                
+                    
                     name = line[offset++].getContents();
-                
+                    
                 } else if (Operators.isOperatorMethod(line[offset].getToken())) {
-                
+                    
                     name = line[offset++].getToken().getReadable();
-                
+                    
                 } else if (offset + 2 < line.length && line[offset].getToken() == Token.LEFT_SQUARE_BRACKET && line[offset + 1].getToken() == Token.RIGHT_SQUARE_BRACKET && line[offset + 2].getToken() == Token.ASSIGNMENT_OP) {
-                
+                    
                     name = "[]=";
                     offset += 3;
-                
+                    
                 } else if (offset + 1 < line.length && line[offset].getToken() == Token.LEFT_SQUARE_BRACKET && line[offset + 1].getToken() == Token.RIGHT_SQUARE_BRACKET) {
-                
+                    
                     name = "[]";
                     offset += 2;
-                
+                    
                 } else {
-                
+                    
                     Errors.reportSyntaxError("Invalid token " + line[offset].getToken().toString() + " in module declaration.", interpreter.getSourceEntry(), location.getLineNumber(), line[offset].getIndex());
                     name = "";
                 }
-            
-                Parameters parameters = new Parameters(new ArrayList<>(), new LinkedHashMap<>(), null, null);
-            
-                if (offset + 1 < line.length && line[offset].getToken() == Token.LEFT_PARENTHESIS && line[line.length - 1].getToken() == Token.RIGHT_PARENTHESIS) {
                 
+                Parameters parameters = new Parameters(new ArrayList<>(), new LinkedHashMap<>(), null, null);
+                
+                if (offset + 1 < line.length && line[offset].getToken() == Token.LEFT_PARENTHESIS && line[line.length - 1].getToken() == Token.RIGHT_PARENTHESIS) {
+                    
                     SourceToken[] paramTokens = new SourceToken[line.length - offset - 2];
                     System.arraycopy(line, offset + 1, paramTokens, 0, paramTokens.length);
                     parameters = interpreter.interpretParameters(paramTokens, location);
                 }
-            
-                return new NativeMethodDeclarationInstructionSet(name, isStatic, isSecure, parameters, location);
+                
+                return new NativeMethodDeclarationInstructionSet(name, isStatic, isSecure, isFinal, parameters, location);
             }
-        
-            private boolean leadsWithName(SourceToken[] line, int offset) {
             
+            private boolean leadsWithName(SourceToken[] line, int offset) {
+                
                 if (line[offset].getToken() == Token.TOKEN_STRING) {
-                
+                    
                     return true;
-                
+                    
                 } else if (Operators.isOperatorMethod(line[offset].getToken())) {
-                
+                    
                     return true;
-                
+                    
                 } else if (offset + 2 < line.length && line[offset].getToken() == Token.LEFT_SQUARE_BRACKET && line[offset + 1].getToken() == Token.RIGHT_SQUARE_BRACKET && line[offset + 2].getToken() == Token.ASSIGNMENT_OP) {
-                
+                    
                     return true;
-                
+                    
                 } else if (offset + 1 < line.length && line[offset].getToken() == Token.LEFT_SQUARE_BRACKET && line[offset + 1].getToken() == Token.RIGHT_SQUARE_BRACKET) {
-                
+                    
                     return true;
                 }
-            
+                
                 return false;
             }
         });

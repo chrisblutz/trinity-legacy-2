@@ -42,11 +42,26 @@ public class TyModule extends TyUsable {
     }
     
     @Override
+    public TyMethod getMethod(String name) {
+        
+        if (hasMethod(name, true)) {
+            
+            return methods.get(name);
+        }
+        
+        return null;
+    }
+    
+    @Override
     public void addMethod(TyMethod method) {
         
         if (methods.containsKey(method.getName()) && methods.get(method.getName()).isSecure()) {
             
             return;
+            
+        } else if (hasMethod(method.getName(), true) && getMethod(method.getName()).isFinal()) {
+            
+            throwFinalMethodError(method.getName());
             
         } else if (method.getName().contentEquals("initialize")) {
             

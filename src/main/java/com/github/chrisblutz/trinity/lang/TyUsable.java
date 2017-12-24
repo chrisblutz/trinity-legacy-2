@@ -36,6 +36,8 @@ public abstract class TyUsable {
     
     public abstract Map<String, TyMethod> getMethods();
     
+    public abstract TyMethod getMethod(String name);
+    
     public abstract void addMethod(TyMethod method);
     
     public abstract boolean hasField(String name, boolean isInstance);
@@ -110,6 +112,11 @@ public abstract class TyUsable {
     }
     
     public abstract TyObject tyInvoke(TyUsable origin, String method, TyRuntime runtime, TyProcedure subProcedure, TyRuntime subProcedureRuntime, TyObject thisObj, TyObject... args);
+    
+    protected void throwFinalMethodError(String name) {
+        
+        Errors.throwError(Errors.Classes.INHERITANCE_ERROR, "Final method '" + name + "' cannot be overridden or re-declared.");
+    }
     
     protected void throwFieldNotFoundError(String name) {
         

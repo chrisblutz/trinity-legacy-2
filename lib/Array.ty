@@ -1,5 +1,5 @@
 module Trinity
-    class Array >> Iterable
+    class final Array >> Iterable
         private
             var solid = false
         end

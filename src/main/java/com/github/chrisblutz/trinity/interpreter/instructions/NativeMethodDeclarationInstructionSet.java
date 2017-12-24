@@ -16,16 +16,17 @@ import com.github.chrisblutz.trinity.natives.TrinityNatives;
 public class NativeMethodDeclarationInstructionSet extends InstructionSet {
     
     private String name;
-    private boolean isStatic, isSecure;
+    private boolean isStatic, isSecure, isFinal;
     private Parameters parameters;
     
-    public NativeMethodDeclarationInstructionSet(String name, boolean isStatic, boolean isSecure, Parameters parameters, Location location) {
+    public NativeMethodDeclarationInstructionSet(String name, boolean isStatic, boolean isSecure, boolean isFinal, Parameters parameters, Location location) {
         
         super(new Instruction[0], location);
         
         this.name = name;
         this.isStatic = isStatic;
         this.isSecure = isSecure;
+        this.isFinal = isFinal;
         this.parameters = parameters;
     }
     
@@ -44,6 +45,11 @@ public class NativeMethodDeclarationInstructionSet extends InstructionSet {
         return isSecure;
     }
     
+    public boolean isFinal() {
+        
+        return isFinal;
+    }
+    
     public Parameters getParameters() {
         
         return parameters;
@@ -56,7 +62,7 @@ public class NativeMethodDeclarationInstructionSet extends InstructionSet {
         
         TyProcedure methodProcedure = new TyProcedure(body, getParameters().getMandatoryParameters(), getParameters().getOptionalParameters(), getParameters().getBlockParameter(), getParameters().getOverflowParameter(), true);
         
-        TyMethod method = new TyMethod(getName(), isStatic(), true, isSecure(), runtime.getCurrentUsable(), methodProcedure);
+        TyMethod method = new TyMethod(getName(), isStatic(), true, isSecure(), isFinal(), runtime.getCurrentUsable(), methodProcedure);
         method.setScope(runtime.getCurrentScope());
         
         runtime.getCurrentUsable().addMethod(method);

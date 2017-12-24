@@ -16,7 +16,7 @@ public class TyInt extends TyObject {
     
     public TyInt(int internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.INT));
+        super(ClassRegistry.forName(TrinityNatives.Classes.INT, true));
         
         this.internal = internal;
     }

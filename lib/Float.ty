@@ -1,5 +1,5 @@
 module Trinity
-    class Float << Numeric
+    class final Float << Numeric
         val native static NaN
         val native static POSITIVE_INFINITY, NEGATIVE_INFINITY
         val native static MIN_VALUE, MAX_VALUE

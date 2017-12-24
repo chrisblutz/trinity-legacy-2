@@ -12,11 +12,11 @@ import java.util.Map;
  */
 public class ClassRegistry {
     
-    public static final TyClass MISSING_CLASS = new TyClass("nil", "nil", null);
+    public static final TyClass MISSING_CLASS = new TyClass("nil", "nil", null, false);
     
     private static Map<String, TyClass> classes = new HashMap<>();
     
-    public static TyClass forName(String className) {
+    public static TyClass forName(String className, boolean isFinal) {
         
         if (!classExists(className)) {
             
@@ -30,7 +30,7 @@ public class ClassRegistry {
                 shortClassName = className;
             }
             
-            TyClass tyClass = new TyClass(className, shortClassName);
+            TyClass tyClass = new TyClass(className, shortClassName, isFinal);
             classes.put(className, tyClass);
         }
         

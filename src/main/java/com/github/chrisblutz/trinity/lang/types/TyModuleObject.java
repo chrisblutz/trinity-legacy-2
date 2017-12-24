@@ -15,7 +15,7 @@ public class TyModuleObject extends TyObject {
     
     public TyModuleObject(TyModule internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.MODULE));
+        super(ClassRegistry.forName(TrinityNatives.Classes.MODULE, true));
         
         this.internal = internal;
     }

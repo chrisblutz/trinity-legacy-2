@@ -1,5 +1,5 @@
 module Trinity
-    class NativeOutputStream << OutputStream
+    class final NativeOutputStream << OutputStream
         def native print(str)
 
         def native flush

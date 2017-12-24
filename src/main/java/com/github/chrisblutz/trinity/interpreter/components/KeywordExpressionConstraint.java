@@ -13,7 +13,7 @@ public abstract class KeywordExpressionConstraint {
     private String message;
     
     protected KeywordExpressionConstraint(Token[] tokens, String message) {
-    
+        
         this.tokens = tokens;
         this.message = message;
     }

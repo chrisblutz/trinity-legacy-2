@@ -48,7 +48,7 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
             priorName = runtime.getCurrentUsable().getFullName() + ".";
         }
         
-        TyClass tyClass = ClassRegistry.forName(priorName + getName());
+        TyClass tyClass = ClassRegistry.forName(priorName + getName(), false);
         tyClass.setInterface(true);
         
         TyClass[] superinterfaces = new TyClass[getSuperinterfaces().length];
@@ -60,10 +60,10 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
                 
                 superinterfaceClass = runtime.getCurrentUsable().getInternalClass(superinterface);
                 
-            } else if (runtime.hasImports()&&runtime.hasImportedClass(superinterface)) {
-    
+            } else if (runtime.hasImports() && runtime.hasImportedClass(superinterface)) {
+                
                 superinterfaceClass = runtime.getImportedClass(superinterface);
-    
+                
             } else if (runtime.getCurrentModule() != null && runtime.getCurrentModule().hasInternalClass(superinterface)) {
                 
                 superinterfaceClass = runtime.getCurrentModule().getInternalClass(superinterface);
@@ -86,11 +86,14 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
             runtime.getCurrentUsable().addInternalClass(tyClass);
         }
         
-        TyRuntime newRuntime = runtime.clone();
-        newRuntime.setCurrentUsable(tyClass);
-        
-        getBody().onAction(newRuntime, TyObject.NONE);
-        newRuntime.disposeVariablesInto(runtime);
+        if (getBody() != null) {
+            
+            TyRuntime newRuntime = runtime.clone();
+            newRuntime.setCurrentUsable(tyClass);
+            
+            getBody().onAction(newRuntime, TyObject.NONE);
+            newRuntime.disposeVariablesInto(runtime);
+        }
         
         return TyObject.NONE;
     }

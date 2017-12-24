@@ -15,7 +15,7 @@ public class TyMethodObject extends TyObject {
     
     public TyMethodObject(TyMethod internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.METHOD));
+        super(ClassRegistry.forName(TrinityNatives.Classes.METHOD, true));
         
         this.internal = internal;
     }

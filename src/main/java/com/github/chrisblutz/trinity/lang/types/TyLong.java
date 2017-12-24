@@ -14,7 +14,7 @@ public class TyLong extends TyObject {
     
     public TyLong(long internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.LONG));
+        super(ClassRegistry.forName(TrinityNatives.Classes.LONG, true));
         
         this.internal = internal;
     }

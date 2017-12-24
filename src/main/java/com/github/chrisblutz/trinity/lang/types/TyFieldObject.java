@@ -15,7 +15,7 @@ public class TyFieldObject extends TyObject {
     
     public TyFieldObject(TyField internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.FIELD));
+        super(ClassRegistry.forName(TrinityNatives.Classes.FIELD, true));
         
         this.internal = internal;
     }

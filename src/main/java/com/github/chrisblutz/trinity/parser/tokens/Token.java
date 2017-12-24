@@ -58,7 +58,7 @@ public enum Token {
     DO("do"), END("end"),
     REQUIRE("require"), USING("using"), RETURN("return"),
     BREAK("break"), CONTINUE("continue"),
-    NATIVE("native"), STATIC("static"), SECURE("secure"),
+    NATIVE("native"), STATIC("static"), SECURE("secure"), FINAL("final"),
     PUBLIC("public", true), PROTECTED("protected", true), PRIVATE("private", true),
     
     // Combination Sequences

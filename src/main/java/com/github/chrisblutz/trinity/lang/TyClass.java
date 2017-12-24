@@ -19,7 +19,7 @@ import java.util.*;
 public class TyClass extends TyUsable {
     
     private Map<String, TyClass> internalClasses = new HashMap<>();
-    private boolean isInterface = false;
+    private boolean isInterface = false, isFinal = false;
     private TyMethod constructor;
     private TyClass superclass;
     private TyClass[] superinterfaces = new TyClass[0];
@@ -32,10 +32,15 @@ public class TyClass extends TyUsable {
     
     public TyClass(String fullName, String shortName) {
         
-        this(fullName, shortName, fullName.contentEquals(TrinityNatives.Classes.OBJECT) ? null : ClassRegistry.forName(TrinityNatives.Classes.OBJECT));
+        this(fullName, shortName, fullName.contentEquals(TrinityNatives.Classes.OBJECT) ? null : ClassRegistry.forName(TrinityNatives.Classes.OBJECT, false), false);
     }
     
-    public TyClass(String fullName, String shortName, TyClass superclass) {
+    public TyClass(String fullName, String shortName, boolean isFinal) {
+        
+        this(fullName, shortName, fullName.contentEquals(TrinityNatives.Classes.OBJECT) ? null : ClassRegistry.forName(TrinityNatives.Classes.OBJECT, false), isFinal);
+    }
+    
+    public TyClass(String fullName, String shortName, TyClass superclass, boolean isFinal) {
         
         super(fullName, shortName);
         
@@ -44,12 +49,19 @@ public class TyClass extends TyUsable {
             setSuperclass(superclass);
         }
         
+        this.isFinal = isFinal;
+        
         NativeUtilities.onClassLoad(fullName);
     }
     
     protected void inherit(TyClass subclass) {
         
         subclasses.add(subclass);
+    }
+    
+    public boolean isFinal() {
+        
+        return isFinal;
     }
     
     public boolean isInterface() {
@@ -162,11 +174,33 @@ public class TyClass extends TyUsable {
     }
     
     @Override
+    public TyMethod getMethod(String name) {
+        
+        if (hasMethod(name, true)) {
+            
+            if (methods.containsKey(name)) {
+                
+                return methods.get(name);
+                
+            } else if (getSuperclass() != null) {
+                
+                return getSuperclass().getMethod(name);
+            }
+        }
+        
+        return null;
+    }
+    
+    @Override
     public void addMethod(TyMethod method) {
         
         if (methods.containsKey(method.getName()) && methods.get(method.getName()).isSecure()) {
             
             return;
+            
+        } else if (hasMethod(method.getName(), true) && getMethod(method.getName()).isFinal()) {
+            
+            throwFinalMethodError(method.getName());
         }
         
         methods.put(method.getName(), method);
