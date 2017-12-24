@@ -1,6 +1,7 @@
 package com.github.chrisblutz.trinity.lang.natives;
 
 import com.github.chrisblutz.trinity.lang.types.TyLong;
+import com.github.chrisblutz.trinity.lang.types.TyMap;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
 import com.github.chrisblutz.trinity.properties.TrinityProperties;
 
@@ -16,6 +17,19 @@ public class NativeSystem {
     public static void register() {
         
         TrinityNatives.registerMethod(CLASS, "loadProperties", (runtime, thisObj, params) -> TrinityProperties.loadProperties());
+        TrinityNatives.registerMethod(CLASS, "getFullEnvironment", (runtime, thisObj, args) -> getEnvironmentMap());
         TrinityNatives.registerMethod(CLASS, "currentTimeMillis", (runtime, thisObj, params) -> new TyLong(System.currentTimeMillis()));
+    }
+    
+    private static TyMap environmentMap = null;
+    
+    private static TyMap getEnvironmentMap() {
+        
+        if (environmentMap == null) {
+            
+            environmentMap = TrinityNatives.getMapFor(System.getenv(), TyMap.getFastStorage());
+        }
+        
+        return environmentMap;
     }
 }

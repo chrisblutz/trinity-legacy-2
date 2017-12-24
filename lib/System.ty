@@ -3,6 +3,8 @@ module Trinity
         private
             def native static loadProperties
 
+            def native static getFullEnvironment
+
             var static properties = loadProperties()
         end
 
@@ -19,6 +21,14 @@ module Trinity
 
             def static clearProperty(name)
                 properties.remove(name)
+            end
+
+            def static getEnvironment(name = nil)
+                if name == nil
+                    return getFullEnvironment()
+                else
+                    return getFullEnvironment()[name]
+                end
             end
         end
     end
