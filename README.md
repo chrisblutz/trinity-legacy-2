@@ -34,10 +34,10 @@ x = a / 4                   # => 2.5
 
 Trinity's automatic conversion also reduces confusion that might be found in the manual conversions.  For example, this Java code *does not* give the same output as this Trinity code:
 ```java
-double x = 10 / 4 // => 2
+double x = 10 / 4; // => 2
 ```
 ```
-x = 10 / 4         # => 2.5
+x = 10 / 4          # => 2.5
 ```
 
 ## Getting Started
