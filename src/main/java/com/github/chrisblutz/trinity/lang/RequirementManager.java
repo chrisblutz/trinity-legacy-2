@@ -35,6 +35,10 @@ public class RequirementManager {
         } else if (loadStandardLibraryFile(name)) {
             
             return;
+            
+        } else if (loadAbsoluteLocation(name)) {
+            
+            return;
         }
         
         Errors.throwError(Errors.Classes.LOAD_ERROR, "Unable to locate source file named '" + name + "' in default search directories.");
@@ -93,6 +97,12 @@ public class RequirementManager {
     private static boolean loadStandardLibraryFile(String name) {
         
         File attempt = new File(StandardLibrary.STANDARD_LIBRARY_DIRECTORY, name + ".ty");
+        return attemptLoad(attempt);
+    }
+    
+    private static boolean loadAbsoluteLocation(String name) {
+        
+        File attempt = new File(name + ".ty");
         return attemptLoad(attempt);
     }
     
