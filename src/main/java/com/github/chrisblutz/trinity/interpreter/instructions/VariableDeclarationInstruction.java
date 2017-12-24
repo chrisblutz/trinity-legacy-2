@@ -67,6 +67,7 @@ public class VariableDeclarationInstruction extends Instruction {
         }
         
         TyField field = new TyField(getName(), isStatic(), isConstant(), runtime.getCurrentUsable(), action);
+        field.setImports(runtime.getImports());
         runtime.getCurrentUsable().addField(field, runtime);
         
         return TyObject.NONE;

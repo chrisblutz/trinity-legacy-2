@@ -6,6 +6,7 @@ import com.github.chrisblutz.trinity.lang.TyModule;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
+import com.github.chrisblutz.trinity.natives.NativeStorage;
 
 
 /**
@@ -51,6 +52,8 @@ public class ModuleDeclarationInstructionSet extends InstructionSet {
         
         TyRuntime newRuntime = runtime.cloneWithImports();
         newRuntime.setCurrentUsable(module);
+        newRuntime.setStaticScope(true);
+        newRuntime.setStaticScopeObject(NativeStorage.getModuleObject(module));
         
         getBody().onAction(newRuntime, TyObject.NONE);
         newRuntime.disposeVariablesInto(runtime);

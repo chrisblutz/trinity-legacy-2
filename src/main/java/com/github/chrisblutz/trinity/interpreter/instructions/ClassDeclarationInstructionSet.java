@@ -3,6 +3,7 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.*;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
+import com.github.chrisblutz.trinity.natives.NativeStorage;
 
 
 /**
@@ -114,6 +115,8 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
         
         TyRuntime newRuntime = runtime.clone();
         newRuntime.setCurrentUsable(tyClass);
+        newRuntime.setStaticScope(true);
+        newRuntime.setStaticScopeObject(NativeStorage.getClassObject(tyClass));
         
         getBody().onAction(newRuntime, TyObject.NONE);
         newRuntime.disposeVariablesInto(runtime);
