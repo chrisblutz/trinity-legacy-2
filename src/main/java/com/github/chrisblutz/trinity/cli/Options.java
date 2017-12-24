@@ -27,9 +27,9 @@ public class Options {
         return interactive;
     }
     
-    static void setInteractive(boolean interactive) {
+    static void setInteractive() {
         
-        Options.interactive = interactive;
+        Options.interactive = true;
     }
     
     public static int getStringPrecision() {

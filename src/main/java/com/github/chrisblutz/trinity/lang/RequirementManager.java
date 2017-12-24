@@ -2,9 +2,9 @@ package com.github.chrisblutz.trinity.lang;
 
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
+import com.github.chrisblutz.trinity.loading.LoadManager;
 import com.github.chrisblutz.trinity.parser.SourceEntry;
 import com.github.chrisblutz.trinity.parser.sources.FileSourceEntry;
-import com.github.chrisblutz.trinity.loading.LoadManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,22 +26,18 @@ public class RequirementManager {
         if (name.endsWith(WILDCARD)) {
             
             loadAllCurrentLocation(name, currentFile);
+            return;
             
-        } else {
+        } else if (loadCurrentLocation(name, currentFile)) {
             
-            if (loadCurrentLocation(name, currentFile)) {
-                
-                return;
-                
-            } else if (loadStandardLibraryFile(name)) {
-                
-                return;
-                
-            } else {
-                
-                Errors.throwError(Errors.Classes.LOAD_ERROR, "Unable to locate source file named '" + name + "' in default search directories.");
-            }
+            return;
+            
+        } else if (loadStandardLibraryFile(name)) {
+            
+            return;
         }
+        
+        Errors.throwError(Errors.Classes.LOAD_ERROR, "Unable to locate source file named '" + name + "' in default search directories.");
     }
     
     private static void loadAllCurrentLocation(String name, String currentFile) {

@@ -62,7 +62,7 @@ public class CLI {
             
         } else if (option.contentEquals(Options.INTERACTIVE_OPTION)) {
             
-            Options.setInteractive(true);
+            Options.setInteractive();
         }
     }
     
