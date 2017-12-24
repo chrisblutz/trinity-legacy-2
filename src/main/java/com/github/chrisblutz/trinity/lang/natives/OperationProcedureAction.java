@@ -31,18 +31,18 @@ public class OperationProcedureAction implements ProcedureAction {
     
     @Override
     public TyObject onAction(TyRuntime runtime, TyObject thisObj, TyObject... args) {
-    
+        
         TyObject other = runtime.getVariable("a");
-    
+        
         double thisDouble = TrinityNatives.asNumber(thisObj);
         double otherDouble = TrinityNatives.asNumber(other);
-    
+        
         // Perform check for unsupported operations on floating-point values
         if (prohibitedFloatOperators.contains(operation) && (thisDouble % 1 != 0 || otherDouble % 1 != 0)) {
-        
+            
             Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, runtime, "Operation " + operation + " not supported on non-integer values.");
         }
-    
+        
         return TrinityNatives.wrapNumber(performOperation(thisDouble, otherDouble));
     }
     
@@ -74,14 +74,7 @@ public class OperationProcedureAction implements ProcedureAction {
                 // Check for / by 0
                 checkDivision(otherDouble);
                 
-                if (thisDouble % 1 == 0 && otherDouble % 1 == 0) {
-                    
-                    return Math.floorMod((long) thisDouble, (long) otherDouble);
-                    
-                } else {
-                    
-                    return thisDouble % otherDouble;
-                }
+                return thisDouble - (Math.floor(thisDouble / otherDouble) * otherDouble);
             
             case "<<":
                 
