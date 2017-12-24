@@ -93,7 +93,7 @@ public class NativeUtilities {
     
     private static Comparator<TyObject> comparator = null;
     
-    public static Comparator getComparator() {
+    public static Comparator<TyObject> getComparator() {
         
         if (comparator == null) {
             
