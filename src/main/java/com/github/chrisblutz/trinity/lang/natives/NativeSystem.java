@@ -2,6 +2,7 @@ package com.github.chrisblutz.trinity.lang.natives;
 
 import com.github.chrisblutz.trinity.lang.types.TyLong;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.properties.TrinityProperties;
 
 
 /**
@@ -14,6 +15,7 @@ public class NativeSystem {
     @NativeHook(CLASS)
     public static void register() {
         
+        TrinityNatives.registerMethod(CLASS, "loadProperties", (runtime, thisObj, params) -> TrinityProperties.loadProperties());
         TrinityNatives.registerMethod(CLASS, "currentTimeMillis", (runtime, thisObj, params) -> new TyLong(System.currentTimeMillis()));
     }
 }

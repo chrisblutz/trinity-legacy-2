@@ -25,6 +25,7 @@ public class Errors {
         public static final String ERROR = TrinityNatives.Classes.ERROR;
         public static final String FORMAT_ERROR = "Trinity.Errors.FormatError";
         public static final String INHERITANCE_ERROR = "Trinity.Errors.InheritanceError";
+        public static final String IO_ERROR = "Trinity.Errors.IOError";
         public static final String LOAD_ERROR = "Trinity.Errors.LoadError";
         public static final String NATIVE_ERROR = "Trinity.Errors.NativeError";
         public static final String NOT_FOUND_ERROR = "Trinity.Errors.NotFoundError";

@@ -1,5 +1,25 @@
 module Trinity
     class System
-        def native static currentTimeMillis
+        private
+            def native static loadProperties
+
+            var static properties = loadProperties()
+        end
+
+        public
+            def native static currentTimeMillis
+
+            def static getProperty(name)
+                properties[name]
+            end
+
+            def static setProperty(name, value)
+                properties.put(name, value)
+            end
+
+            def static clearProperty(name)
+                properties.remove(name)
+            end
+        end
     end
 end

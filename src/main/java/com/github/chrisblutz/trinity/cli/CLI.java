@@ -2,13 +2,17 @@ package com.github.chrisblutz.trinity.cli;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * @author Christopher Lutz
  */
 public class CLI {
+    
+    private static Map<String, String> systemProperties = new HashMap<>();
     
     public static final String ARGV = "ARGV";
     public static final String SYSTEM_PROPERTY_PREFIX = "-D", INTERPRETER_OPTION_PREFIX = "-X";
@@ -48,7 +52,7 @@ public class CLI {
             String[] parts = remaining.split("=", 2);
             if (parts.length == 2) {
                 
-                System.setProperty(parts[0], parts[1]);
+                systemProperties.put(parts[0], parts[1]);
             }
             
         } else if (option.startsWith(INTERPRETER_OPTION_PREFIX)) {
@@ -124,5 +128,10 @@ public class CLI {
     public static List<String> getArguments() {
         
         return arguments;
+    }
+    
+    public static Map<String, String> getSystemProperties() {
+    
+        return systemProperties;
     }
 }

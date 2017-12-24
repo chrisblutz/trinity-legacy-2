@@ -1,6 +1,5 @@
 require 'Object'
 require 'Kernel'
-require 'System'
 
 # Load errors
 require 'errors/Error'
@@ -27,3 +26,6 @@ require 'Boolean'
 require 'String'
 require 'Range'
 require 'Procedure'
+
+# Load System after all types
+require 'System'
