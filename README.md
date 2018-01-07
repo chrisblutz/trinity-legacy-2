@@ -8,6 +8,7 @@ It is heavily influenced by aspects of [Java](https://www.java.com/) and [Ruby](
 - `lib` - Trinity standard library
 - `logo` - PNG/SVG logos for Trinity
 - `src` - Java source code for the Trinity interpreter
+- `test` - Trinity utility code for use with the interpreter unit tests
 
 ## Features
 - Basic object-oriented features like classes, methods, inheritance, etc.
