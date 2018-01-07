@@ -1,0 +1,34 @@
+if x
+    y
+end
+
+if x
+    y
+else
+    z
+end
+
+x do
+    y
+end
+
+x do |y|
+    z
+end
+
+x { y }
+
+x { |y| z }
+
+# Check that brackets do not affect headers
+x { |y = ( 1 | 0)| z }
+
+# Make sure map literals are not blocked
+{ x: y }
+
+# Check nested blocks
+x do
+    y do
+        z
+    end
+end

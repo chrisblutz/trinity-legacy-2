@@ -1,0 +1,1 @@
+\x # This is an invalid escape sequence, which should read as BACKSLASH TOKEN_STRING(x)

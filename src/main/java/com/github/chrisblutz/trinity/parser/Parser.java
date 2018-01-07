@@ -39,6 +39,13 @@ public class Parser {
     
     public Block parse() {
         
+        LineSet set = parseTokens();
+        Block block = parseToBlock(set);
+        return parseOutInlineBlocks(block);
+    }
+    
+    public LineSet parseTokens() {
+        
         LineSet set = parseInitial();
         set = parseOutEscapeCharacters(set);
         set = parseOutUnicodeEscapes(set);
@@ -52,8 +59,7 @@ public class Parser {
         set = parseScopes(set);
         set = parseOutEmptyLines(set);
         
-        Block block = parseToBlock(set);
-        return parseOutInlineBlocks(block);
+        return set;
     }
     
     private LineSet parseInitial() {
@@ -265,15 +271,7 @@ public class Parser {
                 
                 if (token.getToken() == Token.TOKEN_STRING) {
                     
-                    if (token.getContents().equals(Token.__FILE__.getReadable())) {
-                        
-                        newLine.add(new SourceToken(Token.__FILE__, line.getLineNumber(), token.getIndex(), Token.__FILE__.getReadable(), getSourceEntry()));
-                        
-                    } else if (token.getContents().equals(Token.__LINE__.getReadable())) {
-                        
-                        newLine.add(new SourceToken(Token.__LINE__, line.getLineNumber(), token.getIndex(), Token.__LINE__.getReadable(), getSourceEntry()));
-                        
-                    } else if (token.getContents().equals("block") && i + 1 < line.size() && line.get(i + 1).getToken() == Token.QUESTION_MARK) {
+                    if (token.getContents().equals("block") && i + 1 < line.size() && line.get(i + 1).getToken() == Token.QUESTION_MARK) {
                         
                         newLine.add(new SourceToken(Token.BLOCK_CHECK, line.getLineNumber(), token.getIndex(), Token.BLOCK_CHECK.getReadable(), getSourceEntry()));
                         i++;

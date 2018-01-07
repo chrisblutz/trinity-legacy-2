@@ -38,6 +38,8 @@ public class Errors {
     public static void reportSyntaxError(String message, SourceEntry entry) {
         
         System.err.println("SyntaxError: " + message + " (" + entry.getFileName() + ")");
+        
+        throw new TrinitySyntaxError();
     }
     
     public static void reportSyntaxError(String message, SourceEntry entry, int lineNumber, int index) {
