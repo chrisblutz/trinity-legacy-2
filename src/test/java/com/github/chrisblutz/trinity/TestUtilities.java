@@ -8,7 +8,6 @@ import com.github.chrisblutz.trinity.parser.sources.FileSourceEntry;
 import com.github.chrisblutz.trinity.parser.tokens.SourceToken;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 import com.github.chrisblutz.trinity.utils.Utilities;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +32,7 @@ public class TestUtilities {
             
         } catch (IOException e) {
             
-            Assertions.fail("Unable to load test file. (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")", e);
+            fail("Unable to load test file. (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")", e);
             return null;
         }
     }

@@ -49,7 +49,7 @@ public class Errors {
         if (index >= 0) {
             
             str += "\n\t" + entry.getLines()[lineNumber - 1];
-            str += "\n\t" + padCaret(index) + "";
+            str += "\n\t" + padCaret(index);
         }
         
         System.err.println(str);
