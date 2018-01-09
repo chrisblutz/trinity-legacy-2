@@ -18,30 +18,8 @@ It is heavily influenced by aspects of [Java](https://www.java.com/) and [Ruby](
 - Inline procedures (i.e. `X.y { |z| ... }`)
 - Global variables (like `$ARGV` for command-line arguments)
 - Weak, dynamic typing system
-- Automatic numeric type conversion/overflow (see [Numeric Automation](#numeric-automation))
+- Automatic numeric type conversion/overflow (see [Numeric Automation](https://github.com/trinity-lang/trinity/wiki/Quirks-and-Features#numeric-automation))
 - An interactive shell (`trinity -ish`)
-
-### Numeric Automation
-Numeric types in Trinity automatically convert between each other.  If an `Int` overflows, it automatically becomes a `Long`.  If a `Long` underflows, it automatically becomes an `Int`.  If either an `Int` or a `Long` undergoes computation and becomes a floating-point value, it automatically becomes a `Float`.  If a `Float` loses its fractional component, it automatically becomes an `Int` or a `Long`.  This conversion feature allows Trinity to perform mathematical operations seamlessly, without manual conversions between types that might be found in statically-typed languages such as Java.
-
-For example, this Java code:
-```java
-int a = 10;
-double x = (double) a / 4; // => 2.5
-```
-looks like this in Trinity:
-```
-a = 10
-x = a / 4                   # => 2.5
-```
-
-Trinity's automatic conversion also reduces confusion that might be found in the manual conversions.  For example, this Java code *does not* give the same output as this Trinity code:
-```java
-double x = 10 / 4; // => 2
-```
-```
-x = 10 / 4          # => 2.5
-```
 
 ## Getting Started
 Before you start using Trinity you need to download the Trinity interpreter.  This can be done by either downloading the most recent release or by downloading the source code.  For the purposes of this tutorial, we will be building the interpreter from the source code.  Once you have the source code downloaded and extracted, open the terminal inside the directory you just extracted the source into and type:
