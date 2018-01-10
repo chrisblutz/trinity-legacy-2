@@ -287,7 +287,7 @@ public class ParserTests {
         Parser parser = new Parser(TestUtilities.getTestFile(PARSER_TEST_HOME, BLOCKING_FILE));
         Block block = parser.parse();
         
-        assertEquals(19, block.size());
+        assertEquals(12, block.size());
         
         Class[] types = new Class[]{
                 Statement.class,
@@ -300,13 +300,6 @@ public class ParserTests {
                 Block.class,
                 Statement.class,
                 Block.class,
-                Statement.class,
-                Block.class,
-                Statement.class,
-                Block.class,
-                Statement.class,
-                Block.class,
-                Statement.class,
                 Statement.class,
                 Block.class
         };
@@ -351,32 +344,6 @@ public class ParserTests {
         
         statement = (Statement) block.get(10);
         subBlock = (Block) block.get(11);
-        
-        TestUtilities.checkStatement(statement, new Token[]{Token.TOKEN_STRING}, new String[]{"x"});
-        TestUtilities.checkTypes(subBlock, new Class[]{Statement.class});
-        TestUtilities.checkStatement((Statement) subBlock.get(0), new Token[]{Token.TOKEN_STRING}, new String[]{"y"});
-        
-        statement = (Statement) block.get(12);
-        subBlock = (Block) block.get(13);
-        
-        TestUtilities.checkStatement(statement, new Token[]{Token.TOKEN_STRING}, new String[]{"x"});
-        TestUtilities.checkTypes(subBlock, new Class[]{Statement.class});
-        TestUtilities.checkStatement((Statement) subBlock.get(0), new Token[]{Token.TOKEN_STRING}, new String[]{"z"});
-        TestUtilities.checkBlockHeader(subBlock, new Token[]{Token.TOKEN_STRING}, new String[]{"y"});
-        
-        statement = (Statement) block.get(14);
-        subBlock = (Block) block.get(15);
-        
-        TestUtilities.checkStatement(statement, new Token[]{Token.TOKEN_STRING}, new String[]{"x"});
-        TestUtilities.checkTypes(subBlock, new Class[]{Statement.class});
-        TestUtilities.checkStatement((Statement) subBlock.get(0), new Token[]{Token.TOKEN_STRING}, new String[]{"z"});
-        TestUtilities.checkBlockHeader(subBlock, new Token[]{Token.TOKEN_STRING, Token.ASSIGNMENT_OP, Token.LEFT_PARENTHESIS, Token.NUMERIC_STRING, Token.BITWISE_OR_OP, Token.NUMERIC_STRING, Token.RIGHT_PARENTHESIS}, new String[]{"y", null, null, null, null, null, null});
-        
-        statement = (Statement) block.get(16);
-        TestUtilities.checkStatement(statement, new Token[]{Token.LEFT_CURLY_BRACKET, Token.TOKEN_STRING, Token.COLON, Token.TOKEN_STRING, Token.RIGHT_CURLY_BRACKET}, new String[]{null, "x", null, "y", null});
-        
-        statement = (Statement) block.get(17);
-        subBlock = (Block) block.get(18);
         
         TestUtilities.checkStatement(statement, new Token[]{Token.TOKEN_STRING}, new String[]{"x"});
         TestUtilities.checkTypes(subBlock, new Class[]{Statement.class, Block.class});

@@ -439,6 +439,56 @@ public class Interpreter {
                 // Signifies single-token name (class/module names, variables, etc.)
                 return new InstructionSet(new Instruction[]{new SingleTokenInstruction(tokens[0].getContents(), location)}, location);
                 
+            } else if (tokens.length > 1 && tokens[tokens.length - 1].getToken() == Token.RIGHT_CURLY_BRACKET && ((loc = findBlockBeginning(tokens, location)) > 0)) {
+                
+                SourceToken[] blockTokens = new SourceToken[tokens.length - loc - 2];
+                System.arraycopy(tokens, loc + 1, blockTokens, 0, blockTokens.length);
+                
+                Parameters parameters = new Parameters(new ArrayList<>(), new LinkedHashMap<>(), null, null);
+                if (blockTokens.length > 0 && blockTokens[0].getToken() == Token.BITWISE_OR_OP) {
+                    
+                    int level = 0;
+                    int i;
+                    for (i = 1; i < blockTokens.length; i++) {
+                        
+                        SourceToken token = blockTokens[i];
+                        if (isLevelUpToken(token.getToken())) {
+                            
+                            level++;
+                            
+                        } else if (isLevelDownToken(token.getToken())) {
+                            
+                            level--;
+                            
+                        } else if (level == 0 && token.getToken() == Token.BITWISE_OR_OP) {
+                            
+                            break;
+                        }
+                    }
+                    
+                    SourceToken[] header = new SourceToken[i - 1];
+                    System.arraycopy(blockTokens, 1, header, 0, header.length);
+                    
+                    parameters = interpretParameters(header, location);
+                    
+                    SourceToken[] temp = new SourceToken[blockTokens.length - i - 1];
+                    System.arraycopy(blockTokens, i + 1, temp, 0, temp.length);
+                    blockTokens = temp;
+                }
+                
+                Block block = new Block(getSourceEntry());
+                Statement statement = new Statement(getSourceEntry(), location.getLineNumber());
+                Collections.addAll(statement, blockTokens);
+                block.add(statement);
+                
+                ProcedureAction action = interpret(block, true);
+                TyProcedure nextProcedure = new TyProcedure(action, parameters.getMandatoryParameters(), parameters.getOptionalParameters(), parameters.getBlockParameter(), parameters.getOverflowParameter(), false);
+                
+                SourceToken[] remaining = new SourceToken[loc];
+                System.arraycopy(tokens, 0, remaining, 0, remaining.length);
+                
+                return interpretCompoundExpression(remaining, location, nextProcedure);
+                
             } else if (tokens.length > 1 && tokens[1].getToken() == Token.LEFT_PARENTHESIS) {
                 
                 // Signifies a method call
@@ -486,6 +536,32 @@ public class Interpreter {
         }
         
         Errors.reportSyntaxError("Unmatched brackets.", getSourceEntry(), location.getLineNumber(), tokens[tokens.length - 1].getIndex());
+        return 0;
+    }
+    
+    private int findBlockBeginning(SourceToken[] tokens, Location location) {
+        
+        int level = 0;
+        for (int i = tokens.length - 1; i >= 0; i--) {
+            
+            SourceToken token = tokens[i];
+            if (isLevelUpToken(token.getToken())) {
+                
+                level++;
+                
+            } else if (isLevelDownToken(token.getToken())) {
+                
+                level--;
+                
+            }
+            
+            if (level == 0 && token.getToken() == Token.LEFT_CURLY_BRACKET) {
+                
+                return i;
+            }
+        }
+        
+        Errors.reportSyntaxError("Unmatched braces.", getSourceEntry(), location.getLineNumber(), tokens[tokens.length - 1].getIndex());
         return 0;
     }
     
