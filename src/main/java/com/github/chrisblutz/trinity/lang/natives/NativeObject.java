@@ -32,7 +32,7 @@ public class NativeObject {
         TrinityNatives.registerMethod(CLASS, "isInstance", (runtime, thisObj, args) -> {
             
             TyObject typeObject = runtime.getVariable("type");
-            TyClass type = ((TyClassObject) typeObject).getInternal();
+            TyClass type = TrinityNatives.cast(TyClassObject.class, typeObject).getInternal();
             
             if (type != null) {
                 

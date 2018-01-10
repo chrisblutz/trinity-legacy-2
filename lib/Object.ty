@@ -25,7 +25,7 @@ module Trinity
         def native isInstance(type)
 
         def isNumeric
-            isInstance(Numeric)
+            isInstance(Numeric.class)
         end
 
         def toString

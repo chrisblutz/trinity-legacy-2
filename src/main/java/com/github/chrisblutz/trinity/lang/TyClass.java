@@ -229,7 +229,9 @@ public class TyClass extends TyUsable {
                 
             } else if (isInstance) {
                 
-                return instanceVariables.get(instance).get(field);
+                return instanceVariables.
+                        get(instance).
+                        get(field);
             }
             
         } else if (getSuperclass() != null && getSuperclass().hasField(name, isInstance)) {
@@ -263,7 +265,7 @@ public class TyClass extends TyUsable {
         }
     }
     
-    private void initializeInstanceFields(TyObject object, TyRuntime runtime) {
+    public void initializeInstanceFields(TyObject object, TyRuntime runtime) {
         
         instanceVariables.put(object, new HashMap<>());
         Map<TyField, VariableLocation> variableMap = instanceVariables.get(object);

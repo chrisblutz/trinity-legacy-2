@@ -13,7 +13,7 @@ module Trinity
 
             def +(other)
                 newArray = copyOf(this)
-                if other.isInstance(Array)
+                if other.isInstance(Array.class)
                     newArray.addAll(other)
                 else
                     newArray.add(other)

@@ -2,6 +2,7 @@ package com.github.chrisblutz.trinity.lang.types;
 
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
+import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class TyArray extends TyObject {
         super(ClassRegistry.forName(TrinityNatives.Classes.ARRAY, true));
         
         this.internal = internal;
+        
+        // Make sure Array's instance fields are initialized, since its constructor is not called
+        getObjectClass().initializeInstanceFields(this, new TyRuntime());
     }
     
     public List<TyObject> getInternal() {
