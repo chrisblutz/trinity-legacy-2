@@ -118,6 +118,16 @@ module Trinity
                 found
             end
 
+            def filter(&block)
+                arr = []
+                each() do |e|
+                    if block.call(e)
+                        arr << e
+                    end
+                end
+                arr
+            end
+
             def toString
                 '[' + join(', ') + ']'
             end
