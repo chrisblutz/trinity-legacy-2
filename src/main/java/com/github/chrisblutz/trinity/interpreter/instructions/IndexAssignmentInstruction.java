@@ -50,7 +50,7 @@ public class IndexAssignmentInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject assignmentObject = getObject().evaluate(TyObject.NONE, runtime);
         TyObject object = getValue().evaluate(TyObject.NONE, runtime);

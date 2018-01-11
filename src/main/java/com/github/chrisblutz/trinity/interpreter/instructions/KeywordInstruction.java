@@ -29,7 +29,7 @@ public class KeywordInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         return Keywords.getKeyword(getKeyword().getToken()).evaluate(thisObj, getKeyword(), getLocation(), runtime);
     }

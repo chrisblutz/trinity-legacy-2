@@ -28,7 +28,7 @@ public class UnaryOperatorInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         return getOperator().operate(thisObj, runtime);
     }

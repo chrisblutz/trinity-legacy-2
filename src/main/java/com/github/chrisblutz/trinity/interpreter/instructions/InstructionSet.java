@@ -27,7 +27,7 @@ public class InstructionSet extends Instruction {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject currentThis = thisObj;
         for (Instruction instruction : getInstructions()) {

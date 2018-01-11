@@ -57,7 +57,7 @@ public class CatchInstructionSet extends InstructionSet {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyRuntime newRuntime = runtime.cloneWithImports();
         

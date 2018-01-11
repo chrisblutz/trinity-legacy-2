@@ -55,7 +55,7 @@ public class SwitchInstructionSet extends InstructionSet {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         boolean chaining = runtime.isSwitchChaining();
         runtime.setSwitchChaining(false);

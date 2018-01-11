@@ -1,5 +1,6 @@
 package com.github.chrisblutz.trinity.lang;
 
+import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
 import com.github.chrisblutz.trinity.lang.scope.Scope;
 import com.github.chrisblutz.trinity.lang.variables.VariableLocation;
@@ -28,11 +29,7 @@ public class TyRuntime implements Cloneable {
     private TyObject switchObject = TyObject.NONE;
     private TyObject returnObject = TyObject.NONE;
     private List<TyModule> imports = null;
-    
-    /**
-     * Used for file path tracking in method calls
-     */
-    private String currentFilePath = null;
+    private Location currentLocation = null;
     
     // Used to determine Kernel or null-class/null-module method calls are placed without prior objects
     // even in non-static scenarios, where 'thisObj' might not be NONE
@@ -278,20 +275,14 @@ public class TyRuntime implements Cloneable {
         return imports;
     }
     
-    /**
-     * This method/field combination is ONLY used by the method call instruction.  It is used for
-     * path tracking within method calls.  There is NO guarantee that this path is always accurate.
-     *
-     * @return The file path containing the last-executed method call
-     */
-    public String getCurrentFilePath() {
+    public Location getCurrentLocation() {
         
-        return currentFilePath;
+        return currentLocation;
     }
     
-    public void setCurrentFilePath(String currentFilePath) {
+    public void setCurrentLocation(Location currentLocation) {
         
-        this.currentFilePath = currentFilePath;
+        this.currentLocation = currentLocation;
     }
     
     public void setImports(List<TyModule> imports) {
@@ -313,7 +304,7 @@ public class TyRuntime implements Cloneable {
             runtime.staticScopeObject = staticScopeObject;
             runtime.currentUsable = currentUsable;
             runtime.procedure = procedure;
-            runtime.currentFilePath = currentFilePath;
+            runtime.currentLocation = currentLocation;
             
             return runtime;
             

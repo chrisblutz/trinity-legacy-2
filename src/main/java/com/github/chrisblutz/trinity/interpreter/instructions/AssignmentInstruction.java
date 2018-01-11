@@ -52,7 +52,7 @@ public class AssignmentInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject newThis = getRemainder().evaluate(TyObject.NONE, runtime);
         VariableLocation location = getRetriever().evaluate(newThis, runtime);

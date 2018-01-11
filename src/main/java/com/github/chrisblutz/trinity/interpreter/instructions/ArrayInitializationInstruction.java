@@ -31,7 +31,7 @@ public class ArrayInitializationInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         List<TyObject> components = new ArrayList<>();
         for (InstructionSet component : getComponents()) {

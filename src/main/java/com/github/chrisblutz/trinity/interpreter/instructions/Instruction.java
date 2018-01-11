@@ -22,9 +22,10 @@ public abstract class Instruction {
         return location;
     }
     
-    public void updateLocation() {
+    public void updateLocation(TyRuntime runtime) {
         
         getLocation().makeCurrent();
+        runtime.setCurrentLocation(getLocation());
     }
     
     protected abstract TyObject evaluate(TyObject thisObj, TyRuntime runtime);

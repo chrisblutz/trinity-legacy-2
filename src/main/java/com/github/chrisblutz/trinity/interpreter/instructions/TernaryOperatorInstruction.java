@@ -40,7 +40,7 @@ public class TernaryOperatorInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject condition = getCondition().evaluate(TyObject.NONE, runtime);
         if (TrinityNatives.toBoolean(condition)) {

@@ -44,9 +44,7 @@ public class MethodCallInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
-        
-        runtime.setCurrentFilePath(getLocation().getFilePath());
+        updateLocation(runtime);
         
         TyObject[] arguments = new TyObject[getArguments().length];
         for (int i = 0; i < arguments.length; i++) {

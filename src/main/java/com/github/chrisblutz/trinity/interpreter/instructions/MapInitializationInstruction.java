@@ -32,7 +32,7 @@ public class MapInitializationInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         Map<TyObject, TyObject> map = new LinkedHashMap<>();
         for (InstructionSet[] sets : getComponents()) {

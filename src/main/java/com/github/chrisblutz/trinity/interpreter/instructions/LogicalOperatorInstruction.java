@@ -35,7 +35,7 @@ public class LogicalOperatorInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         return getOperator().operate(thisObj, getOperand(), runtime);
     }

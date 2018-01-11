@@ -27,7 +27,7 @@ public class ReturnInstructionSet extends InstructionSet {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject result = TyObject.NIL;
         

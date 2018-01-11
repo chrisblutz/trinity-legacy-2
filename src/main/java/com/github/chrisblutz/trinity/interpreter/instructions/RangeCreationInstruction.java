@@ -42,7 +42,7 @@ public class RangeCreationInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject begin = getBeginningValue().evaluate(TyObject.NONE, runtime);
         TyObject end = getEndValue().evaluate(TyObject.NONE, runtime);

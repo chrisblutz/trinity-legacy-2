@@ -35,7 +35,7 @@ public class BinaryOperatorInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject operand = getOperand().evaluate(TyObject.NONE, runtime);
         

@@ -29,7 +29,7 @@ public class SingleTokenInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         if (thisObj == TyObject.NONE) {
             

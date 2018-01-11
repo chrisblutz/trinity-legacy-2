@@ -29,7 +29,7 @@ public class GlobalVariableInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         if (VariableManager.hasGlobalVariable(getName())) {
             

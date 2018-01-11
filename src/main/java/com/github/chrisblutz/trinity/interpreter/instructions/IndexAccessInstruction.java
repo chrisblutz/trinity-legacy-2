@@ -35,7 +35,7 @@ public class IndexAccessInstruction extends Instruction {
     @Override
     protected TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        updateLocation();
+        updateLocation(runtime);
         
         TyObject[] indices = new TyObject[getIndices().length];
         for (int i = 0; i < getIndices().length; i++) {
