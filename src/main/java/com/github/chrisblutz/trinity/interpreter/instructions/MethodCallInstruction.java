@@ -46,6 +46,8 @@ public class MethodCallInstruction extends Instruction {
         
         updateLocation();
         
+        runtime.setCurrentFilePath(getLocation().getFilePath());
+        
         TyObject[] arguments = new TyObject[getArguments().length];
         for (int i = 0; i < arguments.length; i++) {
             

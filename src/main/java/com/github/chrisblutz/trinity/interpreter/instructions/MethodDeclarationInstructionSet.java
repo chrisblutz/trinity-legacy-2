@@ -3,10 +3,7 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.interpreter.Parameters;
 import com.github.chrisblutz.trinity.interpreter.actions.InterfaceMethodProcedureAction;
-import com.github.chrisblutz.trinity.lang.TyClass;
-import com.github.chrisblutz.trinity.lang.TyMethod;
-import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.lang.TyRuntime;
+import com.github.chrisblutz.trinity.lang.*;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
@@ -86,7 +83,14 @@ public class MethodDeclarationInstructionSet extends InstructionSet {
         method.setScope(runtime.getCurrentScope());
         method.setImports(runtime.getImports());
         
-        runtime.getCurrentUsable().addMethod(method);
+        if (runtime.getCurrentUsable() != null) {
+            
+            runtime.getCurrentUsable().addMethod(method);
+            
+        } else {
+            
+            FileMethodRegistry.register(getLocation().getFilePath(), method);
+        }
         
         return TyObject.NONE;
     }

@@ -29,7 +29,12 @@ public class TyRuntime implements Cloneable {
     private TyObject returnObject = TyObject.NONE;
     private List<TyModule> imports = null;
     
-    // Used to determine Kernel method calls are placed without prior objects
+    /**
+     * Used for file path tracking in method calls
+     */
+    private String currentFilePath = null;
+    
+    // Used to determine Kernel or null-class/null-module method calls are placed without prior objects
     // even in non-static scenarios, where 'thisObj' might not be NONE
     private boolean isInitialStatement = false;
     
@@ -273,6 +278,22 @@ public class TyRuntime implements Cloneable {
         return imports;
     }
     
+    /**
+     * This method/field combination is ONLY used by the method call instruction.  It is used for
+     * path tracking within method calls.  There is NO guarantee that this path is always accurate.
+     *
+     * @return The file path containing the last-executed method call
+     */
+    public String getCurrentFilePath() {
+        
+        return currentFilePath;
+    }
+    
+    public void setCurrentFilePath(String currentFilePath) {
+        
+        this.currentFilePath = currentFilePath;
+    }
+    
     public void setImports(List<TyModule> imports) {
         
         this.imports = imports;
@@ -292,6 +313,7 @@ public class TyRuntime implements Cloneable {
             runtime.staticScopeObject = staticScopeObject;
             runtime.currentUsable = currentUsable;
             runtime.procedure = procedure;
+            runtime.currentFilePath = currentFilePath;
             
             return runtime;
             

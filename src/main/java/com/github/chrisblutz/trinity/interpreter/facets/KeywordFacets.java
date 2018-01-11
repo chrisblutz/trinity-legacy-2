@@ -69,7 +69,7 @@ public class KeywordFacets {
         });
         Keywords.register(Token.THIS, (thisObj, token, location, runtime) -> {
             
-            if (runtime.isStaticScope()) {
+            if (runtime.isStaticScope() || runtime.getThis() == TyObject.NONE) {
                 
                 Errors.throwError(Errors.Classes.SCOPE_ERROR, runtime, "Cannot access 'this' in a static context.");
                 return TyObject.NONE;

@@ -411,6 +411,10 @@ public class TyClass extends TyUsable {
                 return TyObject.NONE;
             }
             
+        } else if (((!runtime.isStaticScope() && runtime.isInitialStatement()) || thisObj == TyObject.NONE) && FileMethodRegistry.hasMethod(runtime.getCurrentFilePath(), method)) {
+            
+            return FileMethodRegistry.tyInvoke(runtime.getCurrentFilePath(), method, runtime, subProcedure, subProcedureRuntime, args);
+            
         } else if (getSuperclass() != null) {
             
             return getSuperclass().tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
