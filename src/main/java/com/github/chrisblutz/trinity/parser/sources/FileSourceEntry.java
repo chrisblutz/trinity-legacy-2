@@ -29,6 +29,7 @@ public class FileSourceEntry implements SourceEntry {
             
             lines.add(sc.nextLine());
         }
+        sc.close();
         
         this.lines = lines.toArray(new String[lines.size()]);
     }
