@@ -452,21 +452,14 @@ public class Parser {
                 
                 if (inLeading) {
                     
-                    if (token.getToken() == Token.WS_SPACE || token.getToken() == Token.WS_TAB) {
+                    if (token.getToken() == Token.WS_SPACE) {
                         
-                        switch (token.getToken()) {
-                            
-                            case WS_SPACE:
-                                
-                                hasSpaces = true;
-                                break;
-                            
-                            case WS_TAB:
-                                
-                                hasTabs = true;
-                                break;
-                        }
+                        hasSpaces = true;
+                        leadingSpace++;
                         
+                    } else if (token.getToken() == Token.WS_TAB) {
+                        
+                        hasTabs = true;
                         leadingSpace++;
                         
                     } else {
