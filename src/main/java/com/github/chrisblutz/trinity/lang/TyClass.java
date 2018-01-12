@@ -411,7 +411,7 @@ public class TyClass extends TyUsable {
                 return TyObject.NONE;
             }
             
-        } else if (runtime.getCurrentLocation() != null && ((!runtime.isStaticScope() && runtime.isInitialStatement()) || thisObj == TyObject.NONE) && FileMethodRegistry.hasMethod(runtime.getCurrentLocation().getFilePath(), method)) {
+        } else if (runtime.getCurrentLocation() != null && checkKernelOrFilePlacementValidity(runtime, thisObj) && FileMethodRegistry.hasMethod(runtime.getCurrentLocation().getFilePath(), method)) {
             
             return FileMethodRegistry.tyInvoke(runtime.getCurrentLocation().getFilePath(), method, runtime, subProcedure, subProcedureRuntime, args);
             
@@ -419,7 +419,7 @@ public class TyClass extends TyUsable {
             
             return getSuperclass().tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
             
-        } else if (((!runtime.isStaticScope() && runtime.isInitialStatement()) || thisObj == TyObject.NONE) && ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).getMethods().containsKey(method)) {
+        } else if (checkKernelOrFilePlacementValidity(runtime, thisObj) && ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).getMethods().containsKey(method)) {
             
             return ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
             
@@ -455,5 +455,10 @@ public class TyClass extends TyUsable {
                 
                 return false;
         }
+    }
+    
+    private boolean checkKernelOrFilePlacementValidity(TyRuntime runtime, TyObject thisObj) {
+        
+        return (!runtime.isStaticScope() && runtime.isInitialStatement()) || thisObj == TyObject.NONE;
     }
 }

@@ -99,7 +99,7 @@ public class Interpreter {
                 SourceToken[] strippedTokens = new SourceToken[tokens.length - 1];
                 System.arraycopy(tokens, 1, strippedTokens, 0, strippedTokens.length);
                 
-                if (strippedTokens.length > 0 && strippedTokens[0].getToken() == Token.LEFT_PARENTHESIS && tokens[tokens.length - 1].getToken() == Token.RIGHT_PARENTHESIS && checkWrapping(strippedTokens)) {
+                if (strippedTokens.length > 0 && checkWrapping(strippedTokens, Token.LEFT_PARENTHESIS, Token.RIGHT_PARENTHESIS, null, location)) {
                     
                     SourceToken[] temp = new SourceToken[strippedTokens.length - 2];
                     System.arraycopy(strippedTokens, 1, temp, 0, temp.length);
@@ -191,30 +191,6 @@ public class Interpreter {
     private void throwArgumentCountError(Token token, int count, Location location) {
         
         Errors.reportSyntaxError("'" + token.getLiteral() + "' statements require " + count + " expressions, found " + count + ".", getSourceEntry(), location.getLineNumber(), -1);
-    }
-    
-    private boolean checkWrapping(SourceToken[] tokens) {
-        
-        int level = 0;
-        for (int i = 0; i < tokens.length; i++) {
-            
-            Token t = tokens[i].getToken();
-            if (t == Token.LEFT_PARENTHESIS) {
-                
-                level++;
-                
-            } else if (t == Token.RIGHT_PARENTHESIS) {
-                
-                level--;
-            }
-            
-            if (level == 0 && i < tokens.length - 1) {
-                
-                return false;
-            }
-        }
-        
-        return true;
     }
     
     private InstructionSet interpretCompoundExpression(SourceToken[] tokens, Location location, TyProcedure next) {
@@ -441,6 +417,7 @@ public class Interpreter {
                 
             } else if (tokens.length > 1 && tokens[tokens.length - 1].getToken() == Token.RIGHT_CURLY_BRACKET && ((loc = findBlockBeginning(tokens, location)) > 0)) {
                 
+                // Signifies inline blocks (i.e. X.y { |z| ... } )
                 SourceToken[] blockTokens = new SourceToken[tokens.length - loc - 2];
                 System.arraycopy(tokens, loc + 1, blockTokens, 0, blockTokens.length);
                 
@@ -565,7 +542,7 @@ public class Interpreter {
         return 0;
     }
     
-    private void checkWrapping(SourceToken[] tokens, Token left, Token right, String errorMessage, Location location) {
+    private boolean checkWrapping(SourceToken[] tokens, Token left, Token right, String errorMessage, Location location) {
         
         if (tokens[0].getToken() == left && tokens[tokens.length - 1].getToken() == right) {
             
@@ -585,11 +562,16 @@ public class Interpreter {
             
             if (level == 0) {
                 
-                return;
+                return true;
             }
         }
         
-        Errors.reportSyntaxError(errorMessage, getSourceEntry(), location.getLineNumber(), tokens[0].getIndex());
+        if (errorMessage != null) {
+            
+            Errors.reportSyntaxError(errorMessage, getSourceEntry(), location.getLineNumber(), tokens[0].getIndex());
+        }
+        
+        return false;
     }
     
     private InstructionSet[] splitExpressions(SourceToken[] tokens, Token delimiter, Location location, TyProcedure next) {
@@ -789,12 +771,12 @@ public class Interpreter {
         return new Parameters(mandatory, optional, block, overflow);
     }
     
-    public static boolean isLevelUpToken(Token t) {
+    private static boolean isLevelUpToken(Token t) {
         
         return t == Token.LEFT_PARENTHESIS || t == Token.LEFT_SQUARE_BRACKET || t == Token.LEFT_CURLY_BRACKET;
     }
     
-    public static boolean isLevelDownToken(Token t) {
+    private static boolean isLevelDownToken(Token t) {
         
         return t == Token.RIGHT_PARENTHESIS || t == Token.RIGHT_SQUARE_BRACKET || t == Token.RIGHT_CURLY_BRACKET;
     }

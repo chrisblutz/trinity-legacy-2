@@ -142,7 +142,7 @@ public class TyProcedure {
                 
                 runtime.setVariable(varNames[nameIndex++], arg);
                 
-            } else if (getOverflowParameter() != null && i == args.length - 1 && overflow.isEmpty() && arg instanceof TyArray && !ArrayUtils.isSolid((TyArray) arg, runtime)) {
+            } else if (getOverflowParameter() != null && i == args.length - 1 && overflow.isEmpty() && checkOverflowArray(arg, runtime)) {
                 
                 overflow.addAll(((TyArray) arg).getInternal());
                 
@@ -167,6 +167,11 @@ public class TyProcedure {
         }
         
         return getAction().onAction(runtime, thisObj, args);
+    }
+    
+    private boolean checkOverflowArray(TyObject object, TyRuntime runtime) {
+        
+        return object instanceof TyArray && !ArrayUtils.isSolid((TyArray) object, runtime);
     }
     
     private void throwArgumentNumberError(TyRuntime runtime) {
