@@ -10,4 +10,6 @@ public interface SourceEntry {
     String getFilePath();
     
     String[] getLines();
+    
+    int getStartingLine();
 }

@@ -51,4 +51,10 @@ public class FileSourceEntry implements SourceEntry {
         
         return lines;
     }
+    
+    @Override
+    public int getStartingLine() {
+        
+        return 1;
+    }
 }

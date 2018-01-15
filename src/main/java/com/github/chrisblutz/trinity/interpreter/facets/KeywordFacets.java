@@ -20,7 +20,19 @@ public class KeywordFacets {
     
     public static void registerFacets() {
         
-        Keywords.register(Token.LITERAL_STRING, (thisObj, token, location, runtime) -> new TyString(token.getContents()));
+        Keywords.register(Token.LITERAL_STRING, (thisObj, token, location, runtime) -> {
+            
+            int escaped = Integer.parseInt(String.valueOf(token.getContents().charAt(0)));
+            
+            if (escaped == 1) {
+                
+                return new TyString(token.getContents().substring(1));
+                
+            } else {
+                
+                return StringUtils.parseUnescapedString(token.getContents().substring(1), location, runtime);
+            }
+        });
         Keywords.register(Token.NUMERIC_STRING, (thisObj, token, location, runtime) -> TrinityNatives.wrapNumber(StringUtils.parseStringToDouble(token.getContents())));
         
         Keywords.register(Token.NIL, (thisObj, token, location, runtime) -> TyObject.NIL);

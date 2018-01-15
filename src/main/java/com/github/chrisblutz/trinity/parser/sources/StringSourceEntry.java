@@ -6,36 +6,41 @@ import com.github.chrisblutz.trinity.parser.SourceEntry;
 /**
  * @author Christopher Lutz
  */
-public class CommandLineSourceEntry implements SourceEntry {
+public class StringSourceEntry implements SourceEntry {
     
+    private String fileName, filePath;
+    private int lineNumber;
     private String[] lines;
     
-    public CommandLineSourceEntry(String[] lines) {
+    public StringSourceEntry(String expression, String fileName, String filePath, int lineNumber) {
         
-        this.lines = lines;
+        this.lines = new String[]{expression};
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.lineNumber = lineNumber;
     }
     
     @Override
     public String getFileName() {
         
-        return "<stdin>";
+        return fileName;
     }
     
     @Override
     public String getFilePath() {
         
-        return null;
+        return filePath;
     }
     
     @Override
     public String[] getLines() {
-    
+        
         return lines;
     }
     
     @Override
     public int getStartingLine() {
         
-        return 1;
+        return lineNumber;
     }
 }

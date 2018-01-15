@@ -71,7 +71,7 @@ public class Parser {
         for (int i = 0; i < lines.length; i++) {
             
             String lineStr = lines[i];
-            Line line = new Line(i + 1);
+            Line line = new Line(getSourceEntry().getStartingLine() + i);
             
             for (int j = 0; j < lineStr.length(); j++) {
                 
@@ -298,8 +298,8 @@ public class Parser {
             
             Line newLine = new Line(line.getLineNumber());
             
-            int currentIndex = -1;
-            boolean inEsc = false, inUnescaped = false;
+            int currentIndex = -1, unescapedEmbedLevel = 0;
+            boolean inEsc = false, inUnescaped = false, inEmbed = false;
             StringBuilder current = new StringBuilder();
             
             for (SourceToken token : line) {
@@ -309,7 +309,7 @@ public class Parser {
                     if (token.getToken() == Token.SINGLE_QUOTATION) {
                         
                         inEsc = false;
-                        newLine.add(new SourceToken(Token.LITERAL_STRING, line.getLineNumber(), currentIndex, current.toString(), getSourceEntry()));
+                        newLine.add(new SourceToken(Token.LITERAL_STRING, line.getLineNumber(), currentIndex, 1 + current.toString(), getSourceEntry()));
                         current = new StringBuilder();
                         
                     } else {
@@ -319,13 +319,35 @@ public class Parser {
                     
                 } else if (inUnescaped) {
                     
-                    if (token.getToken() == Token.DOUBLE_QUOTATION) {
+                    if (token.getToken() == Token.DOUBLE_QUOTATION && !inEmbed) {
                         
                         inUnescaped = false;
-                        newLine.add(new SourceToken(Token.LITERAL_STRING, line.getLineNumber(), currentIndex, current.toString(), getSourceEntry()));
+                        newLine.add(new SourceToken(Token.LITERAL_STRING, line.getLineNumber(), currentIndex, 0 + current.toString(), getSourceEntry()));
                         current = new StringBuilder();
                         
                     } else {
+                        
+                        if (!inEmbed && token.getToken() == Token.STRING_EMBED_PREFIX) {
+                            
+                            inEmbed = true;
+                            unescapedEmbedLevel++;
+                            
+                        } else if (inEmbed) {
+                            
+                            if (token.getToken() == Token.LEFT_CURLY_BRACKET || token.getToken() == Token.STRING_EMBED_PREFIX) {
+                                
+                                unescapedEmbedLevel++;
+                                
+                            } else if (token.getToken() == Token.RIGHT_CURLY_BRACKET) {
+                                
+                                unescapedEmbedLevel--;
+                                
+                                if (unescapedEmbedLevel == 0) {
+                                    
+                                    inEmbed = false;
+                                }
+                            }
+                        }
                         
                         current.append(getAppendableString(token, false));
                     }
@@ -340,6 +362,7 @@ public class Parser {
                     } else if (token.getToken() == Token.DOUBLE_QUOTATION) {
                         
                         currentIndex = token.getIndex();
+                        unescapedEmbedLevel = 0;
                         inUnescaped = true;
                         
                     } else {
@@ -347,6 +370,11 @@ public class Parser {
                         newLine.add(token);
                     }
                 }
+            }
+            
+            if (inEsc || inUnescaped) {
+                
+                Errors.reportSyntaxError("String does not terminate.", getSourceEntry(), line.getLineNumber(), currentIndex);
             }
             
             newSet.add(newLine);

@@ -18,7 +18,7 @@ public enum Token {
     COLON(":"), SEMICOLON(";"),
     COMMA(","), QUESTION_MARK("?"),
     COMMENT_MARKER("#"),
-    GLOBAL_VARIABLE_PREFIX("$"),
+    GLOBAL_VARIABLE_PREFIX("$"), STRING_EMBED_PREFIX("#{"),
     
     DOT_OP("."), DOUBLE_DOT_OP(".."), TRIPLE_DOT_OP("..."),
     PLUS_OP("+"), MINUS_OP("-"), MULTIPLY_OP("*"), DIVIDE_OP("/"), MODULUS_OP("%"),

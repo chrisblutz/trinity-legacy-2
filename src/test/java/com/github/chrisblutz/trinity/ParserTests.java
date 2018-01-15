@@ -6,6 +6,7 @@ import com.github.chrisblutz.trinity.parser.blocks.Block;
 import com.github.chrisblutz.trinity.parser.blocks.Statement;
 import com.github.chrisblutz.trinity.parser.lines.Line;
 import com.github.chrisblutz.trinity.parser.lines.LineSet;
+import com.github.chrisblutz.trinity.parser.sources.StringSourceEntry;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -102,6 +103,7 @@ public class ParserTests {
                 Token.COMMA,
                 Token.QUESTION_MARK,
                 Token.GLOBAL_VARIABLE_PREFIX,
+                Token.STRING_EMBED_PREFIX,
                 Token.DOT_OP,
                 Token.DOUBLE_DOT_OP,
                 Token.TRIPLE_DOT_OP,
@@ -180,9 +182,9 @@ public class ParserTests {
         LineSet set = parser.parseTokens();
         
         String[] expected = new String[]{
-                "\u00a9",
-                "\u00a9",
-                "\u00a90"
+                "0\u00a9",
+                "0\u00a9",
+                "0\u00a90"
         };
         
         TestUtilities.checkTokenTypeAndContents(set, Token.LITERAL_STRING, expected);
@@ -196,17 +198,37 @@ public class ParserTests {
         LineSet set = parser.parseTokens();
         
         String[] expected = new String[]{
-                "abcd",
-                "abcd\\n",
-                "abcd\u00a9",
-                "module",
-                "abcd",
-                "abcd\n",
-                "abcd\u00a9",
-                "module"
+                "1abcd",
+                "1abcd\\n",
+                "1abcd\u00a9",
+                "1module",
+                "0abcd",
+                "0abcd\n",
+                "0abcd\u00a9",
+                "0module",
+                "1#{ abcd }",
+                "0#{ abcd }",
+                "0#{ \"#{ abcd }\" }"
         };
         
         TestUtilities.checkTokenTypeAndContents(set, Token.LITERAL_STRING, expected);
+        
+        PrintStream stdErr = System.err;
+        PrintStream muffler = new PrintStream(new ByteArrayOutputStream());
+        System.setErr(muffler);
+        
+        parser = new Parser(new StringSourceEntry("\"", "<test>", "<test>", 1));
+        
+        Executable executable = parser::parseTokens;
+        assertThrows(TrinitySyntaxError.class, executable, "An unfinished String did not trigger the expected error.");
+        
+        parser = new Parser(new StringSourceEntry("\"#{", "<test>", "<test>", 1));
+        
+        executable = parser::parseTokens;
+        assertThrows(TrinitySyntaxError.class, executable, "An unfinished embedded expression did not trigger the expected error.");
+        
+        System.setErr(stdErr);
+        muffler.close();
     }
     
     @Test

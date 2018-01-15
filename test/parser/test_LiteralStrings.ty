@@ -6,3 +6,8 @@
 "abcd\n"
 "abcd\u00a9"
 "module"
+
+# Test parsing around embedded expressions
+'#{ abcd }'
+"#{ abcd }"
+"#{ "#{ abcd }" }"
