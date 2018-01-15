@@ -16,6 +16,7 @@ import com.github.chrisblutz.trinity.lang.types.TyArray;
 import com.github.chrisblutz.trinity.lang.types.TyString;
 import com.github.chrisblutz.trinity.lang.variables.VariableManager;
 import com.github.chrisblutz.trinity.loading.LoadManager;
+import com.github.chrisblutz.trinity.natives.math.TrinityMath;
 import com.github.chrisblutz.trinity.utils.Utilities;
 
 import java.io.IOException;
@@ -77,6 +78,9 @@ public class Bootstrap {
                 e.printStackTrace();
             }
         }
+    
+        // Register default math hooks
+        TrinityMath.registerDefaults();
         
         // Load CLI arguments into $ARGV
         List<TyObject> argv = new ArrayList<>();

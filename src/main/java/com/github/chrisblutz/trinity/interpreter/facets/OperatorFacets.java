@@ -6,8 +6,8 @@ import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.types.TyBoolean;
 import com.github.chrisblutz.trinity.lang.types.TyInt;
-import com.github.chrisblutz.trinity.lang.types.TyLong;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.math.TrinityMath;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 
@@ -64,18 +64,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                if (TrinityNatives.isInstanceOf(first, TrinityNatives.Classes.LONG) || TrinityNatives.isInstanceOf(second, TrinityNatives.Classes.LONG)) {
-                    
-                    long firstLong = TrinityNatives.toLong(first);
-                    long secondLong = TrinityNatives.toLong(second);
-                    return new TyLong(firstLong | secondLong);
-                    
-                } else {
-                    
-                    int firstInt = TrinityNatives.toInt(first);
-                    int secondInt = TrinityNatives.toInt(second);
-                    return new TyInt(firstInt | secondInt);
-                }
+                return TrinityMath.bitwiseOr(first, second);
             }
         };
         BinaryOperator bitwiseXor = new BinaryOperator(Token.BITWISE_XOR_OP) {
@@ -83,18 +72,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                if (TrinityNatives.isInstanceOf(first, TrinityNatives.Classes.LONG) || TrinityNatives.isInstanceOf(second, TrinityNatives.Classes.LONG)) {
-                    
-                    long firstLong = TrinityNatives.toLong(first);
-                    long secondLong = TrinityNatives.toLong(second);
-                    return new TyLong(firstLong ^ secondLong);
-                    
-                } else {
-                    
-                    int firstInt = TrinityNatives.toInt(first);
-                    int secondInt = TrinityNatives.toInt(second);
-                    return new TyInt(firstInt ^ secondInt);
-                }
+                return TrinityMath.bitwiseXor(first, second);
             }
         };
         BinaryOperator bitwiseAnd = new BinaryOperator(Token.BITWISE_AND_OP) {
@@ -102,18 +80,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                if (TrinityNatives.isInstanceOf(first, TrinityNatives.Classes.LONG) || TrinityNatives.isInstanceOf(second, TrinityNatives.Classes.LONG)) {
-                    
-                    long firstLong = TrinityNatives.toLong(first);
-                    long secondLong = TrinityNatives.toLong(second);
-                    return new TyLong(firstLong & secondLong);
-                    
-                } else {
-                    
-                    int firstInt = TrinityNatives.toInt(first);
-                    int secondInt = TrinityNatives.toInt(second);
-                    return new TyInt(firstInt & secondInt);
-                }
+                return TrinityMath.bitwiseAnd(first, second);
             }
         };
         
@@ -315,14 +282,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject value, TyRuntime runtime) {
                 
-                if (TrinityNatives.isInstanceOf(value, TrinityNatives.Classes.LONG)) {
-                    
-                    return new TyLong(~TrinityNatives.toLong(value));
-                    
-                } else {
-                    
-                    return new TyInt(~TrinityNatives.toInt(value));
-                }
+                return TrinityMath.bitwiseComplement(value);
             }
         };
         new UnaryOperator(Token.LOGICAL_NEGATION_OP) {
