@@ -419,7 +419,7 @@ public class Parser {
             
             for (SourceToken token : line) {
                 
-                if (token.getToken() == Token.COMMENT_MARKER) {
+                if (token.getToken() == Token.COMMENT_MARKER || token.getToken() == Token.STRING_EMBED_PREFIX) {
                     
                     break;
                     
