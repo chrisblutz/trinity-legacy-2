@@ -103,7 +103,6 @@ public class ParserTests {
                 Token.COMMA,
                 Token.QUESTION_MARK,
                 Token.GLOBAL_VARIABLE_PREFIX,
-                Token.STRING_EMBED_PREFIX,
                 Token.DOT_OP,
                 Token.DOUBLE_DOT_OP,
                 Token.TRIPLE_DOT_OP,
