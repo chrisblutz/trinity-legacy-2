@@ -60,6 +60,21 @@ module Trinity
 
             def native length
 
+            def ==(x)
+                if !x.isInstance(Array.class)
+                    return false
+                end
+                if length() != x.length()
+                    return false
+                end
+                for i = 0; i < length(); i += 1
+                    if this[i] != x[i]
+                        return false
+                    end
+                end
+                return true
+            end
+
             def iterator
                 Trinity.ArrayIterator.new(this)
             end
