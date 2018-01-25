@@ -57,6 +57,11 @@ public class TyField {
         return scope;
     }
     
+    public void setScope(Scope scope) {
+        
+        this.scope = scope;
+    }
+    
     public List<TyModule> getImports() {
         
         return imports;
