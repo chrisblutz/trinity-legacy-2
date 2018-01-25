@@ -7,7 +7,6 @@ import com.github.chrisblutz.trinity.parser.lines.LineSet;
 import com.github.chrisblutz.trinity.parser.sources.FileSourceEntry;
 import com.github.chrisblutz.trinity.parser.tokens.SourceToken;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
-import com.github.chrisblutz.trinity.utils.Utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TestUtilities {
     
-    public static final File TRINITY_TEST_HOME = new File(Utilities.getTrinityHome(), "../test/");
+    public static final File TRINITY_TEST_HOME = new File("test/");
     private static final String TEST_PREFIX = "test_";
     
     public static FileSourceEntry getTestFile(File root, String name) {
