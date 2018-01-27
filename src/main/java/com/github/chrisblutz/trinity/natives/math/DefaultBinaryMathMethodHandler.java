@@ -28,6 +28,13 @@ public class DefaultBinaryMathMethodHandler extends BinaryMathMethodHandler {
         return TyObject.NIL;
     }
     
+    @Override
+    public TyObject arctan2(TyObject x, TyObject y) {
+        
+        throwOperationUnsupportedError("arctan2", x.getObjectClass(), y.getObjectClass());
+        return TyObject.NIL;
+    }
+    
     public static DefaultBinaryMathMethodHandler getInstance() {
         
         return instance;

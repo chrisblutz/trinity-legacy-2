@@ -18,11 +18,19 @@ module Trinity
 
         def native static tan(rad)
 
-        def native static arcsin(rad)
+        def native static sinh(x)
 
-        def native static arccos(rad)
+        def native static cosh(x)
 
-        def native static arctan(rad)
+        def native static tanh(x)
+
+        def native static arcsin(x)
+
+        def native static arccos(x)
+
+        def native static arctan(x)
+
+        def native static arctan2(y, x)
 
         def static toDegrees(rad)
             rad * (180 / PI)

@@ -1,4 +1,4 @@
-package com.github.chrisblutz.trinity.natives.math.defaults;
+package com.github.chrisblutz.trinity.natives.math.defaults.real;
 
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
@@ -30,11 +30,10 @@ public class RealTypesUnaryMathMethodHandler extends UnaryMathMethodHandler {
         
         if (opDouble >= 0) {
             
-            return TrinityNatives.wrapNumber(Math.sqrt(toDouble(operand)));
+            return TrinityNatives.wrapNumber(Math.sqrt(opDouble));
             
         } else {
             
-            // TODO Complex numbers
             Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "Complex numbers are not currently supported.");
             return TyObject.NIL;
         }
@@ -62,6 +61,24 @@ public class RealTypesUnaryMathMethodHandler extends UnaryMathMethodHandler {
     public TyObject tan(TyObject operand) {
         
         return TrinityNatives.wrapNumber(Math.tan(toDouble(operand)));
+    }
+    
+    @Override
+    public TyObject sinh(TyObject operand) {
+        
+        return TrinityNatives.wrapNumber(Math.sinh(toDouble(operand)));
+    }
+    
+    @Override
+    public TyObject cosh(TyObject operand) {
+        
+        return TrinityNatives.wrapNumber(Math.cosh(toDouble(operand)));
+    }
+    
+    @Override
+    public TyObject tanh(TyObject operand) {
+        
+        return TrinityNatives.wrapNumber(Math.tanh(toDouble(operand)));
     }
     
     @Override

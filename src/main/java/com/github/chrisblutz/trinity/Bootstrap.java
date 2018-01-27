@@ -64,6 +64,9 @@ public class Bootstrap {
         // Register native hooks
         NativeUtilities.registerStandardLibraryHooks();
         
+        // Register default math hooks
+        TrinityMath.registerDefaults();
+        
         try {
             
             // Load _boot.ty
@@ -78,9 +81,6 @@ public class Bootstrap {
                 e.printStackTrace();
             }
         }
-    
-        // Register default math hooks
-        TrinityMath.registerDefaults();
         
         // Load CLI arguments into $ARGV
         List<TyObject> argv = new ArrayList<>();

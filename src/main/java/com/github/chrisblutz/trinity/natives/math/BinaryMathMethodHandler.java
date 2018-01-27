@@ -14,6 +14,8 @@ public abstract class BinaryMathMethodHandler {
     
     public abstract TyObject log(TyObject operand, TyObject base);
     
+    public abstract TyObject arctan2(TyObject y, TyObject x);
+    
     public void throwOperationUnsupportedError(String operation, TyClass type) {
         
         Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "Operation '" + operation + "' not supported on values of type '" + type.getFullName() + "'.");

@@ -2,7 +2,7 @@ package com.github.chrisblutz.trinity.natives.math;
 
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.lang.types.TyString;
 
 
 /**
@@ -17,17 +17,17 @@ public class DefaultUnaryOperationHandler extends UnaryOperationHandler {
     }
     
     @Override
-    public TyObject toString(TyObject operand) {
+    public TyString toString(TyObject operand) {
         
-        Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "String conversion not defined for " + TrinityNatives.Classes.NUMERIC + " type " + operand.getObjectClass().getFullName() + ".");
-        return TyObject.NIL;
+        Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "String conversion not defined for numeric type " + operand.getObjectClass().getFullName() + ".");
+        return new TyString("");
     }
     
     @Override
-    public TyObject toHexString(TyObject operand) {
+    public TyString toHexString(TyObject operand) {
         
-        Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "Hexadecimal string conversion not defined for " + TrinityNatives.Classes.NUMERIC + " type " + operand.getObjectClass().getFullName() + ".");
-        return TyObject.NIL;
+        Errors.throwError(Errors.Classes.UNSUPPORTED_ERROR, "Hexadecimal string conversion not defined for numeric type " + operand.getObjectClass().getFullName() + ".");
+        return new TyString("");
     }
     
     @Override

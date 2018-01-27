@@ -4,11 +4,12 @@ import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.types.TyBoolean;
 import com.github.chrisblutz.trinity.lang.types.TyInt;
+import com.github.chrisblutz.trinity.lang.types.TyString;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
-import com.github.chrisblutz.trinity.natives.math.defaults.RealTypesBinaryMathMethodHandler;
-import com.github.chrisblutz.trinity.natives.math.defaults.RealTypesBinaryOperationHandler;
-import com.github.chrisblutz.trinity.natives.math.defaults.RealTypesUnaryMathMethodHandler;
-import com.github.chrisblutz.trinity.natives.math.defaults.RealTypesUnaryOperationHandler;
+import com.github.chrisblutz.trinity.natives.math.defaults.real.RealTypesBinaryMathMethodHandler;
+import com.github.chrisblutz.trinity.natives.math.defaults.real.RealTypesBinaryOperationHandler;
+import com.github.chrisblutz.trinity.natives.math.defaults.real.RealTypesUnaryMathMethodHandler;
+import com.github.chrisblutz.trinity.natives.math.defaults.real.RealTypesUnaryOperationHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -190,12 +191,12 @@ public class TrinityMath {
         return getBinaryOperationHandler(operand1, operand2).compare(operand1, operand2);
     }
     
-    public static TyObject toString(TyObject operand) {
+    public static TyString toString(TyObject operand) {
         
         return getUnaryOperationHandler(operand).toString(operand);
     }
     
-    public static TyObject toHexString(TyObject operand) {
+    public static TyString toHexString(TyObject operand) {
         
         return getUnaryOperationHandler(operand).toHexString(operand);
     }
@@ -213,6 +214,11 @@ public class TrinityMath {
     public static TyObject log(TyObject operand, TyObject base) {
         
         return getBinaryMathMethodHandler(operand, base).log(operand, base);
+    }
+    
+    public static TyObject arctan2(TyObject y, TyObject x) {
+        
+        return getBinaryMathMethodHandler(y, x).arctan2(y, x);
     }
     
     public static TyObject abs(TyObject operand) {
@@ -243,6 +249,21 @@ public class TrinityMath {
     public static TyObject tan(TyObject operand) {
         
         return getUnaryMathMethodHandler(operand).tan(operand);
+    }
+    
+    public static TyObject sinh(TyObject operand) {
+        
+        return getUnaryMathMethodHandler(operand).sinh(operand);
+    }
+    
+    public static TyObject cosh(TyObject operand) {
+        
+        return getUnaryMathMethodHandler(operand).cosh(operand);
+    }
+    
+    public static TyObject tanh(TyObject operand) {
+        
+        return getUnaryMathMethodHandler(operand).tanh(operand);
     }
     
     public static TyObject arcsin(TyObject operand) {

@@ -1,4 +1,4 @@
-package com.github.chrisblutz.trinity.natives.math.defaults;
+package com.github.chrisblutz.trinity.natives.math.defaults.real;
 
 import com.github.chrisblutz.trinity.cli.Options;
 import com.github.chrisblutz.trinity.interpreter.utils.FractionUtils;
@@ -22,7 +22,7 @@ public class RealTypesUnaryOperationHandler extends UnaryOperationHandler {
     }
     
     @Override
-    public TyObject toString(TyObject operand) {
+    public TyString toString(TyObject operand) {
         
         String string = "";
         if (TrinityNatives.isInstanceOf(operand, TrinityNatives.Classes.INT)) {
@@ -42,7 +42,7 @@ public class RealTypesUnaryOperationHandler extends UnaryOperationHandler {
     }
     
     @Override
-    public TyObject toHexString(TyObject operand) {
+    public TyString toHexString(TyObject operand) {
         
         String string = "";
         if (TrinityNatives.isInstanceOf(operand, TrinityNatives.Classes.INT)) {

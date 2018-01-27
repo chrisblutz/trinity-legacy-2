@@ -26,9 +26,13 @@ public class NativeMath {
         TrinityNatives.registerMethod(MODULE, "sin", (runtime, thisObj, params) -> TrinityMath.sin(runtime.getVariable("rad")));
         TrinityNatives.registerMethod(MODULE, "cos", (runtime, thisObj, params) -> TrinityMath.cos(runtime.getVariable("rad")));
         TrinityNatives.registerMethod(MODULE, "tan", (runtime, thisObj, params) -> TrinityMath.tan(runtime.getVariable("rad")));
-        TrinityNatives.registerMethod(MODULE, "arcsin", (runtime, thisObj, params) -> TrinityMath.arcsin(runtime.getVariable("rad")));
-        TrinityNatives.registerMethod(MODULE, "arccos", (runtime, thisObj, params) -> TrinityMath.arccos(runtime.getVariable("rad")));
-        TrinityNatives.registerMethod(MODULE, "arctan", (runtime, thisObj, params) -> TrinityMath.arctan(runtime.getVariable("rad")));
+        TrinityNatives.registerMethod(MODULE, "sinh", (runtime, thisObj, params) -> TrinityMath.sinh(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "cosh", (runtime, thisObj, params) -> TrinityMath.cosh(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "tanh", (runtime, thisObj, params) -> TrinityMath.tanh(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "arcsin", (runtime, thisObj, params) -> TrinityMath.arcsin(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "arccos", (runtime, thisObj, params) -> TrinityMath.arccos(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "arctan", (runtime, thisObj, params) -> TrinityMath.arctan(runtime.getVariable("x")));
+        TrinityNatives.registerMethod(MODULE, "arctan2", (runtime, thisObj, params) -> TrinityMath.arctan2(runtime.getVariable("y"), runtime.getVariable("x")));
         TrinityNatives.registerMethod(MODULE, "log", (runtime, thisObj, params) -> TrinityMath.log(runtime.getVariable("x"), runtime.getVariable("base")));
         TrinityNatives.registerMethod(MODULE, "ln", (runtime, thisObj, params) -> TrinityMath.ln(runtime.getVariable("x")));
         TrinityNatives.registerMethod(MODULE, "round", (runtime, thisObj, params) -> TrinityMath.round(runtime.getVariable("x")));

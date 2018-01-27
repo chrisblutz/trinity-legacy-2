@@ -1,4 +1,4 @@
-package com.github.chrisblutz.trinity.natives.math.defaults;
+package com.github.chrisblutz.trinity.natives.math.defaults.real;
 
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyClass;

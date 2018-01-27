@@ -3,6 +3,7 @@ package com.github.chrisblutz.trinity.natives.math;
 import com.github.chrisblutz.trinity.lang.TyClass;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
+import com.github.chrisblutz.trinity.lang.types.TyString;
 
 
 /**
@@ -10,9 +11,9 @@ import com.github.chrisblutz.trinity.lang.errors.Errors;
  */
 public abstract class UnaryOperationHandler {
     
-    public abstract TyObject toString(TyObject operand);
+    public abstract TyString toString(TyObject operand);
     
-    public abstract TyObject toHexString(TyObject operand);
+    public abstract TyString toHexString(TyObject operand);
     
     public abstract TyObject bitwiseComplement(TyObject operand);
     

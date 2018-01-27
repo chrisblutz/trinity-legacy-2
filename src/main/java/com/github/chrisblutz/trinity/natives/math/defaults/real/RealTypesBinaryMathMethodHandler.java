@@ -1,8 +1,9 @@
-package com.github.chrisblutz.trinity.natives.math.defaults;
+package com.github.chrisblutz.trinity.natives.math.defaults.real;
 
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
 import com.github.chrisblutz.trinity.natives.math.BinaryMathMethodHandler;
+import com.github.chrisblutz.trinity.natives.math.TrinityMath;
 
 
 /**
@@ -25,17 +26,13 @@ public class RealTypesBinaryMathMethodHandler extends BinaryMathMethodHandler {
     @Override
     public TyObject log(TyObject operand, TyObject base) {
         
-        double opDouble = toDouble(operand);
-        double baseDouble = toDouble(base);
+        return TrinityMath.divide(TrinityMath.ln(operand), TrinityMath.ln(base));
+    }
+    
+    @Override
+    public TyObject arctan2(TyObject y, TyObject x) {
         
-        if (baseDouble == 10) {
-            
-            return TrinityNatives.wrapNumber(Math.log10(opDouble));
-            
-        } else {
-            
-            return TrinityNatives.wrapNumber(Math.log10(opDouble) / Math.log10(baseDouble));
-        }
+        return TrinityNatives.wrapNumber(Math.atan2(toDouble(y), toDouble(x)));
     }
     
     private double toDouble(TyObject object) {

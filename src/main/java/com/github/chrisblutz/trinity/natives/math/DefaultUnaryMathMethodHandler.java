@@ -57,6 +57,27 @@ public class DefaultUnaryMathMethodHandler extends UnaryMathMethodHandler {
     }
     
     @Override
+    public TyObject sinh(TyObject operand) {
+        
+        throwOperationUnsupportedError("sinh", operand.getObjectClass());
+        return TyObject.NIL;
+    }
+    
+    @Override
+    public TyObject cosh(TyObject operand) {
+        
+        throwOperationUnsupportedError("cosh", operand.getObjectClass());
+        return TyObject.NIL;
+    }
+    
+    @Override
+    public TyObject tanh(TyObject operand) {
+        
+        throwOperationUnsupportedError("tanh", operand.getObjectClass());
+        return TyObject.NIL;
+    }
+    
+    @Override
     public TyObject arcsin(TyObject operand) {
         
         throwOperationUnsupportedError("arcsin", operand.getObjectClass());

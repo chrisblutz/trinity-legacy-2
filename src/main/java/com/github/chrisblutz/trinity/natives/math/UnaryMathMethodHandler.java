@@ -22,6 +22,12 @@ public abstract class UnaryMathMethodHandler {
     
     public abstract TyObject tan(TyObject operand);
     
+    public abstract TyObject sinh(TyObject operand);
+    
+    public abstract TyObject cosh(TyObject operand);
+    
+    public abstract TyObject tanh(TyObject operand);
+    
     public abstract TyObject arcsin(TyObject operand);
     
     public abstract TyObject arccos(TyObject operand);
