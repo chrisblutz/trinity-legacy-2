@@ -111,7 +111,7 @@ public class StringUtils {
                     
                     TyObject object = action.onAction(runtime, TyObject.NONE);
                     
-                    str += TrinityNatives.toString(object, runtime);
+                    str += object == TyObject.NONE ? "" : TrinityNatives.toString(object, runtime);
                     
                 } else {
                     
