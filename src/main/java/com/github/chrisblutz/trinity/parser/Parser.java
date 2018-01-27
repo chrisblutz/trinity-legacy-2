@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class Parser {
     
-    public static final String DECIMAL_REGEX = "[0-9]+([lLfF]|\\.[0-9]+[fF]?)?";
-    public static final String HEXADECIMAL_REGEX = "0x[a-fA-F0-9]+([lL]|\\.[a-fA-F0-9]+)?";
-    public static final String OCTAL_REGEX = "0o[0-7]+([lLfF]|\\.[0-7]+[fF]?)?";
-    public static final String BINARY_REGEX = "0b[0-1]+([lLfF]|\\.[0-1]+[fF]?)?";
+    public static final String DECIMAL_REGEX = "[0-9]+(\\.[0-9]+)?";
+    public static final String HEXADECIMAL_REGEX = "0x[a-fA-F0-9]+(\\.[a-fA-F0-9]+)?";
+    public static final String OCTAL_REGEX = "0o[0-7]+(\\.[0-7]+)?";
+    public static final String BINARY_REGEX = "0b[0-1]+(\\.[0-1]+)?";
     
     private SourceEntry sourceEntry;
     

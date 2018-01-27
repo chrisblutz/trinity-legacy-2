@@ -41,15 +41,7 @@ public class StringUtils {
             str = str.substring(2);
         }
         
-        if (str.endsWith("l") || str.endsWith("L")) {
-            
-            return Long.parseLong(str.substring(0, str.length() - 1), radix);
-            
-        } else if (radix < 16 && str.endsWith("f") || str.matches("F")) {
-            
-            return FractionUtils.parseDoubleWithRadix(str.substring(0, str.length() - 1), radix);
-            
-        } else if (str.contains(".")) {
+        if (str.contains(".")) {
             
             return FractionUtils.parseDoubleWithRadix(str, radix);
             
