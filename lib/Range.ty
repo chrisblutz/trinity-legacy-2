@@ -1,5 +1,5 @@
 module Trinity
-    class Range
+    class Range >> Iterable
         private
             var begin, endVal, excludeEnd
         end
@@ -33,6 +33,10 @@ module Trinity
                     array << e
                 end
                 array
+            end
+
+            def iterator
+                ArrayIterator.new(toArray())
             end
 
             def each(&block)
