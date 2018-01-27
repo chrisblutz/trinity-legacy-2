@@ -6,7 +6,7 @@ import com.github.chrisblutz.trinity.interpreter.errors.TrinityError;
 import com.github.chrisblutz.trinity.interpreter.errors.TrinitySyntaxError;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
-import com.github.chrisblutz.trinity.lang.stack.StackElement;
+import com.github.chrisblutz.trinity.lang.stack.StackFrame;
 import com.github.chrisblutz.trinity.lang.stack.TrinityStack;
 import com.github.chrisblutz.trinity.lang.types.TyString;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
@@ -135,7 +135,7 @@ public class Errors {
             if (Options.isDebuggingEnabled()) {
                 
                 System.err.println("\n== Trinity Stack Trace ==\n");
-                for (StackElement element : TrinityStack.getThreadStack(thread).getStack()) {
+                for (StackFrame element : TrinityStack.getThreadStack(thread).getStack()) {
                     
                     System.err.println(element);
                 }

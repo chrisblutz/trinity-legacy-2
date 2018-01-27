@@ -1,0 +1,56 @@
+module Trinity
+    class StackFrame
+        private
+            var file, line, container, method
+        end
+
+        public
+            def initialize(file, line, container, method)
+                this.file = file
+                this.line = line
+                this.container = container
+                this.method = method
+            end
+
+            def getFile
+                file
+            end
+
+            def getLine
+                line
+            end
+
+            def getContainer
+                container
+            end
+
+            def getMethod
+                method
+            end
+
+            def toString
+                str = getFile() != nil ? getFile() : '<native>'
+
+                if getLine() > 0
+                    str += ':' + getLine()
+                end
+
+                if getContainer() != nil
+                    append = " (#{ getContainer() }"
+
+                    if getMethod() != nil
+                        append += ".#{ getMethod() }"
+                    end
+
+                    append += ')'
+                    str += append
+
+                elsif getMethod() != nil
+                    str += " (#{ getMethod() })"
+                end
+
+                str
+            end
+        end
+    end
+end

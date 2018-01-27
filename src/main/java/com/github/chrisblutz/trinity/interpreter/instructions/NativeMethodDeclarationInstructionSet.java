@@ -61,6 +61,7 @@ public class NativeMethodDeclarationInstructionSet extends InstructionSet {
         ProcedureAction body = TrinityNatives.getMethodProcedureAction(runtime.getCurrentUsable().getFullName(), getName());
         
         TyProcedure methodProcedure = new TyProcedure(body, getParameters().getMandatoryParameters(), getParameters().getOptionalParameters(), getParameters().getBlockParameter(), getParameters().getOverflowParameter(), true);
+        methodProcedure.setContainerMethod(getName());
         
         TyMethod method = new TyMethod(getName(), isStatic(), true, isSecure(), isFinal(), runtime.getCurrentUsable(), methodProcedure);
         method.setScope(runtime.getCurrentScope());

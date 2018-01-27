@@ -36,6 +36,7 @@ public class TrinityNatives {
         public static final String NUMERIC = "Trinity.Numeric";
         public static final String OBJECT = "Trinity.Object";
         public static final String PROCEDURE = "Trinity.Procedure";
+        public static final String STACK_FRAME = "Trinity.StackFrame";
         public static final String STRING = "Trinity.String";
         public static final String SYSTEM = "Trinity.System";
     }
@@ -51,7 +52,7 @@ public class TrinityNatives {
             
             TrinityStack stack = TrinityStack.getCurrentThreadStack();
             
-            stack.add("<native> (" + container + "." + methodName + ")", -1);
+            stack.add("<native>", -1, container, methodName);
             
             TyObject result = action.onAction(runtime, thisObj, params);
             

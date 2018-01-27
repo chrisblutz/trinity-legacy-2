@@ -78,6 +78,7 @@ public class MethodDeclarationInstructionSet extends InstructionSet {
         }
         
         TyProcedure methodProcedure = new TyProcedure(getBody(), getParameters().getMandatoryParameters(), getParameters().getOptionalParameters(), getParameters().getBlockParameter(), getParameters().getOverflowParameter(), true);
+        methodProcedure.setContainerMethod(getName());
         
         TyMethod method = new TyMethod(getName(), isStatic(), false, isSecure(), isFinal(), runtime.getCurrentUsable(), methodProcedure);
         method.setScope(runtime.getCurrentScope());

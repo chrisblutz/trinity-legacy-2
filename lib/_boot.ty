@@ -1,5 +1,6 @@
 require 'Object'
 require 'Kernel'
+require 'stack/StackFrame'
 
 # Load errors
 require 'errors/Error'

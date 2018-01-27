@@ -30,6 +30,7 @@ public class TyRuntime implements Cloneable {
     private TyObject returnObject = TyObject.NONE;
     private List<TyModule> imports = null;
     private Location currentLocation = null;
+    private String currentMethod = null;
     
     // Used to determine Kernel or null-class/null-module method calls are placed without prior objects
     // even in non-static scenarios, where 'thisObj' might not be NONE
@@ -106,6 +107,18 @@ public class TyRuntime implements Cloneable {
         } else if (getCurrentUsable() != null) {
             
             return getCurrentUsable().getParentModule();
+            
+        } else {
+            
+            return null;
+        }
+    }
+    
+    public String getCurrentUsableName() {
+        
+        if (getCurrentUsable() != null) {
+            
+            return getCurrentUsable().getFullName();
             
         } else {
             
@@ -285,6 +298,16 @@ public class TyRuntime implements Cloneable {
         this.currentLocation = currentLocation;
     }
     
+    public String getCurrentMethod() {
+        
+        return currentMethod;
+    }
+    
+    public void setCurrentMethod(String currentMethod) {
+        
+        this.currentMethod = currentMethod;
+    }
+    
     public void setImports(List<TyModule> imports) {
         
         this.imports = imports;
@@ -305,6 +328,7 @@ public class TyRuntime implements Cloneable {
             runtime.currentUsable = currentUsable;
             runtime.procedure = procedure;
             runtime.currentLocation = currentLocation;
+            runtime.currentMethod = currentMethod;
             
             return runtime;
             

@@ -33,13 +33,13 @@ public class ExpressionProcedureAction implements ProcedureAction {
                 
                 stack.pop();
             }
-            
-            stack.add(set.getLocation().getFileName(), set.getLocation().getLineNumber());
+    
+            stack.add(set.getLocation().getFileName(), set.getLocation().getLineNumber(), runtime.getCurrentUsableName(), runtime.getCurrentMethod());
             
             TyObject result = set.evaluate(TyObject.NONE, runtime);
             
-            if (appendToStackTrace) {
-                
+            if(appendToStackTrace) {
+    
                 stack.pop();
             }
             

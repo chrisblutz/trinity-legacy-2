@@ -20,6 +20,8 @@ module Trinity
         def static println(str = '')
             $STDOUT.println(str)
         end
+
+        def native static caller
     end
 end
 

@@ -24,6 +24,8 @@ public class TyProcedure {
     private String blockParameter = null, overflowParameter = null;
     private boolean rigid = true;
     
+    private String containerMethod = null;
+    
     public TyProcedure(ProcedureAction action, boolean rigid) {
         
         this(action, new ArrayList<>(), new LinkedHashMap<>(), null, null, rigid);
@@ -84,7 +86,19 @@ public class TyProcedure {
         return rigid;
     }
     
+    public String getContainerMethod() {
+        
+        return containerMethod;
+    }
+    
+    public void setContainerMethod(String containerMethod) {
+        
+        this.containerMethod = containerMethod;
+    }
+    
     public TyObject call(TyRuntime runtime, TyProcedure subProcedure, TyRuntime subProcedureRuntime, TyObject thisObj, TyObject... args) {
+        
+        runtime.setCurrentMethod(getContainerMethod());
         
         for (String opt : getOptionalParameters().keySet()) {
             

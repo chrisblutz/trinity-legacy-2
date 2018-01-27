@@ -10,7 +10,7 @@ public class TrinityStack {
     
     private static Map<Thread, TrinityStack> threadStacks = new HashMap<>();
     
-    private List<StackElement> stack = new ArrayList<>();
+    private List<StackFrame> stack = new ArrayList<>();
     
     public TrinityStack(TrinityStack parent) {
         
@@ -20,9 +20,9 @@ public class TrinityStack {
         }
     }
     
-    public void add(String fileName, int lineNumber) {
+    public void add(String fileName, int lineNumber, String usable, String method) {
         
-        stack.add(0, new StackElement(fileName, lineNumber));
+        stack.add(0, new StackFrame(fileName, lineNumber, usable, method));
     }
     
     public void pop() {
@@ -46,12 +46,12 @@ public class TrinityStack {
         }
     }
     
-    public StackElement[] getStack() {
+    public StackFrame[] getStack() {
         
-        return stack.toArray(new StackElement[stack.size()]);
+        return stack.toArray(new StackFrame[stack.size()]);
     }
     
-    public StackElement get(int index) {
+    public StackFrame get(int index) {
         
         return stack.get(index);
     }

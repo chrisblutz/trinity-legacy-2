@@ -27,8 +27,6 @@ public class InteractiveSession {
         
         Scanner sc = new Scanner(System.in);
         
-        TrinityStack.getCurrentThreadStack().add("<stdin>", -1);
-        
         TyRuntime runtime = new TyRuntime();
         List<String> compoundExpression = new ArrayList<>();
         String input;

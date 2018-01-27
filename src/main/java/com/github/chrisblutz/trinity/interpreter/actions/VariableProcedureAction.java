@@ -27,7 +27,7 @@ public class VariableProcedureAction implements ProcedureAction {
         
         TrinityStack stack = TrinityStack.getCurrentThreadStack();
         
-        stack.add(location.getFileName(), location.getLineNumber());
+        stack.add(location.getFileName(), location.getLineNumber(), runtime.getCurrentUsable().getFullName(), null);
         
         TyObject result = set.evaluate(TyObject.NONE, runtime);
         

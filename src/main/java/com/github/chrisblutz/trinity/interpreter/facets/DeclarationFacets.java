@@ -259,7 +259,7 @@ public class DeclarationFacets {
                     
                 } else {
                     
-                    nextAction = interpreter.interpret(next, false);
+                    nextAction = interpreter.interpret(next, true);
                 }
                 
                 return new MethodDeclarationInstructionSet(name, isStatic, isSecure, isFinal, parameters, nextAction, location);
