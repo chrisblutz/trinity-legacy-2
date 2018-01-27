@@ -3,6 +3,7 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.*;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
+import com.github.chrisblutz.trinity.utils.ArrayUtils;
 
 
 /**
@@ -79,7 +80,12 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
             
             superinterfaces[i] = superinterfaceClass;
         }
-        tyClass.setSuperinterfaces(superinterfaces);
+        
+        if (superinterfaces.length > 0) {
+            
+            TyClass[] combined = ArrayUtils.combine(tyClass.getSuperinterfaces(), superinterfaces);
+            tyClass.setSuperinterfaces(combined);
+        }
         
         if (runtime.getCurrentUsable() != null) {
             
