@@ -1,5 +1,6 @@
 package com.github.chrisblutz.trinity.utils;
 
+import com.github.chrisblutz.trinity.lang.TyClass;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.types.TyArray;
 import com.github.chrisblutz.trinity.natives.TrinityNatives;
@@ -17,18 +18,18 @@ public class ArrayUtils {
         return TrinityNatives.toBoolean(array.tyInvoke("isSolid", runtime, null, null));
     }
     
-    public static <T> T[] combine(T[] array, T[]... arrays) {
+    public static TyClass[] combine(TyClass[] array, TyClass[]... arrays) {
         
         int size = array.length;
-        for (T[] other : arrays) {
+        for (TyClass[] other : arrays) {
             
             size += other.length;
         }
         
-        T[] newArray = Arrays.copyOf(array, size);
+        TyClass[] newArray = Arrays.copyOf(array, size);
         
         int i = array.length;
-        for (T[] other : arrays) {
+        for (TyClass[] other : arrays) {
             
             System.arraycopy(other, 0, newArray, i, other.length);
             i += other.length;
