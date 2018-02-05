@@ -59,6 +59,8 @@ public class InteractiveSession {
                 
                 try {
                     
+                    TrinityStack.clearStacks();
+                    
                     CommandLineSourceEntry entry = new CommandLineSourceEntry(lines);
                     boolean success = LoadManager.loadSourceEntry(entry);
                     

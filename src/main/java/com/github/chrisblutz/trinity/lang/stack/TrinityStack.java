@@ -56,6 +56,11 @@ public class TrinityStack {
         return stack.get(index);
     }
     
+    public void clear() {
+        
+        stack.clear();
+    }
+    
     public static TrinityStack getCurrentThreadStack() {
         
         return getThreadStack(Thread.currentThread());
@@ -69,5 +74,15 @@ public class TrinityStack {
         }
         
         return threadStacks.get(thread);
+    }
+    
+    public static void clearStacks() {
+        
+        for (Thread thread : threadStacks.keySet()) {
+            
+            threadStacks.get(thread).clear();
+        }
+        
+        threadStacks.clear();
     }
 }
