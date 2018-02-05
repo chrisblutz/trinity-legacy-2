@@ -61,7 +61,7 @@ public class StackFrame {
             
         } else if (getMethod() != null) {
             
-            str += " (" + getMethod() + ")";
+            str += " (." + getMethod() + ")";
         }
         
         return str;

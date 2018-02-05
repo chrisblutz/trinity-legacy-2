@@ -46,7 +46,7 @@ module Trinity
                     str += append
 
                 elsif getMethod() != nil
-                    str += " (#{ getMethod() })"
+                    str += " (.#{ getMethod() })"
                 end
 
                 str
