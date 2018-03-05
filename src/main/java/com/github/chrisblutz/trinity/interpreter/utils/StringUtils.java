@@ -7,7 +7,7 @@ import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.types.TyString;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.parser.Parser;
 import com.github.chrisblutz.trinity.parser.blocks.Block;
 import com.github.chrisblutz.trinity.parser.sources.StringSourceEntry;
@@ -111,7 +111,7 @@ public class StringUtils {
                     
                     TyObject object = action.onAction(runtime, TyObject.NONE);
                     
-                    str += object == TyObject.NONE ? "" : TrinityNatives.toString(object, runtime);
+                    str += object == TyObject.NONE ? "" : NativeConversion.toString(object, runtime);
                     
                 } else {
                     

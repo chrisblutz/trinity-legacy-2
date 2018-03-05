@@ -6,8 +6,9 @@ import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.types.TyBoolean;
 import com.github.chrisblutz.trinity.lang.types.TyInt;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
-import com.github.chrisblutz.trinity.natives.math.TrinityMath;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
+import com.github.chrisblutz.trinity.natives.NativeMath;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 
@@ -24,9 +25,9 @@ public class OperatorFacets {
             @Override
             public TyBoolean operate(TyObject first, InstructionSet second, TyRuntime runtime) {
                 
-                if (TrinityNatives.toBoolean(first)) {
+                if (NativeConversion.toBoolean(first)) {
                     
-                    return TyBoolean.valueFor(TrinityNatives.toBoolean(second.evaluate(TyObject.NONE, runtime)));
+                    return TyBoolean.valueFor(NativeConversion.toBoolean(second.evaluate(TyObject.NONE, runtime)));
                     
                 } else {
                     
@@ -39,13 +40,13 @@ public class OperatorFacets {
             @Override
             public TyBoolean operate(TyObject first, InstructionSet second, TyRuntime runtime) {
                 
-                if (TrinityNatives.toBoolean(first)) {
+                if (NativeConversion.toBoolean(first)) {
                     
                     return TyBoolean.TRUE;
                     
                 } else {
                     
-                    return TyBoolean.valueFor(TrinityNatives.toBoolean(second.evaluate(TyObject.NONE, runtime)));
+                    return TyBoolean.valueFor(NativeConversion.toBoolean(second.evaluate(TyObject.NONE, runtime)));
                 }
             }
         };
@@ -64,7 +65,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                return TrinityMath.bitwiseOr(first, second);
+                return NativeMath.bitwiseOr(first, second);
             }
         };
         BinaryOperator bitwiseXor = new BinaryOperator(Token.BITWISE_XOR_OP) {
@@ -72,7 +73,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                return TrinityMath.bitwiseXor(first, second);
+                return NativeMath.bitwiseXor(first, second);
             }
         };
         BinaryOperator bitwiseAnd = new BinaryOperator(Token.BITWISE_AND_OP) {
@@ -80,7 +81,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                return TrinityMath.bitwiseAnd(first, second);
+                return NativeMath.bitwiseAnd(first, second);
             }
         };
         
@@ -97,7 +98,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                return TyBoolean.valueFor(!TrinityNatives.toBoolean(first.tyInvoke("==", runtime, null, null, second)));
+                return TyBoolean.valueFor(!NativeConversion.toBoolean(first.tyInvoke("==", runtime, null, null, second)));
             }
         };
         new BinaryOperator(Token.LESS_THAN_OP) {
@@ -105,7 +106,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                int comparisonInt = TrinityNatives.toInt(first.tyInvoke("<=>", runtime, null, null, second));
+                int comparisonInt = NativeConversion.toInt(first.tyInvoke("<=>", runtime, null, null, second));
                 
                 return comparisonInt < 0 ? TyBoolean.TRUE : TyBoolean.FALSE;
             }
@@ -115,7 +116,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                int comparisonInt = TrinityNatives.toInt(first.tyInvoke("<=>", runtime, null, null, second));
+                int comparisonInt = NativeConversion.toInt(first.tyInvoke("<=>", runtime, null, null, second));
                 
                 return comparisonInt <= 0 ? TyBoolean.TRUE : TyBoolean.FALSE;
             }
@@ -125,7 +126,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                int comparisonInt = TrinityNatives.toInt(first.tyInvoke("<=>", runtime, null, null, second));
+                int comparisonInt = NativeConversion.toInt(first.tyInvoke("<=>", runtime, null, null, second));
                 
                 return comparisonInt > 0 ? TyBoolean.TRUE : TyBoolean.FALSE;
             }
@@ -135,7 +136,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                int comparisonInt = TrinityNatives.toInt(first.tyInvoke("<=>", runtime, null, null, second));
+                int comparisonInt = NativeConversion.toInt(first.tyInvoke("<=>", runtime, null, null, second));
                 
                 return comparisonInt >= 0 ? TyBoolean.TRUE : TyBoolean.FALSE;
             }
@@ -188,7 +189,7 @@ public class OperatorFacets {
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
                 TyObject trueFirst = first;
-                if (TrinityNatives.isInstanceOf(second, TrinityNatives.Classes.STRING) && !TrinityNatives.isInstanceOf(first, TrinityNatives.Classes.STRING)) {
+                if (NativeConversion.isInstanceOf(second, NativeReferences.Classes.STRING) && !NativeConversion.isInstanceOf(first, NativeReferences.Classes.STRING)) {
                     
                     trueFirst = first.tyInvoke("toString", runtime, null, null);
                 }
@@ -217,7 +218,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject first, TyObject second, TyRuntime runtime) {
                 
-                if (TrinityNatives.isInstanceOf(second, TrinityNatives.Classes.STRING)) {
+                if (NativeConversion.isInstanceOf(second, NativeReferences.Classes.STRING)) {
                     
                     return second.tyInvoke("*", runtime, null, null, first);
                     
@@ -282,7 +283,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject value, TyRuntime runtime) {
                 
-                return TrinityMath.bitwiseComplement(value);
+                return NativeMath.bitwiseComplement(value);
             }
         };
         new UnaryOperator(Token.LOGICAL_NEGATION_OP) {
@@ -290,7 +291,7 @@ public class OperatorFacets {
             @Override
             public TyObject operate(TyObject value, TyRuntime runtime) {
                 
-                return TyBoolean.valueFor(!TrinityNatives.toBoolean(value));
+                return TyBoolean.valueFor(!NativeConversion.toBoolean(value));
             }
         };
     }

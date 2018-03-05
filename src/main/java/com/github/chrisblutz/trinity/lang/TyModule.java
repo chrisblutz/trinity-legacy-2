@@ -6,7 +6,7 @@ import com.github.chrisblutz.trinity.lang.scope.Scope;
 import com.github.chrisblutz.trinity.lang.types.TyStaticUsableObject;
 import com.github.chrisblutz.trinity.lang.variables.VariableLocation;
 import com.github.chrisblutz.trinity.lang.variables.VariableManager;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -199,9 +199,9 @@ public class TyModule extends TyUsable {
                 return TyObject.NONE;
             }
             
-        } else if (thisObj == TyObject.NONE && ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).getMethods().containsKey(method)) {
+        } else if (thisObj == TyObject.NONE && ClassRegistry.getClass(NativeReferences.Classes.KERNEL).getMethods().containsKey(method)) {
             
-            return ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
+            return ClassRegistry.getClass(NativeReferences.Classes.KERNEL).tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
             
         } else {
             

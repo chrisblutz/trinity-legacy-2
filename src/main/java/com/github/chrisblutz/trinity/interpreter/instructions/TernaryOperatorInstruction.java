@@ -3,7 +3,7 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 
 
 /**
@@ -43,7 +43,7 @@ public class TernaryOperatorInstruction extends Instruction {
         updateLocation(runtime);
         
         TyObject condition = getCondition().evaluate(TyObject.NONE, runtime);
-        if (TrinityNatives.toBoolean(condition)) {
+        if (NativeConversion.toBoolean(condition)) {
             
             return getTrueValue().evaluate(TyObject.NONE, runtime);
             

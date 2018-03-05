@@ -2,7 +2,7 @@ package com.github.chrisblutz.trinity.lang.types;
 
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 
 /**
@@ -14,7 +14,7 @@ public class TyLong extends TyObject {
     
     public TyLong(long internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.LONG, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.LONG, true));
         
         this.internal = internal;
     }

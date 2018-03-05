@@ -4,7 +4,7 @@ import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.RequirementManager;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 
 
 /**
@@ -30,7 +30,7 @@ public class RequireInstructionSet extends InstructionSet {
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
         TyObject object = getExpression().evaluate(TyObject.NONE, runtime);
-        String name = TrinityNatives.toString(object, runtime);
+        String name = NativeConversion.toString(object, runtime);
         
         RequirementManager.require(name, getLocation().getFilePath());
         

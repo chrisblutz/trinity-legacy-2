@@ -9,7 +9,7 @@ import com.github.chrisblutz.trinity.lang.types.TyBoolean;
 import com.github.chrisblutz.trinity.lang.types.TyInt;
 import com.github.chrisblutz.trinity.lang.types.TyStaticUsableObject;
 import com.github.chrisblutz.trinity.lang.types.TyString;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 
@@ -33,7 +33,7 @@ public class KeywordFacets {
                 return StringUtils.parseUnescapedString(token.getContents().substring(1), location, runtime);
             }
         });
-        Keywords.register(Token.NUMERIC_STRING, (thisObj, token, location, runtime) -> TrinityNatives.wrapNumber(StringUtils.parseStringToDouble(token.getContents())));
+        Keywords.register(Token.NUMERIC_STRING, (thisObj, token, location, runtime) -> NativeConversion.wrapNumber(StringUtils.parseStringToDouble(token.getContents())));
         
         Keywords.register(Token.NIL, (thisObj, token, location, runtime) -> TyObject.NIL);
         Keywords.register(Token.TRUE, (thisObj, token, location, runtime) -> TyBoolean.TRUE);
@@ -92,7 +92,7 @@ public class KeywordFacets {
         
         Keywords.register(Token.BLOCK_CHECK, (thisObj, info, location, runtime) -> TyBoolean.valueFor(runtime.getProcedure() != null));
         
-        Keywords.register(Token.__FILE__, (thisObj, info, location, runtime) -> TrinityNatives.getObjectFor(location.getFilePath()));
+        Keywords.register(Token.__FILE__, (thisObj, info, location, runtime) -> NativeConversion.getObjectFor(location.getFilePath()));
         Keywords.register(Token.__LINE__, (thisObj, info, location, runtime) -> new TyInt(location.getLineNumber()));
         
         Keywords.register(Token.BREAK, (thisObj, info, location, runtime) -> {

@@ -7,7 +7,7 @@ import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeInvocation;
 
 
 /**
@@ -58,7 +58,7 @@ public class NativeMethodDeclarationInstructionSet extends InstructionSet {
     @Override
     public TyObject evaluate(TyObject thisObj, TyRuntime runtime) {
         
-        ProcedureAction body = TrinityNatives.getMethodProcedureAction(runtime.getCurrentUsable().getFullName(), getName());
+        ProcedureAction body = NativeInvocation.getMethodProcedureAction(runtime.getCurrentUsable().getFullName(), getName());
         
         TyProcedure methodProcedure = new TyProcedure(body, getParameters().getMandatoryParameters(), getParameters().getOptionalParameters(), getParameters().getBlockParameter(), getParameters().getOverflowParameter(), true);
         methodProcedure.setContainerMethod(getName());

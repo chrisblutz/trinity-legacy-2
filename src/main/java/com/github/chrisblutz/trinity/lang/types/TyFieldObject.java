@@ -3,7 +3,7 @@ package com.github.chrisblutz.trinity.lang.types;
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyField;
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 
 /**
@@ -15,7 +15,7 @@ public class TyFieldObject extends TyObject {
     
     public TyFieldObject(TyField internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.FIELD, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.FIELD, true));
         
         this.internal = internal;
     }

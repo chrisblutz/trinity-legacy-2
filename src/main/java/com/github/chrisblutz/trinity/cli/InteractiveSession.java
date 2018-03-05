@@ -7,7 +7,7 @@ import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.stack.TrinityStack;
 import com.github.chrisblutz.trinity.loading.LoadManager;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.parser.sources.CommandLineSourceEntry;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class InteractiveSession {
                             result = TyObject.NIL;
                         }
                         
-                        String printout = TrinityNatives.toString(result, runtime);
+                        String printout = NativeConversion.toString(result, runtime);
                         
                         flushAll();
                         System.out.println(" => " + printout);

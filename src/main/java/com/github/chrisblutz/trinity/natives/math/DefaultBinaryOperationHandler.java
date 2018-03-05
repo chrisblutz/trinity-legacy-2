@@ -3,6 +3,7 @@ package com.github.chrisblutz.trinity.natives.math;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.types.TyBoolean;
 import com.github.chrisblutz.trinity.lang.types.TyInt;
+import com.github.chrisblutz.trinity.natives.NativeMath;
 
 
 /**
@@ -103,7 +104,7 @@ public class DefaultBinaryOperationHandler extends BinaryOperationHandler {
     public TyInt compare(TyObject operand1, TyObject operand2) {
         
         throwOperationUnsupportedError("<=>", operand1.getObjectClass(), operand2.getObjectClass());
-        return TrinityMath.ZERO;
+        return NativeMath.ZERO;
     }
     
     public static DefaultBinaryOperationHandler getInstance() {

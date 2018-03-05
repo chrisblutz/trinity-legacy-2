@@ -4,7 +4,7 @@ import com.github.chrisblutz.trinity.lang.TyClass;
 import com.github.chrisblutz.trinity.lang.TyMethod;
 import com.github.chrisblutz.trinity.lang.TyModule;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 
 
 /**
@@ -20,7 +20,7 @@ public class TyStaticReferenceClass extends TyClass {
         
         addMethod(new TyMethod("toString", false, true, this, new TyProcedure((runtime, thisObj, params) -> {
             
-            TyStaticUsableObject usable = TrinityNatives.cast(TyStaticUsableObject.class, thisObj);
+            TyStaticUsableObject usable = NativeConversion.cast(TyStaticUsableObject.class, thisObj);
             TyModule tyModule = usable.asModule();
             TyClass tyClass = usable.asClass();
             

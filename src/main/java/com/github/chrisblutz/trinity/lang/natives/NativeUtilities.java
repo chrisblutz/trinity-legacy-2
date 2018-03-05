@@ -4,8 +4,8 @@ import com.github.chrisblutz.trinity.cli.Options;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
-import com.github.chrisblutz.trinity.lang.natives.addins.NativeMath;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.lang.natives.addins.NativeImplMath;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,22 +38,22 @@ public class NativeUtilities {
     
     public static void registerStandardLibraryHooks() {
         
-        registerHooks(NativeArray.class);
-        registerHooks(NativeBoolean.class);
-        registerHooks(NativeClass.class);
-        registerHooks(NativeError.class);
-        registerHooks(NativeFloat.class);
-        registerHooks(NativeInt.class);
-        registerHooks(NativeKernel.class);
-        registerHooks(NativeLong.class);
-        registerHooks(NativeMap.class);
-        registerHooks(NativeMath.class);
-        registerHooks(NativeNumeric.class);
-        registerHooks(NativeObject.class);
-        registerHooks(NativeOutputStream.class);
-        registerHooks(NativeProcedure.class);
-        registerHooks(NativeString.class);
-        registerHooks(NativeSystem.class);
+        registerHooks(NativeImplArray.class);
+        registerHooks(NativeImplBoolean.class);
+        registerHooks(NativeImplClass.class);
+        registerHooks(NativeImplError.class);
+        registerHooks(NativeImplFloat.class);
+        registerHooks(NativeImplInt.class);
+        registerHooks(NativeImplKernel.class);
+        registerHooks(NativeImplLong.class);
+        registerHooks(NativeImplMap.class);
+        registerHooks(NativeImplMath.class);
+        registerHooks(NativeImplNumeric.class);
+        registerHooks(NativeImplObject.class);
+        registerHooks(NativeImplNativeOutputStream.class);
+        registerHooks(NativeImplProcedure.class);
+        registerHooks(NativeImplString.class);
+        registerHooks(NativeImplSystem.class);
     }
     
     public static void onClassLoad(String name) {
@@ -97,7 +97,7 @@ public class NativeUtilities {
         
         if (comparator == null) {
             
-            comparator = (o1, o2) -> TrinityNatives.toInt(o1.tyInvoke("<=>", new TyRuntime(), null, null, o2));
+            comparator = (o1, o2) -> NativeConversion.toInt(o1.tyInvoke("<=>", new TyRuntime(), null, null, o2));
         }
         
         return comparator;
