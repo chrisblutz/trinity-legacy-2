@@ -3,7 +3,8 @@ package com.github.chrisblutz.trinity.interpreter.instructions;
 import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
+import com.github.chrisblutz.trinity.natives.NativeInvocation;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 
@@ -48,6 +49,6 @@ public class RangeCreationInstruction extends Instruction {
         TyObject end = getEndValue().evaluate(TyObject.NONE, runtime);
         boolean exclude = getDivider() == Token.TRIPLE_DOT_OP;
         
-        return TrinityNatives.newInstance("Trinity.Range", runtime, begin, end, TrinityNatives.getObjectFor(exclude));
+        return NativeInvocation.newInstance("Trinity.Range", runtime, begin, end, NativeConversion.getObjectFor(exclude));
     }
 }

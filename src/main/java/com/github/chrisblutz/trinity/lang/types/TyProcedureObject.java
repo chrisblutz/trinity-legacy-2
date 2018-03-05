@@ -4,7 +4,7 @@ import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.TyProcedure;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 
 /**
@@ -18,7 +18,7 @@ public class TyProcedureObject extends TyObject {
     
     public TyProcedureObject(TyProcedure internal, TyRuntime runtime) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.PROCEDURE, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.PROCEDURE, true));
         
         this.internal = internal;
         this.runtime = runtime;

@@ -4,7 +4,7 @@ import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.parser.tokens.Token;
 
 
@@ -77,7 +77,7 @@ public class SwitchInstructionSet extends InstructionSet {
             
             TyObject expression = getExpression().evaluate(TyObject.NONE, newRuntime);
             
-            if (chaining || TrinityNatives.toBoolean(runtime.getSwitchObject().tyInvoke("==", runtime, null, null, expression))) {
+            if (chaining || NativeConversion.toBoolean(runtime.getSwitchObject().tyInvoke("==", runtime, null, null, expression))) {
                 
                 newRuntime.setSwitchChaining(true);
                 

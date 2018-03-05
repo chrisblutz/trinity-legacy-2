@@ -8,7 +8,8 @@ import com.github.chrisblutz.trinity.lang.scope.Scope;
 import com.github.chrisblutz.trinity.lang.types.TyStaticUsableObject;
 import com.github.chrisblutz.trinity.lang.variables.VariableLocation;
 import com.github.chrisblutz.trinity.lang.variables.VariableManager;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeInvocation;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 import java.util.*;
 
@@ -32,12 +33,12 @@ public class TyClass extends TyUsable {
     
     public TyClass(String fullName, String shortName) {
         
-        this(fullName, shortName, fullName.contentEquals(TrinityNatives.Classes.OBJECT) ? null : ClassRegistry.forName(TrinityNatives.Classes.OBJECT, false), false);
+        this(fullName, shortName, fullName.contentEquals(NativeReferences.Classes.OBJECT) ? null : ClassRegistry.forName(NativeReferences.Classes.OBJECT, false), false);
     }
     
     public TyClass(String fullName, String shortName, boolean isFinal) {
         
-        this(fullName, shortName, fullName.contentEquals(TrinityNatives.Classes.OBJECT) ? null : ClassRegistry.forName(TrinityNatives.Classes.OBJECT, false), isFinal);
+        this(fullName, shortName, fullName.contentEquals(NativeReferences.Classes.OBJECT) ? null : ClassRegistry.forName(NativeReferences.Classes.OBJECT, false), isFinal);
     }
     
     public TyClass(String fullName, String shortName, TyClass superclass, boolean isFinal) {
@@ -350,7 +351,7 @@ public class TyClass extends TyUsable {
                         
                         Errors.throwError(Errors.Classes.SCOPE_ERROR, runtime, "Cannot return a value from a constructor.");
                         
-                    } else if (TrinityNatives.isClassNativelyConstructed(this) && obj.getObjectClass() == this) {
+                    } else if (NativeInvocation.isClassNativelyConstructed(this) && obj.getObjectClass() == this) {
                         
                         newObject = obj;
                     }
@@ -419,9 +420,9 @@ public class TyClass extends TyUsable {
             
             return getSuperclass().tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
             
-        } else if (checkKernelOrFilePlacementValidity(runtime, thisObj) && ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).getMethods().containsKey(method)) {
+        } else if (checkKernelOrFilePlacementValidity(runtime, thisObj) && ClassRegistry.getClass(NativeReferences.Classes.KERNEL).getMethods().containsKey(method)) {
             
-            return ClassRegistry.getClass(TrinityNatives.Classes.KERNEL).tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
+            return ClassRegistry.getClass(NativeReferences.Classes.KERNEL).tyInvoke(origin, method, runtime, subProcedure, subProcedureRuntime, thisObj, args);
             
         } else {
             

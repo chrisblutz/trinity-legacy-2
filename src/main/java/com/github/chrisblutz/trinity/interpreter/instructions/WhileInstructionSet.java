@@ -4,7 +4,7 @@ import com.github.chrisblutz.trinity.interpreter.Location;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
 
 
 /**
@@ -40,7 +40,7 @@ public class WhileInstructionSet extends InstructionSet {
         
         TyRuntime newRuntime = runtime.cloneWithImports();
         
-        while (TrinityNatives.toBoolean(getExpression().evaluate(TyObject.NONE, newRuntime))) {
+        while (NativeConversion.toBoolean(getExpression().evaluate(TyObject.NONE, newRuntime))) {
             
             if (getAction() != null) {
                 

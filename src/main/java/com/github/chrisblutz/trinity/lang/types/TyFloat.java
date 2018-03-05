@@ -2,7 +2,7 @@ package com.github.chrisblutz.trinity.lang.types;
 
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 
 /**
@@ -14,7 +14,7 @@ public class TyFloat extends TyObject {
     
     public TyFloat(double internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.FLOAT, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.FLOAT, true));
         
         this.internal = internal;
     }

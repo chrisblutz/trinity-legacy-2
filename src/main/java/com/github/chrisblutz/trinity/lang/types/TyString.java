@@ -2,7 +2,7 @@ package com.github.chrisblutz.trinity.lang.types;
 
 import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class TyString extends TyObject {
     
     public TyString(String internal) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.STRING, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.STRING, true));
         
         this.internal = internal;
     }

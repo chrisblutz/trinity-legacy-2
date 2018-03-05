@@ -1,9 +1,9 @@
 package com.github.chrisblutz.trinity.natives.math.defaults.real;
 
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
+import com.github.chrisblutz.trinity.natives.NativeMath;
 import com.github.chrisblutz.trinity.natives.math.BinaryMathMethodHandler;
-import com.github.chrisblutz.trinity.natives.math.TrinityMath;
 
 
 /**
@@ -20,24 +20,24 @@ public class RealTypesBinaryMathMethodHandler extends BinaryMathMethodHandler {
     @Override
     public TyObject pow(TyObject operand, TyObject exponent) {
         
-        return TrinityNatives.wrapNumber(Math.pow(toDouble(operand), toDouble(exponent)));
+        return NativeConversion.wrapNumber(Math.pow(toDouble(operand), toDouble(exponent)));
     }
     
     @Override
     public TyObject log(TyObject operand, TyObject base) {
         
-        return TrinityMath.divide(TrinityMath.ln(operand), TrinityMath.ln(base));
+        return NativeMath.divide(NativeMath.ln(operand), NativeMath.ln(base));
     }
     
     @Override
     public TyObject arctan2(TyObject y, TyObject x) {
         
-        return TrinityNatives.wrapNumber(Math.atan2(toDouble(y), toDouble(x)));
+        return NativeConversion.wrapNumber(Math.atan2(toDouble(y), toDouble(x)));
     }
     
     private double toDouble(TyObject object) {
         
-        return TrinityNatives.asNumber(object);
+        return NativeConversion.asNumber(object);
     }
     
     public static RealTypesBinaryMathMethodHandler getInstance() {

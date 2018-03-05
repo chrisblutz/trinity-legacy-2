@@ -4,7 +4,8 @@ import com.github.chrisblutz.trinity.lang.ClassRegistry;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
 import com.github.chrisblutz.trinity.lang.natives.NativeUtilities;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -24,7 +25,7 @@ public class TyMap extends TyObject {
     
     public TyMap(Map<TyObject, TyObject> internal, int storageType) {
         
-        super(ClassRegistry.forName(TrinityNatives.Classes.MAP, true));
+        super(ClassRegistry.forName(NativeReferences.Classes.MAP, true));
         
         this.internal = internal;
         this.storageType = storageType;
@@ -58,7 +59,7 @@ public class TyMap extends TyObject {
         
         if (fastStorage == -1) {
             
-            fastStorage = TrinityNatives.toInt(ClassRegistry.getClass(TrinityNatives.Classes.MAP).getField("FAST_STORAGE", false, NONE).getValue());
+            fastStorage = NativeConversion.toInt(ClassRegistry.getClass(NativeReferences.Classes.MAP).getField("FAST_STORAGE", false, NONE).getValue());
         }
         
         return fastStorage;
@@ -68,7 +69,7 @@ public class TyMap extends TyObject {
         
         if (orderedStorage == -1) {
             
-            orderedStorage = TrinityNatives.toInt(ClassRegistry.getClass(TrinityNatives.Classes.MAP).getField("ORDERED_STORAGE", false, NONE).getValue());
+            orderedStorage = NativeConversion.toInt(ClassRegistry.getClass(NativeReferences.Classes.MAP).getField("ORDERED_STORAGE", false, NONE).getValue());
         }
         
         return orderedStorage;
@@ -78,7 +79,7 @@ public class TyMap extends TyObject {
         
         if (comparisonStorage == -1) {
             
-            comparisonStorage = TrinityNatives.toInt(ClassRegistry.getClass(TrinityNatives.Classes.MAP).getField("COMPARISON_STORAGE", false, NONE).getValue());
+            comparisonStorage = NativeConversion.toInt(ClassRegistry.getClass(NativeReferences.Classes.MAP).getField("COMPARISON_STORAGE", false, NONE).getValue());
         }
         
         return comparisonStorage;

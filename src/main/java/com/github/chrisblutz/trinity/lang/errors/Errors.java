@@ -9,7 +9,9 @@ import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.stack.StackFrame;
 import com.github.chrisblutz.trinity.lang.stack.TrinityStack;
 import com.github.chrisblutz.trinity.lang.types.TyString;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeConversion;
+import com.github.chrisblutz.trinity.natives.NativeInvocation;
+import com.github.chrisblutz.trinity.natives.NativeReferences;
 import com.github.chrisblutz.trinity.parser.SourceEntry;
 
 
@@ -22,7 +24,7 @@ public class Errors {
         
         public static final String ARGUMENT_ERROR = "Trinity.Errors.ArgumentError";
         public static final String ARITHMETIC_ERROR = "Trinity.Errors.ArithmeticError";
-        public static final String ERROR = TrinityNatives.Classes.ERROR;
+        public static final String ERROR = NativeReferences.Classes.ERROR;
         public static final String FORMAT_ERROR = "Trinity.Errors.FormatError";
         public static final String INHERITANCE_ERROR = "Trinity.Errors.InheritanceError";
         public static final String IO_ERROR = "Trinity.Errors.IOError";
@@ -76,7 +78,7 @@ public class Errors {
     public static void throwError(String errorClass, TyRuntime runtime, Object... args) {
         
         TyObject error = constructError(errorClass, runtime, args);
-        TrinityNatives.call(TrinityNatives.Classes.KERNEL, "throw", runtime, TyObject.NONE, error);
+        NativeInvocation.call(NativeReferences.Classes.KERNEL, "throw", runtime, TyObject.NONE, error);
     }
     
     public static void exit() {
@@ -103,11 +105,11 @@ public class Errors {
                 
             } else {
                 
-                tyArgs[i] = TrinityNatives.getObjectFor(o);
+                tyArgs[i] = NativeConversion.getObjectFor(o);
             }
         }
         
-        return TrinityNatives.newInstance(errorClass, runtime, tyArgs);
+        return NativeInvocation.newInstance(errorClass, runtime, tyArgs);
     }
     
     public static void throwUncaughtJavaException(Throwable error, String file, int line, Thread thread) {
@@ -120,7 +122,7 @@ public class Errors {
         if (!skipToDump && error instanceof TrinityError) {
             
             TyObject tyError = ((TrinityError) error).getErrorObject();
-            String errorMessage = TrinityNatives.cast(TyString.class, tyError.tyInvoke("toString", new TyRuntime(), null, null)).getInternal();
+            String errorMessage = NativeConversion.cast(TyString.class, tyError.tyInvoke("toString", new TyRuntime(), null, null)).getInternal();
             
             System.err.println(errorMessage);
             

@@ -5,7 +5,7 @@ import com.github.chrisblutz.trinity.lang.TyField;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
-import com.github.chrisblutz.trinity.natives.TrinityNatives;
+import com.github.chrisblutz.trinity.natives.NativeInvocation;
 
 
 /**
@@ -59,7 +59,7 @@ public class VariableDeclarationInstruction extends Instruction {
         ProcedureAction action = getAction();
         if (isNative()) {
             
-            action = TrinityNatives.getFieldProcedureAction(runtime.getCurrentUsable().getFullName(), getName());
+            action = NativeInvocation.getFieldProcedureAction(runtime.getCurrentUsable().getFullName(), getName());
             
         } else if (action == null) {
             
