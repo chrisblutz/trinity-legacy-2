@@ -87,6 +87,19 @@ public class CLI {
                 
                 break;
             
+            case Options.JAVA_STACK_TRACE:
+                
+                try {
+                    
+                    Options.setJavaStackTraceEnabled(Boolean.parseBoolean(value));
+                    
+                } catch (Exception e) {
+                    
+                    reportInvalidInterpreterOptionValue(name, value);
+                }
+                
+                break;
+            
             case Options.STRING_PRECISION:
                 
                 try {

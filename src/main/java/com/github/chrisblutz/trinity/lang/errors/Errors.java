@@ -121,10 +121,25 @@ public class Errors {
         
         if (!skipToDump && error instanceof TrinityError) {
             
+            StackTraceElement[] stack = error.getStackTrace();
+            
             TyObject tyError = ((TrinityError) error).getErrorObject();
             String errorMessage = NativeConversion.cast(TyString.class, tyError.tyInvoke("toString", new TyRuntime(), null, null)).getInternal();
             
             System.err.println(errorMessage);
+            
+            if (Options.isJavaStackTraceEnabled()) {
+                
+                System.err.println("\n------[ JAVA STACK DUMP ]------\n");
+                
+                for (int i = 2; i < stack.length; i++) {
+                    
+                    StackTraceElement stackTraceElement = stack[i];
+                    System.err.println(stackTraceElement.toString());
+                }
+                
+                System.err.println("\n----[ END JAVA STACK DUMP ]----\n");
+            }
             
         } else if (!skipToDump && error instanceof StackOverflowError) {
             

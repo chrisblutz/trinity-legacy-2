@@ -6,10 +6,11 @@ package com.github.chrisblutz.trinity.cli;
 public class Options {
     
     public static final String DEBUG = "debug";
+    public static final String JAVA_STACK_TRACE = "javaStackTrace";
     public static final String STRING_PRECISION = "strPrecision";
     public static final String INTERACTIVE_OPTION = "-ish";
     
-    private static boolean debug = false, interactive = false;
+    private static boolean debug = false, javaST = false, interactive = false;
     private static int stringPrecision = 25;
     
     public static boolean isDebuggingEnabled() {
@@ -20,6 +21,16 @@ public class Options {
     static void setDebuggingEnabled(boolean debug) {
         
         Options.debug = debug;
+    }
+    
+    public static boolean isJavaStackTraceEnabled() {
+        
+        return javaST;
+    }
+    
+    static void setJavaStackTraceEnabled(boolean javaStackTrace) {
+        
+        Options.javaST = javaStackTrace;
     }
     
     public static boolean isInteractive() {
