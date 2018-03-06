@@ -60,7 +60,7 @@ public class TyObject {
                 obj = superclass.tyInvoke(method, runtime, subProcedure, subProcedureRuntime, this, args);
             }
             
-            superLevel--;
+            superLevel = 0;
             
             return obj;
         }
