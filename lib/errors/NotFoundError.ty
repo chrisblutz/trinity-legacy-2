@@ -1,8 +1,35 @@
 module Trinity
     module Errors
         class NotFoundError << Error
-            def initialize(message)
-                super.initialize(message)
+            private
+                var field
+            end
+
+            public
+                def initialize(message, field = nil)
+                    super.initialize(message)
+                    this.field = field
+                end
+
+                def toString
+                    str = super.toString()
+                    if field == nil
+                        return str
+                    end
+
+                    hints = getHints(field)
+                    if hints != nil
+                        str += "\nDid you mean..."
+                        hints.each() do |e|
+                            str += "\n\t'#{ e[0] }'?  (require '#{ e[1] }')"
+                        end
+                    end
+                    str
+                end
+            end
+
+            private
+                def native getHints(name)
             end
         end
     end

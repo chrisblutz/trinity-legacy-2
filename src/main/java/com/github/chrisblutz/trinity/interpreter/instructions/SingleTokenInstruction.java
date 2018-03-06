@@ -207,7 +207,7 @@ public class SingleTokenInstruction extends Instruction {
             }
         }
         
-        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, runtime, "No field '" + getContents() + "' found.");
+        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, runtime, "No field '" + getContents() + "' found.", getContents());
         
         return TyObject.NIL;
     }

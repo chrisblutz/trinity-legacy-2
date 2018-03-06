@@ -120,7 +120,7 @@ public abstract class TyUsable {
     
     protected void throwFieldNotFoundError(String name) {
         
-        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, "Field '" + name + "' not found in class " + getFullName() + ".");
+        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, "Field '" + name + "' not found in class " + getFullName() + ".", name);
     }
     
     protected void throwInstanceMethodStaticScopeError(String name, TyRuntime runtime) {

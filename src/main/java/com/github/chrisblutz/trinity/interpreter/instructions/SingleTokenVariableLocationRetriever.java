@@ -74,7 +74,7 @@ public class SingleTokenVariableLocationRetriever implements VariableLocationRet
             }
         }
         
-        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, runtime, "No field '" + getContents() + "' found.");
+        Errors.throwError(Errors.Classes.NOT_FOUND_ERROR, runtime, "No field '" + getContents() + "' found.", getContents());
         
         return null;
     }
