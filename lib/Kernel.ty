@@ -22,6 +22,10 @@ module Trinity
         end
 
         def native static caller
+
+        def native static eval(code, args = {}, context = nil, useStatic = false)
+
+        def native static load(file)
     end
 end
 
