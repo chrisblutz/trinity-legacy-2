@@ -25,7 +25,7 @@ public class TyRuntime implements Cloneable {
     private TyUsable currentUsable = null;
     private Scope currentScope = Scope.PUBLIC;
     private TyProcedure procedure = null;
-    private boolean isBroken = false, isSwitchChaining = false, isReturning = false;
+    private boolean isBroken = false, isSwitchChaining = false, isReturning = false, isContinuing = false;
     private TyObject switchObject = TyObject.NONE;
     private TyObject returnObject = TyObject.NONE;
     private List<TyModule> imports = null;
@@ -196,6 +196,16 @@ public class TyRuntime implements Cloneable {
         this.returnObject = returnObject;
     }
     
+    public boolean isContinuing() {
+        
+        return isContinuing;
+    }
+    
+    public void setContinuing(boolean continuing) {
+        
+        isContinuing = continuing;
+    }
+    
     public TyProcedure getProcedure() {
         
         return procedure;
@@ -319,8 +329,7 @@ public class TyRuntime implements Cloneable {
         try {
             
             TyRuntime runtime = (TyRuntime) super.clone();
-            Map<String, VariableLocation> variablesCopy = new HashMap<>();
-            variablesCopy.putAll(variables);
+            Map<String, VariableLocation> variablesCopy = new HashMap<>(variables);
             runtime.variables = variablesCopy;
             runtime.clonedVariables = new ArrayList<>(variablesCopy.values());
             runtime.staticScope = staticScope;
@@ -353,6 +362,7 @@ public class TyRuntime implements Cloneable {
         runtime.setBroken(isBroken());
         runtime.setReturning(isReturning());
         runtime.setReturnObject(getReturnObject());
+        runtime.setContinuing(isContinuing());
     }
     
     public void disposeVariablesInto(TyRuntime runtime) {

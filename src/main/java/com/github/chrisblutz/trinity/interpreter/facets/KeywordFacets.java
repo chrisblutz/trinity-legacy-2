@@ -100,5 +100,10 @@ public class KeywordFacets {
             runtime.setBroken(true);
             return TyObject.NONE;
         });
+        Keywords.register(Token.CONTINUE, (thisObj, token, location, runtime) -> {
+            
+            runtime.setContinuing(true);
+            return TyObject.NONE;
+        });
     }
 }

@@ -55,6 +55,10 @@ public class WhileInstructionSet extends InstructionSet {
                 
                 newRuntime.setBroken(false);
                 break;
+                
+            }else if(newRuntime.isContinuing()){
+                
+                newRuntime.setContinuing(false);
             }
         }
         

@@ -43,7 +43,7 @@ public class ExpressionProcedureAction implements ProcedureAction {
                 stack.pop();
             }
             
-            if (result != null && !runtime.isReturning() && !runtime.isBroken()) {
+            if (result != null && !runtime.isReturning() && !runtime.isBroken() && !runtime.isContinuing()) {
                 
                 returnObj = result;
                 

@@ -72,6 +72,10 @@ public class ForInstructionSet extends InstructionSet {
                 
                 newRuntime.setBroken(false);
                 break;
+                
+            } else if (newRuntime.isContinuing()) {
+                
+                newRuntime.setContinuing(false);
             }
             
             if (getAfter() != null) {
