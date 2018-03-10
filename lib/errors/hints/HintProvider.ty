@@ -1,0 +1,28 @@
+require 'Hint'
+
+module Trinity
+    module Errors
+        class HintProvider
+            private
+                var map = {}
+            end
+
+            public
+                def getHint(name)
+                    Hint.new(name, this)
+                end
+
+                def addCase(caseName, hint)
+                    if !map.keys().contains(caseName)
+                        map[caseName] = []
+                    end
+                    map[caseName] << hint
+                end
+
+                def getHintsForCase(name)
+                    map[name]
+                end
+            end
+        end
+    end
+end

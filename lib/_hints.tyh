@@ -1,1 +1,3 @@
-Trinity.Math, Math -> Math, math
+math = $_HINTS.getHint('Trinity.Math')
+math.setRequireHint('Math')
+math.addCase('Math', 'math')

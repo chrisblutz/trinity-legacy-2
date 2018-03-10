@@ -36,29 +36,19 @@ public class NativeImplError {
         });
     }
     
+    private static boolean hintsLoaded = false;
+    
     @NativeHook(Errors.Classes.NOT_FOUND_ERROR)
     public static void registerNotFoundError() {
         
-        NativeInvocation.registerMethod(Errors.Classes.NOT_FOUND_ERROR, "getHints", (runtime, thisObj, args) -> {
+        NativeInvocation.registerMethod(Errors.Classes.NOT_FOUND_ERROR, "loadHints", (runtime, thisObj, args) -> {
             
-            String name = NativeConversion.toString(runtime.getVariable("name"), runtime);
-            List<NativeReferences.HintReference> references = NativeReferences.getHintReferencesForName(name);
-            if (references != null) {
+            if (!hintsLoaded) {
                 
-                String[][] strReferences = new String[references.size()][2];
-                for (int i = 0; i < references.size(); i++) {
-                    
-                    NativeReferences.HintReference reference = references.get(i);
-                    
-                    strReferences[i] = new String[]{reference.getReference(), reference.getRequire()};
-                }
-                
-                return NativeConversion.getArrayFor(strReferences);
-                
-            } else {
-                
-                return TyObject.NIL;
+                NativeReferences.loadHints();
             }
+            
+            return TyObject.NIL;
         });
     }
 }

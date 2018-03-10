@@ -17,11 +17,12 @@ module Trinity
                         return str
                     end
 
-                    hints = getHints(field)
+                    loadHints()
+                    hints = $_HINTS.getHintsForCase(field)
                     if hints != nil
                         str += "\nDid you mean..."
-                        hints.each() do |e|
-                            str += "\n\t'#{ e[0] }'?  (require '#{ e[1] }')"
+                        hints.each() do |hint|
+                            str += "\n\t#{ hint.toString() }"
                         end
                     end
                     str
@@ -29,7 +30,7 @@ module Trinity
             end
 
             private
-                def native getHints(name)
+                def native loadHints
             end
         end
     end

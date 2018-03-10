@@ -30,3 +30,9 @@ require 'Procedure'
 
 # Load System after all types
 require 'System'
+
+# Load error hints
+
+# Set up default hint provider
+require 'errors/hints/HintProvider'
+$_HINTS = Trinity.Errors.HintProvider.new()

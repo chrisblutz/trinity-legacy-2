@@ -1,0 +1,39 @@
+module Trinity
+    module Errors
+        class Hint
+            private
+                var name, requireHint = nil
+                var provider
+            end
+
+            public
+                def initialize(name, provider)
+                    this.name = name
+                    this.provider = provider
+                end
+
+                def getName
+                    name
+                end
+
+                def setRequireHint(requireHint)
+                    this.requireHint = requireHint
+                end
+
+                def getRequireHint
+                    requireHint
+                end
+
+                def addCase(...cases)
+                    cases.each() do |c|
+                        provider.addCase(c, this)
+                    end
+                end
+
+                def toString
+                    str = "'#{ name }'?  #{ requireHint != nil ? "(require '#{ requireHint }')" : "" }"
+                end
+            end
+        end
+    end
+end
