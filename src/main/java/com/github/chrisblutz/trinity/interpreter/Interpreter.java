@@ -216,14 +216,14 @@ public class Interpreter {
                 
                 if (assignmentTokens[assignmentTokens.length - 1].getToken() == Token.RIGHT_SQUARE_BRACKET) {
                     
-                    int loc = findBracketBeginning(tokens, location);
+                    int loc = findBracketBeginning(assignmentTokens, location);
                     SourceToken[] strippedTokens = new SourceToken[assignmentTokens.length - loc - 2];
                     System.arraycopy(assignmentTokens, loc + 1, strippedTokens, 0, strippedTokens.length);
                     
                     InstructionSet[] indices = splitExpressions(strippedTokens, Token.COMMA, location, null);
                     
                     SourceToken[] objectTokens = new SourceToken[loc];
-                    System.arraycopy(tokens, 0, objectTokens, 0, objectTokens.length);
+                    System.arraycopy(assignmentTokens, 0, objectTokens, 0, objectTokens.length);
                     
                     InstructionSet object = interpretCompoundExpression(objectTokens, location, null);
                     
