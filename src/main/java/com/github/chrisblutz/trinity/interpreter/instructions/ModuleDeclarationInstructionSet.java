@@ -45,6 +45,7 @@ public class ModuleDeclarationInstructionSet extends InstructionSet {
         }
         
         TyModule module = ModuleRegistry.forName(priorModuleName + getName());
+        module.setParent(runtime.getCurrentUsable());
         if (runtime.getCurrentModule() != null) {
             
             runtime.getCurrentModule().addInternalModule(module);

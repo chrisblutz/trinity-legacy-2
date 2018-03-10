@@ -65,6 +65,7 @@ public class ClassDeclarationInstructionSet extends InstructionSet {
         }
         
         TyClass tyClass = ClassRegistry.forName(priorName + getName(), isFinal());
+        tyClass.setParent(runtime.getCurrentUsable());
         if (getSuperclass() != null) {
             
             TyClass superclass;
