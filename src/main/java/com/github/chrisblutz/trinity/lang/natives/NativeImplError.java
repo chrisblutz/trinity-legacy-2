@@ -1,17 +1,11 @@
 package com.github.chrisblutz.trinity.lang.natives;
 
 import com.github.chrisblutz.trinity.lang.TyObject;
-import com.github.chrisblutz.trinity.lang.TyRuntime;
 import com.github.chrisblutz.trinity.lang.errors.Errors;
-import com.github.chrisblutz.trinity.lang.procedures.ProcedureAction;
 import com.github.chrisblutz.trinity.lang.types.TyArray;
 import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.natives.NativeInvocation;
 import com.github.chrisblutz.trinity.natives.NativeReferences;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 
 /**

@@ -2,7 +2,6 @@ package com.github.chrisblutz.trinity.lang.natives;
 
 import com.github.chrisblutz.trinity.Trinity;
 import com.github.chrisblutz.trinity.cli.Options;
-import com.github.chrisblutz.trinity.interpreter.Interpreter;
 import com.github.chrisblutz.trinity.interpreter.errors.TrinityError;
 import com.github.chrisblutz.trinity.lang.TyObject;
 import com.github.chrisblutz.trinity.lang.TyRuntime;
@@ -16,10 +15,8 @@ import com.github.chrisblutz.trinity.loading.LoadManager;
 import com.github.chrisblutz.trinity.natives.NativeConversion;
 import com.github.chrisblutz.trinity.natives.NativeInvocation;
 import com.github.chrisblutz.trinity.natives.NativeReferences;
-import com.github.chrisblutz.trinity.parser.Parser;
 import com.github.chrisblutz.trinity.parser.sources.FileSourceEntry;
 import com.github.chrisblutz.trinity.parser.sources.StringArraySourceEntry;
-import com.github.chrisblutz.trinity.parser.sources.StringSourceEntry;
 
 import java.io.File;
 import java.io.IOException;
