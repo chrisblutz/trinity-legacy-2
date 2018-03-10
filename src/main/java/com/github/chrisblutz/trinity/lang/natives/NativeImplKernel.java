@@ -164,7 +164,7 @@ public class NativeImplKernel {
                 
             } catch (IOException e) {
                 
-                Errors.throwError(Errors.Classes.LOAD_ERROR, "Could not find load '" + path + "'.");
+                Errors.throwError(Errors.Classes.LOAD_ERROR, "Could not find file '" + path + "'.");
                 
                 if (Options.isDebuggingEnabled()) {
                     
