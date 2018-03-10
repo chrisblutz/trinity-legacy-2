@@ -50,6 +50,7 @@ public class InterfaceDeclarationInstructionSet extends InstructionSet {
         }
         
         TyClass tyClass = ClassRegistry.forName(priorName + getName(), false);
+        tyClass.setParent(runtime.getCurrentUsable());
         tyClass.setInterface(true);
         
         TyClass[] superinterfaces = new TyClass[getSuperinterfaces().length];
